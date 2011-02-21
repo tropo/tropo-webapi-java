@@ -111,8 +111,8 @@ At the same time, Tropo's Java Webapi defines a complete DSL to create applicati
 				Do.on(EVENT("join")).say("Welcome to the conference")
 			);
 		
-                // Example 3
-                Tropo tropo = new Tropo();
+		// Example 3
+		Tropo tropo = new Tropo();
 		tropo.call(TO("foo"), FROM("bar"), NETWORK(Network.SMS), CHANNEL(Channel.TEXT), TIMEOUT(10.0f), ANSWER_ON_MEDIA(false)).and(
 			Do.headers(new String[]{"fooKey","fooValue"}, new String[]{"barKey","barValue"}),
 			Do.startRecording(URL("http://foobar"), METHOD("POST"), FORMAT(Format.MP3), USERNAME("jose"), PASSWORD("passwd")));
