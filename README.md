@@ -45,33 +45,17 @@ Tropo Java Webapi is based in [Maven](http://maven.apache.org). Once that you ha
 Examples
 -------
 
-You can find loads of examples on how to use this library from the [unit tests folder|https://github.com/tropo/tropo-webapi-java/tree/master/src/test/java]. There is more than 100 different examples there. Here are a few ones:
+You can find loads of examples on how to use this library from the [unit tests folder|https://github.com/tropo/tropo-webapi-java/tree/master/src/test/java]. There is more than 100 different examples there. Below you will find a few examples.
 
-    # Create a new PamFaxr object
-	
-	pamfaxr = PamFaxr.new :username => 'your_username', 
-	                      :password => 'your_password'
-	
-	# Create a new FaxJob
-	pamfaxr.create_fax_job
-    
-    # Add the cover sheet
-	covers = pamfaxr.list_available_covers
-	pamfaxr.set_cover(covers['Covers']['content'][1]['id'], 'Foobar is here!')
-	
-	# Add files
-	pamfaxr.add_remote_file('https://s3.amazonaws.com/pamfax-test/Tropo.pdf')
-	pamfaxr.add_file('examples/Tropo.pdf')
-	
-	# Add a recipient
-	pamfaxr.add_recipient('+14155551212')
-	
-	# Loop until the fax is ready to send
-	loop do
-	  fax_state = pamfaxr.get_state
-	  break if fax_state['FaxContainer']['state'] == 'ready_to_send'
-	  sleep 5
-	end
-	
-	# Send the fax
-	pamfaxr.send_fax
+Say Hello and render text to the Response object:
+
+    HttpServletResponse response = ...
+    Tropo tropo = new Tropo();
+    tropo.say("1234"); 
+    tropo.render(response)
+
+Launch an application:
+
+		String token = "bb308b34ed83d54cab226f4af7969e4c7d7d9196cdb3210b5ef0cb345616629005bfd05efe3f4409cd496ca2";
+		Tropo tropo = new Tropo();
+		TropoLaunchResult result = tropo.launchSession(token);
