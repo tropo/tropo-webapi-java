@@ -1,7 +1,7 @@
 Tropo Webapi Java
 ==============
 
-Java library to interact with Tropo's {Webapi}[link:https://www.tropo.com/docs/webapi/new_tropo_web_api_overview.htm]
+Java library to interact with Tropo's Webapi (https://www.tropo.com/docs/webapi/new_tropo_web_api_overview.htm)
 
 Overview
 --------
