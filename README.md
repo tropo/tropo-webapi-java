@@ -64,21 +64,20 @@ Launch an application and send some arguments (like for example passing an SMS n
 
 		String token = "bb308b34ed83d54cab226f4af7969e4c7d7d9196cdb3210b5ef0cb345616629005bfd05efe3f4409cd496ca2";
 		Tropo tropo = new Tropo();
-                Map params = new HashMap()
-                params.put("number","623767896");
-		TropoLaunchResult result = tropo.launchSession(token);
+		Map params = new HashMap();
+		params.put("number","623767896");
+		TropoLaunchResult result = tropo.launchSession(token, params);
 
 With Tropo's Java Webapi you can build Tropo apps with type-safety and traditional Java syntax:
 
-                // Example 1
+		// Example 1
 		Tropo tropo = new Tropo();
 		RecordAction record = tropo.record("foo","http://sendme.com/tropo",true,true,"#");
 		record.transcription(ID("bling"), URL("mailto:jose@voxeo.com"), EMAIL_FORMAT("encoded"));
 		record.say(VALUE("Please say your account number"));
 		record.choices(VALUE("[5 DIGITS]"));
 
-
-                // Example 2
+		// Example 2
 		Tropo tropo = new Tropo();
 		tropo.on(EVENT("error"), NEXT("/error.json")); // For fatal programming errors. Log some details so we can fix it
 		tropo.on(EVENT("hangup"), NEXT("/hangup.json")); // When a user hangs or call is done. We will want to log some details.
@@ -91,13 +90,13 @@ With Tropo's Java Webapi you can build Tropo apps with type-safety and tradition
 		tropo.say("Go ahead, sing-along.");
 		tropo.say("http://denalidomain.com/music/keepers/HappyHappyBirthdaytoYou-Disney.mp3");
 
-                // Example 4
+		// Example 3
 		Tropo tropo = new Tropo();
 		tropo.hangup();
 
 At the same time, Tropo's Java Webapi defines a complete DSL to create applications in a much less verbosely manner. You can choose whatever syntax you are more comfortable with:
 
-                // Example 1
+		// Example 1
 		Tropo tropo = new Tropo();
 		tropo
 			.ask(NAME("foo"),BARGEIN(true),TIMEOUT(30.0f),REQUIRED(true)).and(
@@ -105,7 +104,7 @@ At the same time, Tropo's Java Webapi defines a complete DSL to create applicati
 				Do.on(EVENT("success"),NEXT("/result.json")),
 				Do.choices(VALUE("[5 DIGITS]")));
 
-                // Example 2
+		// Example 2
 		Tropo tropo = new Tropo();
 		tropo
 			.conference(NAME("foo"),ID("1234"),MUTE(false),SEND_TONES(false),EXIT_TONE("#")).and(
@@ -118,7 +117,7 @@ At the same time, Tropo's Java Webapi defines a complete DSL to create applicati
 			Do.headers(new String[]{"fooKey","fooValue"}, new String[]{"barKey","barValue"}),
 			Do.startRecording(URL("http://foobar"), METHOD("POST"), FORMAT(Format.MP3), USERNAME("jose"), PASSWORD("passwd")));
 
-                 // Example 4
+		// Example 4
 		Tropo tropo = new Tropo();
 		tropo.message(TO("foo"), FROM("bar"), NETWORK(Network.SMS), CHANNEL(Channel.TEXT), TIMEOUT(10.0f), ANSWER_ON_MEDIA(false)).and(
 			Do.headers(new String[]{"fooKey","fooValue"}, new String[]{"barKey","barValue"}),
