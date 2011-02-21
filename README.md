@@ -70,14 +70,34 @@ Launch an application and send some arguments (like for example passing an SMS n
 
 With Tropo's Java Webapi you can build Tropo apps with type-safety and traditional Java syntax:
 
+                // Example 1
 		Tropo tropo = new Tropo();
 		RecordAction record = tropo.record("foo","http://sendme.com/tropo",true,true,"#");
 		record.transcription(ID("bling"), URL("mailto:jose@voxeo.com"), EMAIL_FORMAT("encoded"));
 		record.say(VALUE("Please say your account number"));
 		record.choices(VALUE("[5 DIGITS]"));
 
+
+                // Example 2
+		Tropo tropo = new Tropo();
+		tropo.on(EVENT("error"), NEXT("/error.json")); // For fatal programming errors. Log some details so we can fix it
+		tropo.on(EVENT("hangup"), NEXT("/hangup.json")); // When a user hangs or call is done. We will want to log some details.
+		tropo.on(EVENT("continue"), NEXT("/next.json"));
+		tropo.say("Hello");
+		tropo.startRecording(URL("http://heroku-voip.marksilver.net/post_audio_to_s3?filename=foo.wav&unique_id=bar"));
+		// [From this point, until stop_recording(), we will record what the caller *and* the IVR say]
+		tropo.say("You are now on the record.");
+		// Prompt the user to incriminate themselve on-the-record
+		tropo.say("Go ahead, sing-along.");
+		tropo.say("http://denalidomain.com/music/keepers/HappyHappyBirthdaytoYou-Disney.mp3");
+
+                // Example 4
+		Tropo tropo = new Tropo();
+		tropo.hangup();
+
 At the same time, Tropo's Java Webapi defines a complete DSL to create applications in a much less verbosely manner. You can choose whatever syntax you are more comfortable with:
 
+                // Example 1
 		Tropo tropo = new Tropo();
 		tropo
 			.ask(NAME("foo"),BARGEIN(true),TIMEOUT(30.0f),REQUIRED(true)).and(
@@ -85,10 +105,33 @@ At the same time, Tropo's Java Webapi defines a complete DSL to create applicati
 				Do.on(EVENT("success"),NEXT("/result.json")),
 				Do.choices(VALUE("[5 DIGITS]")));
 
-
+                // Example 2
 		Tropo tropo = new Tropo();
 		tropo
 			.conference(NAME("foo"),ID("1234"),MUTE(false),SEND_TONES(false),EXIT_TONE("#")).and(
 				Do.on(EVENT("join")).say("Welcome to the conference")
 			);
 		
+                // Example 3
+                Tropo tropo = new Tropo();
+		tropo.call(TO("foo"), FROM("bar"), NETWORK(Network.SMS), CHANNEL(Channel.TEXT), TIMEOUT(10.0f), ANSWER_ON_MEDIA(false)).and(
+			Do.headers(new String[]{"fooKey","fooValue"}, new String[]{"barKey","barValue"}),
+			Do.startRecording(URL("http://foobar"), METHOD("POST"), FORMAT(Format.MP3), USERNAME("jose"), PASSWORD("passwd")));
+
+                 // Example 4
+		Tropo tropo = new Tropo();
+		tropo.message(TO("foo"), FROM("bar"), NETWORK(Network.SMS), CHANNEL(Channel.TEXT), TIMEOUT(10.0f), ANSWER_ON_MEDIA(false)).and(
+			Do.headers(new String[]{"fooKey","fooValue"}, new String[]{"barKey","barValue"}),
+			Do.startRecording(URL("http://foobar"), METHOD("POST"), FORMAT(Format.MP3), USERNAME("jose"), PASSWORD("passwd")),
+			Do.say("Please say your account number"));
+
+
+Below you can also find a very trivial servlet POST method:
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		Tropo tropo = new Tropo();
+		tropo.say("Hello from Tropo. This is our first application.");
+		tropo.render(response);
+	}
+
