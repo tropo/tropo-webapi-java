@@ -23,7 +23,7 @@ import com.voxeo.tropo.actions.Do;
 import com.voxeo.tropo.mock.MockHttpServletRequest;
 import com.voxeo.tropo.mock.MockHttpServletResponse;
 
-public class TropoTests {
+public class TropoTest {
 
 	@Before
 	public void setUp() throws Exception {

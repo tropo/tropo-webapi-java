@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import com.voxeo.tropo.actions.Do;
 
-public class ConferenceActionTests {
+public class ConferenceActionTest {
 
 	@Test
 	public void testConference() {

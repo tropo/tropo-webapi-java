@@ -18,7 +18,7 @@ import org.junit.Test;
 import com.voxeo.tropo.actions.Do;
 import com.voxeo.tropo.actions.RecordAction;
 
-public class RecordActionTests {
+public class RecordActionTest {
 	
 	@Test
 	public void testRecord() {

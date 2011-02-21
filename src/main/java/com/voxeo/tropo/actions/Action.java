@@ -105,7 +105,7 @@ public abstract class Action {
 		// See Key.CHOICES to know more about this required change
 		text = text.replace("$[$", "[");
 		text = text.replace("${$", "{");
-		System.out.println(text);
+		//System.out.println(text);
 		return text;
 	}	
 	

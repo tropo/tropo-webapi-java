@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import com.voxeo.tropo.actions.Do;
 
-public class OnActionTests {
+public class OnActionTest {
 
 	@Test
 	public void testOn() {

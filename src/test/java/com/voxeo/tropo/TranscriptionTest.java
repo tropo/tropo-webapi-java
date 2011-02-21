@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import com.voxeo.tropo.actions.Do;
 
-public class TranscriptionTests {
+public class TranscriptionTest {
 
 	@Test
 	public void testTranscriptionFailsWithInvalidElement() {

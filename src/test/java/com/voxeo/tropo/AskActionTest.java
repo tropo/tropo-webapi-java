@@ -10,7 +10,7 @@ import com.voxeo.tropo.actions.Do;
 import com.voxeo.tropo.enums.Recognizer;
 import com.voxeo.tropo.enums.Voice;
 
-public class AskActionTests {
+public class AskActionTest {
 
 	@Before
 	public void setUp() throws Exception {

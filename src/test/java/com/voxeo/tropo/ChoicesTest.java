@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import com.voxeo.tropo.enums.Mode;
 
-public class ChoicesTests {
+public class ChoicesTest {
 
 	public void testChoice() {
 

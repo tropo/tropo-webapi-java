@@ -22,7 +22,7 @@ import com.voxeo.tropo.enums.Channel;
 import com.voxeo.tropo.enums.Format;
 import com.voxeo.tropo.enums.Network;
 
-public class MessageActionTests {
+public class MessageActionTest {
 
 	@Test
 	public void testMessage() {

@@ -13,7 +13,7 @@ import org.junit.Test;
 import com.voxeo.tropo.actions.Do;
 
 
-public class RedirectActionTests {
+public class RedirectActionTest {
 	
 	@Test
 	public void testRedirect() {

@@ -11,7 +11,7 @@ import org.junit.Test;
 import com.voxeo.tropo.enums.Format;
 
 
-public class StartRecordingActionTests {
+public class StartRecordingActionTest {
 
 	@Test
 	public void testStartRecording() {

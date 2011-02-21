@@ -12,7 +12,7 @@ import com.voxeo.tropo.enums.Channel;
 import com.voxeo.tropo.enums.Format;
 import com.voxeo.tropo.enums.Network;
 
-public class CallActionTests {
+public class CallActionTest {
 
 	@Test
 	public void testCall() {

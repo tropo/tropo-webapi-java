@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class HangupActionTests {
+public class HangupActionTest {
 
 	@Test
 	public void testHangup() {

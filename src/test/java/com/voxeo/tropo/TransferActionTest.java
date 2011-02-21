@@ -17,7 +17,7 @@ import com.voxeo.tropo.actions.TransferAction;
 
 
 
-public class TransferActionTests {
+public class TransferActionTest {
 
 	@Test
 	public void testTransfer() {
