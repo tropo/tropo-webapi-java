@@ -47,15 +47,48 @@ Examples
 
 You can find loads of examples on how to use this library from the [unit tests folder|https://github.com/tropo/tropo-webapi-java/tree/master/src/test/java]. There is more than 100 different examples there. Below you will find a few examples.
 
-Say Hello and render text to the Response object:
+Say Hello and render text to the HTTP Servlet response object:
 
     HttpServletResponse response = ...
     Tropo tropo = new Tropo();
     tropo.say("1234"); 
     tropo.render(response)
 
-Launch an application:
+Launch an application (can also be done from stand-alone apps) :
 
 		String token = "bb308b34ed83d54cab226f4af7969e4c7d7d9196cdb3210b5ef0cb345616629005bfd05efe3f4409cd496ca2";
 		Tropo tropo = new Tropo();
 		TropoLaunchResult result = tropo.launchSession(token);
+
+Launch an application and send some arguments (like for example passing an SMS number to a Tropo hosted file that sends SMS)
+
+		String token = "bb308b34ed83d54cab226f4af7969e4c7d7d9196cdb3210b5ef0cb345616629005bfd05efe3f4409cd496ca2";
+		Tropo tropo = new Tropo();
+                Map params = new HashMap()
+                params.put("number","623767896");
+		TropoLaunchResult result = tropo.launchSession(token);
+
+With Tropo's Java Webapi you can build Tropo apps with type-safety and traditional Java syntax:
+
+		Tropo tropo = new Tropo();
+		RecordAction record = tropo.record("foo","http://sendme.com/tropo",true,true,"#");
+		record.transcription(ID("bling"), URL("mailto:jose@voxeo.com"), EMAIL_FORMAT("encoded"));
+		record.say(VALUE("Please say your account number"));
+		record.choices(VALUE("[5 DIGITS]"));
+
+At the same time, Tropo's Java Webapi defines a complete DSL to create applications in a much less verbosely manner. You can choose whatever syntax you are more comfortable with:
+
+		Tropo tropo = new Tropo();
+		tropo
+			.ask(NAME("foo"),BARGEIN(true),TIMEOUT(30.0f),REQUIRED(true)).and(
+				Do.say("Please say your account number"), 
+				Do.on(EVENT("success"),NEXT("/result.json")),
+				Do.choices(VALUE("[5 DIGITS]")));
+
+
+		Tropo tropo = new Tropo();
+		tropo
+			.conference(NAME("foo"),ID("1234"),MUTE(false),SEND_TONES(false),EXIT_TONE("#")).and(
+				Do.on(EVENT("join")).say("Welcome to the conference")
+			);
+		
