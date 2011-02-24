@@ -134,3 +134,11 @@ Below you can also find a very trivial servlet POST method:
 		tropo.render(response);
 	}
 
+And of course, you can read Tropo's session from the request and use it in your Java apps. Again, no Json knowledge required!
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Tropo tropo = new Tropo();
+		TropoSession session = tropo.session(request);
+		System.out.println("Call id: " + session.getCallId());
+	}
