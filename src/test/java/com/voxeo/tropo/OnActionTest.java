@@ -21,6 +21,15 @@ public class OnActionTest {
 		
 		assertEquals(tropo.text(),  "{\"tropo\":[{\"on\":{\"event\":\"hangup\",\"next\":\"myresource\"}}]}");
 	}	
+
+	@Test
+	public void testOnWithValue() {
+		
+		Tropo tropo = new Tropo();
+		tropo.on(EVENT("hangup"),VALUE("Sorry. We are hanging up."));
+		
+		assertEquals(tropo.text(),  "{\"tropo\":[{\"on\":{\"event\":\"hangup\",\"value\":\"Sorry. We are hanging up.\"}}]}");
+	}	
 	
 	@Test
 	public void testFailsOnWithNoEventParameter() {

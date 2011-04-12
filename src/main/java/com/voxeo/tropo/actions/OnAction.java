@@ -7,7 +7,7 @@ import com.voxeo.tropo.Key;
 import com.voxeo.tropo.annotations.RequiredKeys;
 import com.voxeo.tropo.annotations.ValidKeys;
 
-@ValidKeys(keys={"next","event","name","required"})
+@ValidKeys(keys={"next","event","name","value","required"})
 @RequiredKeys(keys={"event"})
 public class OnAction extends JsonAction {
 

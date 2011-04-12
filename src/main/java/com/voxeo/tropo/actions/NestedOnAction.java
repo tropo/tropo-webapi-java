@@ -6,7 +6,7 @@ import support.ActionSupportHandler;
 import com.voxeo.tropo.Key;
 import com.voxeo.tropo.annotations.ValidKeys;
 
-@ValidKeys(keys={"next","event","name","required"})
+@ValidKeys(keys={"next","value","event","name","required"})
 public class NestedOnAction extends ArrayAction {
 
 	private ActionSupportHandler<SayAction> sayActionSupportHandler = new ActionSupportHandler<SayAction>(SayAction.class);	
