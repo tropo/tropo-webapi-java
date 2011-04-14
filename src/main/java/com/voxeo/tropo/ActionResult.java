@@ -18,6 +18,7 @@ public class ActionResult implements Serializable {
 	private String disposition;
 	private String interpretation;
 	private String utterrance;
+	private Integer confidence;
 	
 	public String getName() {
 		return name;
@@ -30,6 +31,12 @@ public class ActionResult implements Serializable {
 	}
 	public void setAttempts(Integer attempts) {
 		this.attempts = attempts;
+	}
+	public Integer getConfidence() {
+		return confidence;
+	}
+	public void setConfidence(Integer confidence) {
+		this.confidence = confidence;
 	}
 	public String getDisposition() {
 		return disposition;
