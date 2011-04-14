@@ -150,10 +150,5 @@ public class AskActionTest {
 		 	 .choices(VALUE("red,green,blue"));
 		assertEquals(tropo.text(),output);
 		tropo.reset();
-		
-		tropo.ask(ATTEMPTS(3), NAME("question"), BARGEIN(true), TIMEOUT(20f), REQUIRED(true))
-	 	 	 .choices("red,green,blue")
-	 	 	 .say("What is your favourite color");
-		System.out.println(tropo);
 	}
 }
