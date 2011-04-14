@@ -134,4 +134,26 @@ public class AskActionTest {
 		
 		assertEquals(tropo.text(),"{\"tropo\":[{\"ask\":{\"name\":\"foo\",\"bargein\":true,\"timeout\":30,\"required\":true,\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
 	}
+	
+	@Test
+	public void testChoicesMethods() {
+		
+		String output = "{\"tropo\":[{\"ask\":{\"attempts\":3,\"name\":\"question\",\"bargein\":true,\"timeout\":20,\"required\":true,\"choices\":{\"value\":\"red,green,blue\"}}}]}";
+		// From evolution bug
+		Tropo tropo = new Tropo(); 
+		tropo.ask(ATTEMPTS(3), NAME("question"), BARGEIN(true), TIMEOUT(20f), REQUIRED(true))
+			 .choices("red,green,blue"); 
+		assertEquals(tropo.text(),output);
+		
+		tropo.reset();
+		tropo.ask(ATTEMPTS(3), NAME("question"), BARGEIN(true), TIMEOUT(20f), REQUIRED(true))
+		 	 .choices(VALUE("red,green,blue"));
+		assertEquals(tropo.text(),output);
+		tropo.reset();
+		
+		tropo.ask(ATTEMPTS(3), NAME("question"), BARGEIN(true), TIMEOUT(20f), REQUIRED(true))
+	 	 	 .choices("red,green,blue")
+	 	 	 .say("What is your favourite color");
+		System.out.println(tropo);
+	}
 }

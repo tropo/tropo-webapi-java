@@ -57,6 +57,7 @@ public class AskAction extends JsonAction {
 	
 	public AskAction choices(String choice) {
 
-		return (AskAction)and(choices(VALUE(choice)));
+		choices(VALUE(choice));
+		return this;
 	}
 }
