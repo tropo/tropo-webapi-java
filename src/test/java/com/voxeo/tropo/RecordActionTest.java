@@ -1,15 +1,6 @@
 package com.voxeo.tropo;
 
-import static com.voxeo.tropo.Key.ALLOW_SIGNALS;
-import static com.voxeo.tropo.Key.BEEP;
-import static com.voxeo.tropo.Key.EMAIL_FORMAT;
-import static com.voxeo.tropo.Key.EXIT_TONE;
-import static com.voxeo.tropo.Key.ID;
-import static com.voxeo.tropo.Key.NAME;
-import static com.voxeo.tropo.Key.SEND_TONES;
-import static com.voxeo.tropo.Key.TO;
-import static com.voxeo.tropo.Key.URL;
-import static com.voxeo.tropo.Key.VALUE;
+import static com.voxeo.tropo.Key.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -17,6 +8,7 @@ import org.junit.Test;
 
 import com.voxeo.tropo.actions.Do;
 import com.voxeo.tropo.actions.RecordAction;
+import com.voxeo.tropo.enums.Voice;
 
 public class RecordActionTest {
 	
@@ -138,5 +130,15 @@ public class RecordActionTest {
 		record.choices("[5 DIGITS]");
 			
 		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"send_tones\":true,\"exit_tone\":\"#\",\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\"},\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
+	}
+	
+	
+	@Test
+	public void testRecordAcceptsVoice() {
+		
+		Tropo tropo = new Tropo();
+		tropo.record(NAME("foo"),URL("http://sendme.com/tropo"),BEEP(true),SEND_TONES(false),EXIT_TONE("#"),VOICE(Voice.ALLISON));
+		
+		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"send_tones\":false,\"exit_tone\":\"#\",\"voice\":\"allison\"}}]}");
 	}
 }
