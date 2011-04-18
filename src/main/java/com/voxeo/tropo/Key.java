@@ -146,6 +146,10 @@ public class Key {
 		
 		return createKey("attempts", attempts);
 	}
+	public static Key MAX_SILENCE(Float value) {
+		
+		return createKey("maxSilence", value);
+	}
 	public static Key MIN_CONFIDENCE(Integer minConfidence) {
 		
 		return createKey("minConfidence", minConfidence);
