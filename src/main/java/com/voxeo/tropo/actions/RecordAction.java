@@ -11,7 +11,7 @@ import com.voxeo.tropo.TropoException;
 import com.voxeo.tropo.annotations.RequiredKeys;
 import com.voxeo.tropo.annotations.ValidKeys;
 
-@ValidKeys(keys={"name","send_tones","exit_tone","attempts","allowSignals","bargein","beep","choices","format","maxSilence","maxTime","method","minConfidence","required","transcription","url","password","username","timeout"})
+@ValidKeys(keys={"name","send_tones","exit_tone","attempts","allowSignals","bargein","beep","choices","format","maxSilence","maxTime","method","minConfidence","required","transcription","url","password","username","timeout","voice"})
 @RequiredKeys(keys={"url","name"})
 public class RecordAction extends JsonAction {
 	
