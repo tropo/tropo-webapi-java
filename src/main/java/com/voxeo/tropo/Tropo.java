@@ -259,7 +259,12 @@ public class Tropo extends ArrayBackedJsonAction {
 	}
 	
 	public void render(HttpServletResponse response) {
-		
+
+		render(response, text());
+	}
+
+	public void render(HttpServletResponse response, String json) {
+
 		try {
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
@@ -270,8 +275,8 @@ public class Tropo extends ArrayBackedJsonAction {
 		} catch (IOException ioe) {
 			throw new TropoException("An error happened while rendering response", ioe);
 		}
-	}
-
+	}	
+			
 	@SuppressWarnings("unchecked")
 	public TropoLaunchResult launchSession(String token) {
 		
