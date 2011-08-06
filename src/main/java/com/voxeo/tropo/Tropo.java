@@ -277,6 +277,11 @@ public class Tropo extends ArrayBackedJsonAction {
 		}
 	}	
 			
+	public boolean isEmpty() {
+		
+		return super.isEmpty();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public TropoLaunchResult launchSession(String token) {
 		

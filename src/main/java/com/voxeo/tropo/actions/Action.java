@@ -23,7 +23,7 @@ public abstract class Action {
 		this.node = node;
 	}
 	
-	JSON getNode() {
+	protected JSON getNode() {
 		
 		return node;
 	}

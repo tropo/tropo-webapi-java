@@ -1,18 +1,7 @@
 package com.voxeo.tropo;
 
-import static com.voxeo.tropo.Key.BARGEIN;
-import static com.voxeo.tropo.Key.BEEP;
-import static com.voxeo.tropo.Key.EVENT;
-import static com.voxeo.tropo.Key.EXIT_TONE;
-import static com.voxeo.tropo.Key.NAME;
-import static com.voxeo.tropo.Key.NEXT;
-import static com.voxeo.tropo.Key.REQUIRED;
-import static com.voxeo.tropo.Key.SEND_TONES;
-import static com.voxeo.tropo.Key.TIMEOUT;
-import static com.voxeo.tropo.Key.URL;
-import static com.voxeo.tropo.Key.VALUE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static com.voxeo.tropo.Key.*;
+import static org.junit.Assert.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -185,5 +174,15 @@ public class TropoTest {
 		assertNotNull(result);
 		assertEquals(result.getSuccess(),true);
 		assertEquals(result.getToken(),token);
+	}
+	
+	
+	@Test
+	public void testEmpty() {
+
+		Tropo tropo = new Tropo();
+		assertTrue(tropo.isEmpty());
+		tropo.say("1234");
+		assertFalse(tropo.isEmpty());
 	}
 }

@@ -24,4 +24,10 @@ public abstract class ArrayBackedJsonAction extends JsonAction {
 
 		addToArray(getName(), key, value);
 	}
+	
+	protected boolean isEmpty() {
+		
+		JSONArray array = getJSONArray(getName());
+		return array.isEmpty();
+	}
 }
