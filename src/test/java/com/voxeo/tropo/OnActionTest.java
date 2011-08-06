@@ -1,9 +1,6 @@
 package com.voxeo.tropo;
 
-import static com.voxeo.tropo.Key.EVENT;
-import static com.voxeo.tropo.Key.NEXT;
-import static com.voxeo.tropo.Key.TO;
-import static com.voxeo.tropo.Key.VALUE;
+import static com.voxeo.tropo.Key.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -72,5 +69,18 @@ public class OnActionTest {
 			Do.say(VALUE("blah")));
 		
 		assertEquals(tropo.text(), "{\"tropo\":[{\"on\":[{\"event\":\"error\",\"next\":\"error.json\"}]},{\"say\":[{\"value\":\"blah\"}]}]}");
+	}
+	
+	
+	@Test
+	public void testOnNestedSay() {
+		
+		Tropo tropo = new Tropo();
+		tropo.ask(NAME("foo"),BARGEIN(true),TIMEOUT(30.0f),REQUIRED(true)).and(
+	            Do.say("Log in as voice, text, or log out"),
+	            Do.on(EVENT("success"),NEXT("/tropoResultIn")).say("Oh Kay")
+	    );
+		
+		assertEquals(tropo.text(), "{\"tropo\":[{\"ask\":{\"name\":\"foo\",\"bargein\":true,\"timeout\":30,\"required\":true,\"say\":[{\"value\":\"Log in as voice, text, or log out\"}],\"on\":[{\"event\":\"success\",\"next\":\"/tropoResultIn\",\"say\":[{\"value\":\"Oh Kay\"}]}]}}]}");
 	}
 }
