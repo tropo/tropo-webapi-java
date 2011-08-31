@@ -13,7 +13,7 @@ Additionally, this library implements the session method from Tropo [Rest API](h
 Requirements
 ------------
 
-Current version is 0.1.
+Current version is 0.3.
 
 License
 ------------
