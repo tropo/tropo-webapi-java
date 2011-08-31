@@ -8,7 +8,7 @@ import com.voxeo.tropo.Key;
 import com.voxeo.tropo.annotations.RequiredKeys;
 import com.voxeo.tropo.annotations.ValidKeys;
 
-@ValidKeys(keys={"name","allowSignals","mute","on","playTones","terminator","id","send_tones","exit_tone"})
+@ValidKeys(keys={"name","allowSignals","mute","on","playTones","terminator","id","send_tones","exit_tone","interdigitTimeout"})
 @RequiredKeys(keys={"id"})
 public class ConferenceAction extends JsonAction {
 

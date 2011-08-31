@@ -37,6 +37,11 @@ public class Key {
 		return createKey("timeout", value);
 	}	
 	
+	public static Key INTERDIGIT_TIMEOUT(Integer value) {
+		
+		return createKey("interdigitTimeout", value);
+	}	
+	
 	public static Key CHOICES(String value) {
 		
 		return createKey("choices", value);

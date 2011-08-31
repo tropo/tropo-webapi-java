@@ -1,20 +1,6 @@
 package com.voxeo.tropo;
 
-import static com.voxeo.tropo.Key.ALLOW_SIGNALS;
-import static com.voxeo.tropo.Key.ATTEMPTS;
-import static com.voxeo.tropo.Key.BARGEIN;
-import static com.voxeo.tropo.Key.CHOICES;
-import static com.voxeo.tropo.Key.EVENT;
-import static com.voxeo.tropo.Key.MIN_CONFIDENCE;
-import static com.voxeo.tropo.Key.MODE;
-import static com.voxeo.tropo.Key.NAME;
-import static com.voxeo.tropo.Key.NEXT;
-import static com.voxeo.tropo.Key.RECOGNIZER;
-import static com.voxeo.tropo.Key.REQUIRED;
-import static com.voxeo.tropo.Key.TIMEOUT;
-import static com.voxeo.tropo.Key.TO;
-import static com.voxeo.tropo.Key.VALUE;
-import static com.voxeo.tropo.Key.VOICE;
+import static com.voxeo.tropo.Key.*;
 import static com.voxeo.tropo.enums.Mode.DTMF;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -103,9 +89,9 @@ public class AskActionTest {
 	public void testAskAllParameters() {
 		
 		Tropo tropo = new Tropo();
-		tropo.ask(NAME("foo"),BARGEIN(true),TIMEOUT(30.0f),REQUIRED(true),ALLOW_SIGNALS("exit","stopHold"),ATTEMPTS(5),MIN_CONFIDENCE(3),RECOGNIZER(Recognizer.SPANISH),VOICE(Voice.ALLISON));
+		tropo.ask(NAME("foo"),BARGEIN(true),TIMEOUT(30.0f),INTERDIGIT_TIMEOUT(5),REQUIRED(true),ALLOW_SIGNALS("exit","stopHold"),ATTEMPTS(5),MIN_CONFIDENCE(3),RECOGNIZER(Recognizer.SPANISH),VOICE(Voice.ALLISON));
 	
-		assertEquals(tropo.text(),"{\"tropo\":[{\"ask\":{\"name\":\"foo\",\"bargein\":true,\"timeout\":30,\"required\":true,\"allowSignals\":[\"exit\",\"stopHold\"],\"attempts\":5,\"minConfidence\":3,\"recognizer\":\"es-es\",\"voice\":\"allison\"}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"ask\":{\"name\":\"foo\",\"bargein\":true,\"timeout\":30,\"interdigitTimeout\":5,\"required\":true,\"allowSignals\":[\"exit\",\"stopHold\"],\"attempts\":5,\"minConfidence\":3,\"recognizer\":\"es-es\",\"voice\":\"allison\"}}]}");
 	}
 
 	@Test

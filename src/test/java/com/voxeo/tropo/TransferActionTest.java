@@ -1,12 +1,6 @@
 package com.voxeo.tropo;
 
-import static com.voxeo.tropo.Key.ALLOW_SIGNALS;
-import static com.voxeo.tropo.Key.BEEP;
-import static com.voxeo.tropo.Key.EVENT;
-import static com.voxeo.tropo.Key.FROM;
-import static com.voxeo.tropo.Key.NEXT;
-import static com.voxeo.tropo.Key.TO;
-import static com.voxeo.tropo.Key.VALUE;
+import static com.voxeo.tropo.Key.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

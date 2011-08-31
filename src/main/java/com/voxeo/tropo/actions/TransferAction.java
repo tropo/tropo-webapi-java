@@ -10,7 +10,7 @@ import com.voxeo.tropo.Key;
 import com.voxeo.tropo.annotations.RequiredKeys;
 import com.voxeo.tropo.annotations.ValidKeys;
 
-@ValidKeys(keys={"to","allowSignals","choices","from","headers","name","on","required","ringRepeat","timeout"})
+@ValidKeys(keys={"to","allowSignals","choices","from","headers","name","on","required","ringRepeat","timeout","interdigitTimeout"})
 @RequiredKeys(keys={"to"})
 public class TransferAction extends JsonAction {
 

@@ -1,13 +1,6 @@
 package com.voxeo.tropo;
 
-import static com.voxeo.tropo.Key.ALLOW_SIGNALS;
-import static com.voxeo.tropo.Key.EVENT;
-import static com.voxeo.tropo.Key.EXIT_TONE;
-import static com.voxeo.tropo.Key.ID;
-import static com.voxeo.tropo.Key.MUTE;
-import static com.voxeo.tropo.Key.NAME;
-import static com.voxeo.tropo.Key.SEND_TONES;
-import static com.voxeo.tropo.Key.TO;
+import static com.voxeo.tropo.Key.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -21,9 +14,9 @@ public class ConferenceActionTest {
 	public void testConference() {
 
 		Tropo tropo = new Tropo();
-		tropo.conference(NAME("foo"),ID("1234"),MUTE(false),SEND_TONES(false),EXIT_TONE("#"));
+		tropo.conference(NAME("foo"),ID("1234"),MUTE(false),SEND_TONES(false),EXIT_TONE("#"),INTERDIGIT_TIMEOUT(5));
 		
-		assertEquals(tropo.text(),"{\"tropo\":[{\"conference\":{\"name\":\"foo\",\"id\":\"1234\",\"mute\":false,\"send_tones\":false,\"exit_tone\":\"#\"}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"conference\":{\"name\":\"foo\",\"id\":\"1234\",\"mute\":false,\"send_tones\":false,\"exit_tone\":\"#\",\"interdigitTimeout\":5}}]}");
 	}
 	
 	@Test
