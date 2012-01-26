@@ -35,15 +35,40 @@ You can install this library in any Java application or application server. The 
 
 All libraries have been included in the [dist/dependencies](https://github.com/tropo/tropo-webapi-java/tree/master/dist/dependencies) folder.
 
-Building
--------
+Using the Maven artifact
+------------------------
+
+If you can use the Maven artifact from your own projects you can add the following dependency to your project's pom.xml:
+
+```xml
+  <dependency>
+    <groupId>com.voxeo.tropo</groupId>
+    <artifactId>tropo-webapi-java</artifactId>
+    <version>0.3</version>
+  </dependency>
+```
+
+You will have also to link to your public maven Repository:
+
+```xml
+  <repositories>
+    <repository>
+      <id>voxeo-public</id>
+      <name>Uncle Voxeo's Public Maven Repo</name>
+      <url>http://maven.voxeo.net/nexus/content/groups/public</url>
+    </repository>
+  </repositories>
+```
+
+Building it from Source
+------------------------
 
 Tropo Java Webapi is based in [Maven](http://maven.apache.org). Once that you have maven installed you can easily build this library by running the following command from the project's root folder:
 
     mvn package
 
 Examples
--------
+--------
 
 You can find loads of examples on how to use this library from the [unit tests folder|https://github.com/tropo/tropo-webapi-java/tree/master/src/test/java]. There is more than 100 different examples there. Below you will find a few examples.
 
