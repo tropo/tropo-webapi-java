@@ -38,7 +38,7 @@ All libraries have been included in the [dist/dependencies](https://github.com/t
 Using the Maven artifact
 ------------------------
 
-If you can use the Maven artifact from your own projects you can add the following dependency to your project's pom.xml:
+If you want to use the Maven artifact from your own projects you can add the following dependency to your project's pom.xml:
 
 ```xml
   <dependency>
