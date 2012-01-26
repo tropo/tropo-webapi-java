@@ -60,7 +60,7 @@ You will have also to link to your public maven Repository:
   </repositories>
 ```
 
-You can also check the build status of the project at any time from our public [CI server](http://ci.voxeolabs.net/jenkins/job/tropo-java-webapi/)
+You can also check the build status of the project at any time from our public [CI server](http://ci.voxeolabs.net/jenkins/job/tropo-java-webapi/).
 
 Building it from Source
 ------------------------
