@@ -6,9 +6,9 @@ Java library to interact with [Tropo's Webapi](https://www.tropo.com/docs/webapi
 Overview
 --------
 
-This is a very lightweight library that will help you to create applications that interact with Tropo from your Java based server. This library offers a type-safe object model that helps you to create requests to Tropo without having to deal with JSON at all. This way, you can minimize the errors that may happen due to invalid JSON being sent or parsed. 
+This is a very lightweight library that will help you to create applications that interact with Tropo from your Java based server. This library offers a type-safe object model that helps you to create requests to Tropo without having to deal with JSON at all. This way, you can minimize the errors that may happen due to invalid JSON being sent or parsed.
 
-Additionally, this library implements the session method from Tropo [Rest API](https://www.tropo.com/docs/rest/rest_api.htm) which means it can be used from Java web or stand-alone applications to execute remote scripts. For example you can integrate this library with a Java Swing application to do simple but powerful tasks like sending SMS, sending voice calls, transfering calls, etc. 
+Additionally, this library implements the session method from Tropo [Rest API](https://www.tropo.com/docs/rest/rest_api.htm) which means it can be used from Java web or stand-alone applications to execute remote scripts. For example you can integrate this library with a Java Swing application to do simple but powerful tasks like sending SMS, sending voice calls, transfering calls, etc.
 
 Requirements
 ------------
@@ -48,14 +48,14 @@ If you want to use the Maven artifact from your own projects you can add the fol
   </dependency>
 ```
 
-You will have also to link to your public maven Repository:
+You will have also to link to our public maven Repository:
 
 ```xml
   <repositories>
     <repository>
-      <id>voxeo-public</id>
-      <name>Uncle Voxeo's Public Maven Repo</name>
-      <url>http://maven.voxeo.net/nexus/content/groups/public</url>
+      <id>tropo-public</id>
+      <name>Uncle Tropos's Public Maven Repo</name>
+      <url>http://maven.tropo.com:8081/nexus/content/groups/public</url>
     </repository>
   </repositories>
 ```
@@ -78,7 +78,7 @@ Say Hello and render text to the HTTP Servlet response object:
 
     HttpServletResponse response = ...
     Tropo tropo = new Tropo();
-    tropo.say("1234"); 
+    tropo.say("1234");
     tropo.render(response)
 
 Launch an application (can also be done from stand-alone apps) :
@@ -127,7 +127,7 @@ At the same time, Tropo's Java Webapi defines a complete DSL to create applicati
 		Tropo tropo = new Tropo();
 		tropo
 			.ask(NAME("foo"),BARGEIN(true),TIMEOUT(30.0f),REQUIRED(true)).and(
-				Do.say("Please say your account number"), 
+				Do.say("Please say your account number"),
 				Do.on(EVENT("success"),NEXT("/result.json")),
 				Do.choices(VALUE("[5 DIGITS]")));
 
@@ -137,7 +137,7 @@ At the same time, Tropo's Java Webapi defines a complete DSL to create applicati
 			.conference(NAME("foo"),ID("1234"),MUTE(false),SEND_TONES(false),EXIT_TONE("#")).and(
 				Do.on(EVENT("join")).say("Welcome to the conference")
 			);
-		
+
 		// Example 3
 		Tropo tropo = new Tropo();
 		tropo.call(TO("foo"), FROM("bar"), NETWORK(Network.SMS), CHANNEL(Channel.TEXT), TIMEOUT(10.0f), ANSWER_ON_MEDIA(false)).and(
@@ -164,7 +164,7 @@ Below you can also find a very trivial servlet POST method:
 And of course, you can read Tropo's session from the request and use it in your Java apps. Again, no Json knowledge required!
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		Tropo tropo = new Tropo();
 		TropoSession session = tropo.session(request);
 		System.out.println("Call id: " + session.getCallId());
