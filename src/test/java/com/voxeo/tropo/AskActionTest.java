@@ -33,9 +33,9 @@ public class AskActionTest {
 
 		Tropo tropo = new Tropo();
 		tropo
-			.ask(NAME("foo"),BARGEIN(true),TIMEOUT(30.0f),SENSITIVITY(30.0f),REQUIRED(true));
+			.ask(NAME("foo"),BARGEIN(true),TIMEOUT(30.0f),SENSITIVITY(30.1f),REQUIRED(true));
 
-		assertEquals(tropo.text(),"{\"tropo\":[{\"ask\":{\"name\":\"foo\",\"bargein\":true,\"sensitivity\":30.0,\"timeout\":30,\"required\":true}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"ask\":{\"name\":\"foo\",\"bargein\":true,\"timeout\":30,\"sensitivity\":30.1,\"required\":true}}]}");
 	}
 
 	@Test
