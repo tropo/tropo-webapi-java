@@ -11,6 +11,7 @@ import static com.voxeo.tropo.Key.NAME;
 import static com.voxeo.tropo.Key.NETWORK;
 import static com.voxeo.tropo.Key.NEXT;
 import static com.voxeo.tropo.Key.PASSWORD;
+import static com.voxeo.tropo.Key.SENSITIVITY;
 import static com.voxeo.tropo.Key.REQUIRED;
 import static com.voxeo.tropo.Key.SEND_TONES;
 import static com.voxeo.tropo.Key.TIMEOUT;
@@ -45,260 +46,265 @@ import com.voxeo.tropo.enums.Format;
 import com.voxeo.tropo.enums.Network;
 
 public class Tropo extends ArrayBackedJsonAction {
-	
-	private TropoParser parser;
-	private String baseUrl = "https://api.tropo.com/v1/";
 
-	private ActionSupportHandler<SayAction> sayActionSupportHandler = new ActionSupportHandler<SayAction>(SayAction.class);
-	private ActionSupportHandler<AskAction> askActionSupportHandler = new ActionSupportHandler<AskAction>(AskAction.class);
-	private ActionSupportHandler<ConferenceAction> conferenceActionSupportHandler = new ActionSupportHandler<ConferenceAction>(ConferenceAction.class);
-	private ActionSupportHandler<ChoicesAction> choicesActionSupportHandler = new ActionSupportHandler<ChoicesAction>(ChoicesAction.class);
-	private ActionSupportHandler<OnAction> onActionSupportHandler = new ActionSupportHandler<OnAction>(OnAction.class);	
-	private ActionSupportHandler<RecordAction> recordActionSupportHandler = new ActionSupportHandler<RecordAction>(RecordAction.class);	
-	private ActionSupportHandler<RedirectAction> redirectActionSupportHandler = new ActionSupportHandler<RedirectAction>(RedirectAction.class);	
-	private ActionSupportHandler<StartRecordingAction> startRecordingActionSupportHandler = new ActionSupportHandler<StartRecordingAction>(StartRecordingAction.class);	
-	private ActionSupportHandler<TransferAction> transferActionSupportHandler = new ActionSupportHandler<TransferAction>(TransferAction.class);	
-	private ActionSupportHandler<CallAction> callActionSupportHandler = new ActionSupportHandler<CallAction>(CallAction.class);	
-	private ActionSupportHandler<MessageAction> messageActionSupportHandler = new ActionSupportHandler<MessageAction>(MessageAction.class);	
-	
-	public Tropo() {
-		
-		super("tropo");
-		parser = new TropoParser();
-	}
+  private TropoParser                                parser;
+  private String                                     baseUrl                            = "https://api.tropo.com/v1/";
 
-	public SayAction say(String text) {
+  private ActionSupportHandler<SayAction>            sayActionSupportHandler            = new ActionSupportHandler<SayAction>(SayAction.class);
+  private ActionSupportHandler<AskAction>            askActionSupportHandler            = new ActionSupportHandler<AskAction>(AskAction.class);
+  private ActionSupportHandler<ConferenceAction>     conferenceActionSupportHandler     = new ActionSupportHandler<ConferenceAction>(ConferenceAction.class);
+  private ActionSupportHandler<ChoicesAction>        choicesActionSupportHandler        = new ActionSupportHandler<ChoicesAction>(ChoicesAction.class);
+  private ActionSupportHandler<OnAction>             onActionSupportHandler             = new ActionSupportHandler<OnAction>(OnAction.class);
+  private ActionSupportHandler<RecordAction>         recordActionSupportHandler         = new ActionSupportHandler<RecordAction>(RecordAction.class);
+  private ActionSupportHandler<RedirectAction>       redirectActionSupportHandler       = new ActionSupportHandler<RedirectAction>(RedirectAction.class);
+  private ActionSupportHandler<StartRecordingAction> startRecordingActionSupportHandler = new ActionSupportHandler<StartRecordingAction>(StartRecordingAction.class);
+  private ActionSupportHandler<TransferAction>       transferActionSupportHandler       = new ActionSupportHandler<TransferAction>(TransferAction.class);
+  private ActionSupportHandler<CallAction>           callActionSupportHandler           = new ActionSupportHandler<CallAction>(CallAction.class);
+  private ActionSupportHandler<MessageAction>        messageActionSupportHandler        = new ActionSupportHandler<MessageAction>(MessageAction.class);
 
-		return say(VALUE(text));
-	}
+  public Tropo() {
 
-	public SayAction say(Key... keys) {
+    super("tropo");
+    parser = new TropoParser();
+  }
 
-		return sayActionSupportHandler.build(this, "tropo", keys);
-	}
-		
-	public AskAction ask(Key... keys) {
+  public SayAction say(String text) {
 
-		return askActionSupportHandler.build(this, "tropo", keys);
-	}
+    return say(VALUE(text));
+  }
 
-	public AskAction ask(String name, Boolean bargein, Float timeout, Boolean required) {
+  public SayAction say(Key... keys) {
 
-		return ask(NAME(name),BARGEIN(bargein),TIMEOUT(timeout),REQUIRED(required));
-	}
-	
-	public ChoicesAction choices(Key... keys) {
+    return sayActionSupportHandler.build(this, "tropo", keys);
+  }
 
-		return choicesActionSupportHandler.build(this, "tropo", keys);
-	}	
-	
-	public ConferenceAction conference(Key... keys) {
+  public AskAction ask(Key... keys) {
 
-		return conferenceActionSupportHandler.build(this, "tropo", keys);
-	}	
-	
-	public OnAction on(Key... keys) {
+    return askActionSupportHandler.build(this, "tropo", keys);
+  }
 
-		return onActionSupportHandler.build(this, "tropo", keys);
-	}
-	
-	public OnAction on(String event, String next) {
+  public AskAction ask(String name, Boolean bargein, Float timeout, Boolean required) {
 
-		return on(EVENT(event), NEXT(next));
-	}
-	
-	public RecordAction record(Key... keys) {
+    return ask(NAME(name), BARGEIN(bargein), TIMEOUT(timeout), REQUIRED(required));
+  }
 
-		return recordActionSupportHandler.build(this, "tropo", keys);
-	}
+  public AskAction ask(String name, Boolean bargein, Float timeout, Float sensitivity, Boolean required) {
 
-	public RecordAction record(String name, String url, Boolean beep, Boolean sendTones, String exitTone) {
+    return ask(NAME(name), BARGEIN(bargein), TIMEOUT(timeout), SENSITIVITY(sensitivity), REQUIRED(required));
+  }
 
-		return record(NAME(name), URL(url), BEEP(beep), SEND_TONES(sendTones), EXIT_TONE(exitTone));
-	}
-	
-	public RedirectAction redirect(Key... keys) {
+  public ChoicesAction choices(Key... keys) {
 
-		return redirectActionSupportHandler.build(this, "tropo", keys);
-	}
-	
-	public RedirectAction redirect(String to) {
+    return choicesActionSupportHandler.build(this, "tropo", keys);
+  }
 
-		return redirect(TO(to));
-	}
-	
-	public RedirectAction redirect(String to, String from) {
+  public ConferenceAction conference(Key... keys) {
 
-		return redirect(TO(to),FROM(from));
-	}
-	
-	public StartRecordingAction startRecording(Key... keys) {
+    return conferenceActionSupportHandler.build(this, "tropo", keys);
+  }
 
-		return startRecordingActionSupportHandler.build(this, "tropo", keys);
-	}
-	
-	public StartRecordingAction startRecording(String url) {
+  public OnAction on(Key... keys) {
 
-		return startRecording(URL(url));
-	}
-	
-	public StartRecordingAction startRecording(String url, Format format) {
+    return onActionSupportHandler.build(this, "tropo", keys);
+  }
 
-		return startRecording(URL(url),FORMAT(format));
-	}
-	
-	public StartRecordingAction startRecording(String url, Format format, String username, String password) {
+  public OnAction on(String event, String next) {
 
-		return startRecording(URL(url),FORMAT(format),USERNAME(username),PASSWORD(password));
-	}
-	
-	public void hangup(Key... key) {
+    return on(EVENT(event), NEXT(next));
+  }
 
-		addNull("tropo", "hangup");
-	}
+  public RecordAction record(Key... keys) {
 
-	public void stopRecording(Key... key) {
+    return recordActionSupportHandler.build(this, "tropo", keys);
+  }
 
-		addNull("tropo", "stopRecording");
-	}
+  public RecordAction record(String name, String url, Boolean beep, Boolean sendTones, String exitTone) {
 
-	public void reject(Key... key) {
+    return record(NAME(name), URL(url), BEEP(beep), SEND_TONES(sendTones), EXIT_TONE(exitTone));
+  }
 
-		addNull("tropo", "reject");
-	}
-	
-	public TransferAction transfer(Key... keys) {
+  public RedirectAction redirect(Key... keys) {
 
-		return transferActionSupportHandler.build(this, "tropo", keys);
-	}
-	
-	public TransferAction transfer(String to) {
+    return redirectActionSupportHandler.build(this, "tropo", keys);
+  }
 
-		return transfer(TO(to));
-	}
-	
-	public TransferAction transfer(String to, String from) {
+  public RedirectAction redirect(String to) {
 
-		return transfer(TO(to), FROM(from));
-	}
-	
-	public CallAction call(Key... keys) {
+    return redirect(TO(to));
+  }
 
-		return callActionSupportHandler.build(this, "tropo", keys);
-	}
-	
-	public CallAction call(String to) {
+  public RedirectAction redirect(String to, String from) {
 
-		return call(TO(to));
-	}
-	
-	public CallAction call(String to, Network network) {
+    return redirect(TO(to), FROM(from));
+  }
 
-		return call(TO(to),NETWORK(network));
-	}
-	
-	public CallAction call(String to, Network network, String from) {
+  public StartRecordingAction startRecording(Key... keys) {
 
-		return call(TO(to),NETWORK(network),FROM(from));
-	}
-	
-	public CallAction call(String to, Network network, String from, Channel channel) {
+    return startRecordingActionSupportHandler.build(this, "tropo", keys);
+  }
 
-		return call(TO(to),NETWORK(network),FROM(from),CHANNEL(channel));
-	}
-	
-	public MessageAction message(Key... keys) {
+  public StartRecordingAction startRecording(String url) {
 
-		return messageActionSupportHandler.build(this, "tropo", keys);
-	}
-	
-	public MessageAction message(String to) {
+    return startRecording(URL(url));
+  }
 
-		return message(TO(to));
-	}
-	
-	public MessageAction message(String to, Network network) {
+  public StartRecordingAction startRecording(String url, Format format) {
 
-		return message(TO(to),NETWORK(network));
-	}
-	
-	public MessageAction message(String to, Network network, String from) {
+    return startRecording(URL(url), FORMAT(format));
+  }
 
-		return message(TO(to),NETWORK(network),FROM(from));
-	}
-	
-	public MessageAction message(String to, Network network, String from, Channel channel) {
+  public StartRecordingAction startRecording(String url, Format format, String username, String password) {
 
-		return message(TO(to),NETWORK(network),FROM(from),CHANNEL(channel));
-	}
-	
-	public TropoResult parse(String json) {
-		
-		return parser.parse(json);
-	}
-		
-	public TropoSession session(String json) {
-		
-		return parser.session(json);
-	}
-	
-	public TropoResult parse(HttpServletRequest request) {
-		
-		return parser.parse(request);
-	}
-	
-	public TropoSession session(HttpServletRequest request) {
-		
-		return parser.session(request);
-	}
-	
-	@SuppressWarnings("rawtypes")
-	public Map parse(Map json) {
-		
-		return parser.parse(json);
-	}
-	
-	public void render(HttpServletResponse response) {
+    return startRecording(URL(url), FORMAT(format), USERNAME(username), PASSWORD(password));
+  }
 
-		render(response, text());
-	}
+  public void hangup(Key... key) {
 
-	public void render(HttpServletResponse response, String json) {
+    addNull("tropo", "hangup");
+  }
 
-		try {
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-	
-			response.getWriter().write(text());
-			response.getWriter().flush();
-			response.getWriter().close();
-		} catch (IOException ioe) {
-			throw new TropoException("An error happened while rendering response", ioe);
-		}
-	}	
-			
-	public boolean isEmpty() {
-		
-		return super.isEmpty();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public TropoLaunchResult launchSession(String token) {
-		
-		return launchSession(token, Collections.EMPTY_MAP);
-	}
-	
-	public TropoLaunchResult launchSession(String token, Map<String, String> params) {
-		
-		SessionLauncher launcher = new SessionLauncher();
-		return launcher.launchSession(baseUrl, token, params);
-	}
+  public void stopRecording(Key... key) {
 
-	public String getBaseUrl() {
-		return baseUrl;
-	}
+    addNull("tropo", "stopRecording");
+  }
 
-	public void setBaseUrl(String baseUrl) {
-		this.baseUrl = baseUrl;
-	}
+  public void reject(Key... key) {
+
+    addNull("tropo", "reject");
+  }
+
+  public TransferAction transfer(Key... keys) {
+
+    return transferActionSupportHandler.build(this, "tropo", keys);
+  }
+
+  public TransferAction transfer(String to) {
+
+    return transfer(TO(to));
+  }
+
+  public TransferAction transfer(String to, String from) {
+
+    return transfer(TO(to), FROM(from));
+  }
+
+  public CallAction call(Key... keys) {
+
+    return callActionSupportHandler.build(this, "tropo", keys);
+  }
+
+  public CallAction call(String to) {
+
+    return call(TO(to));
+  }
+
+  public CallAction call(String to, Network network) {
+
+    return call(TO(to), NETWORK(network));
+  }
+
+  public CallAction call(String to, Network network, String from) {
+
+    return call(TO(to), NETWORK(network), FROM(from));
+  }
+
+  public CallAction call(String to, Network network, String from, Channel channel) {
+
+    return call(TO(to), NETWORK(network), FROM(from), CHANNEL(channel));
+  }
+
+  public MessageAction message(Key... keys) {
+
+    return messageActionSupportHandler.build(this, "tropo", keys);
+  }
+
+  public MessageAction message(String to) {
+
+    return message(TO(to));
+  }
+
+  public MessageAction message(String to, Network network) {
+
+    return message(TO(to), NETWORK(network));
+  }
+
+  public MessageAction message(String to, Network network, String from) {
+
+    return message(TO(to), NETWORK(network), FROM(from));
+  }
+
+  public MessageAction message(String to, Network network, String from, Channel channel) {
+
+    return message(TO(to), NETWORK(network), FROM(from), CHANNEL(channel));
+  }
+
+  public TropoResult parse(String json) {
+
+    return parser.parse(json);
+  }
+
+  public TropoSession session(String json) {
+
+    return parser.session(json);
+  }
+
+  public TropoResult parse(HttpServletRequest request) {
+
+    return parser.parse(request);
+  }
+
+  public TropoSession session(HttpServletRequest request) {
+
+    return parser.session(request);
+  }
+
+  @SuppressWarnings("rawtypes")
+  public Map parse(Map json) {
+
+    return parser.parse(json);
+  }
+
+  public void render(HttpServletResponse response) {
+
+    render(response, text());
+  }
+
+  public void render(HttpServletResponse response, String json) {
+
+    try {
+      response.setContentType("application/json");
+      response.setCharacterEncoding("UTF-8");
+
+      response.getWriter().write(text());
+      response.getWriter().flush();
+      response.getWriter().close();
+    } catch (IOException ioe) {
+      throw new TropoException("An error happened while rendering response", ioe);
+    }
+  }
+
+  public boolean isEmpty() {
+
+    return super.isEmpty();
+  }
+
+  @SuppressWarnings("unchecked")
+  public TropoLaunchResult launchSession(String token) {
+
+    return launchSession(token, Collections.EMPTY_MAP);
+  }
+
+  public TropoLaunchResult launchSession(String token, Map<String, String> params) {
+
+    SessionLauncher launcher = new SessionLauncher();
+    return launcher.launchSession(baseUrl, token, params);
+  }
+
+  public String getBaseUrl() {
+    return baseUrl;
+  }
+
+  public void setBaseUrl(String baseUrl) {
+    this.baseUrl = baseUrl;
+  }
 }
