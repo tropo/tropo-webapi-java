@@ -1,18 +1,51 @@
 package com.voxeo.tropo;
 
-import com.voxeo.tropo.actions.*;
-import com.voxeo.tropo.enums.Channel;
-import com.voxeo.tropo.enums.Format;
-import com.voxeo.tropo.enums.Network;
-import support.ActionSupportHandler;
+import static com.voxeo.tropo.Key.BARGEIN;
+import static com.voxeo.tropo.Key.BEEP;
+import static com.voxeo.tropo.Key.CHANNEL;
+import static com.voxeo.tropo.Key.EVENT;
+import static com.voxeo.tropo.Key.EXIT_TONE;
+import static com.voxeo.tropo.Key.FORMAT;
+import static com.voxeo.tropo.Key.FROM;
+import static com.voxeo.tropo.Key.MILLISECONDS;
+import static com.voxeo.tropo.Key.NAME;
+import static com.voxeo.tropo.Key.NETWORK;
+import static com.voxeo.tropo.Key.NEXT;
+import static com.voxeo.tropo.Key.PASSWORD;
+import static com.voxeo.tropo.Key.SENSITIVITY;
+import static com.voxeo.tropo.Key.REQUIRED;
+import static com.voxeo.tropo.Key.SEND_TONES;
+import static com.voxeo.tropo.Key.TIMEOUT;
+import static com.voxeo.tropo.Key.TO;
+import static com.voxeo.tropo.Key.URL;
+import static com.voxeo.tropo.Key.USERNAME;
+import static com.voxeo.tropo.Key.VALUE;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 
-import static com.voxeo.tropo.Key.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import support.ActionSupportHandler;
+
+import com.voxeo.tropo.actions.ArrayBackedJsonAction;
+import com.voxeo.tropo.actions.AskAction;
+import com.voxeo.tropo.actions.CallAction;
+import com.voxeo.tropo.actions.ChoicesAction;
+import com.voxeo.tropo.actions.ConferenceAction;
+import com.voxeo.tropo.actions.MessageAction;
+import com.voxeo.tropo.actions.OnAction;
+import com.voxeo.tropo.actions.RecordAction;
+import com.voxeo.tropo.actions.RedirectAction;
+import com.voxeo.tropo.actions.SayAction;
+import com.voxeo.tropo.actions.StartRecordingAction;
+import com.voxeo.tropo.actions.TransferAction;
+import com.voxeo.tropo.actions.WaitAction;
+import com.voxeo.tropo.enums.Channel;
+import com.voxeo.tropo.enums.Format;
+import com.voxeo.tropo.enums.Network;
 
 public class Tropo extends ArrayBackedJsonAction {
 
