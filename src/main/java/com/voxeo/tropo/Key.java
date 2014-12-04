@@ -168,6 +168,10 @@ public class Key {
 
 		return createKey("recognizer", recognizer);
 	}
+    public static Key MILLISECONDS(Long milliseconds) {
+
+        return createKey("milliseconds", milliseconds);
+    }
 
 	public static Key createKey(String name, Object value) {
 
