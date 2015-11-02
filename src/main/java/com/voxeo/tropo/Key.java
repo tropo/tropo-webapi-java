@@ -173,6 +173,11 @@ public class Key {
         return createKey("milliseconds", milliseconds);
     }
 
+    public static Key TERMINATOR(String value) {
+
+        return createKey("terminator", value);
+    }
+    
 	public static Key createKey(String name, Object value) {
 
 		// There is an issue with JSON-LIB. When an element starts with { or [ then json-lib handles it

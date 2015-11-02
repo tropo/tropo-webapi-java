@@ -2,6 +2,7 @@ package com.voxeo.tropo;
 
 import static com.voxeo.tropo.Key.MODE;
 import static com.voxeo.tropo.Key.TO;
+import static com.voxeo.tropo.Key.TERMINATOR;
 import static com.voxeo.tropo.Key.VALUE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -39,5 +40,14 @@ public class ChoicesTest {
 		} catch (TropoException te) {
 			assertEquals(te.getMessage(), "Invalid key 'to' for action");
 		}
-	}	
+	}
+	
+	@Test
+    public void testChoiceWithTerminator() {
+
+        Tropo tropo = new Tropo();
+        tropo.choices(TERMINATOR("#"));
+        
+        assertEquals(tropo.text(),"{\"tropo\":[{\"choices\":{\"terminator\":\"#\"}}]}");
+    }
 }

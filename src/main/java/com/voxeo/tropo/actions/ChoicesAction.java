@@ -4,7 +4,7 @@ import com.voxeo.tropo.Key;
 import com.voxeo.tropo.TropoException;
 import com.voxeo.tropo.annotations.ValidKeys;
 
-@ValidKeys(keys={"value","mode"})
+@ValidKeys(keys={"value","mode","terminator"})
 public class ChoicesAction extends JsonAction {
 
 	public ChoicesAction() {
