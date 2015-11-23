@@ -14,7 +14,9 @@ public class TropoResult implements Serializable {
 	private Integer sequence;
 	private Integer sessionDuration;
 	private String sessionId;
-	private String callState;
+	private String state;
+	private String callId;
+	private String calledid;
 
 	
 	public ArrayList<ActionResult> getActions() {
@@ -53,10 +55,23 @@ public class TropoResult implements Serializable {
 	public void setSessionId(String sessionId) {
 		this.sessionId = sessionId;
 	}
-	public String getCallState() {
-		return callState;
+	public String getState() {
+		return state;
 	}
-	public void setCallState(String state) {
-		this.callState = state;
-	}	
+	public void setState(String state) {
+		this.state = state;
+	}
+    
+    public String getCallId() {
+        return callId;
+    }
+    public void setCallId(String callId) {
+        this.callId = callId;
+    }
+    public String getCalledid() {
+        return calledid;
+    }
+    public void setCalledid(String calledid) {
+        this.calledid = calledid;
+    }	
 }
