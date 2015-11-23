@@ -108,7 +108,7 @@ public class TropoTest {
 	@Test
 	public void testTropoResultSingle() {
 
-		String json_session = "{\"result\":{\"sessionId\":\"CCFD9C86-1DD1-11B2-B76D-B9B253E4B7FB@161.253.55.20\",\"callState\":\"ANSWERED\",\"sessionDuration\":2,\"sequence\":1,\"complete\":true,\"error\":null,\"actions\":{\"name\":\"zip\",\"attempts\":1,\"disposition\":\"SUCCESS\",\"confidence\":100,\"interpretation\":\"12345\",\"utterance\":\"1 2 3 4 5\"}}}";
+		String json_session = "{\"result\":{\"sessionId\":\"CCFD9C86-1DD1-11B2-B76D-B9B253E4B7FB@161.253.55.20\",\"state\":\"ANSWERED\",\"sessionDuration\":2,\"sequence\":1,\"complete\":true,\"error\":null,\"actions\":{\"name\":\"zip\",\"attempts\":1,\"disposition\":\"SUCCESS\",\"confidence\":100,\"interpretation\":\"12345\",\"utterance\":\"1 2 3 4 5\"}}}";
 		Tropo tropo = new Tropo();
 		TropoResult result = tropo.parse(json_session);
 		assertNotNull(result);
@@ -119,7 +119,7 @@ public class TropoTest {
 	@Test
 	public void testTropoResultArray() {
 
-		String json_session = "{\"result\":{\"sessionId\":\"CCFD9C86-1DD1-11B2-B76D-B9B253E4B7FB@161.253.55.20\",\"callState\":\"ANSWERED\",\"sessionDuration\":2,\"sequence\":1,\"complete\":true,\"error\":null,\"actions\":[{ \"name\": \"account_number\", \"attempts\": 1, \"disposition\": \"SUCCESS\", \"confidence\": 100, \"interpretation\": \"12345\", \"utterance\": \"1 2 3 4 5\", \"concept\": \"12345\" }, { \"name\": \"pin\", \"attempts\": 1, \"disposition\": \"SUCCESS\", \"confidence\": 100, \"interpretation\": \"9876\", \"utterance\": \"9 8 7 6\", \"concept\": \"9876\" }]}}";
+		String json_session = "{\"result\":{\"sessionId\":\"CCFD9C86-1DD1-11B2-B76D-B9B253E4B7FB@161.253.55.20\",\"state\":\"ANSWERED\",\"sessionDuration\":2,\"sequence\":1,\"complete\":true,\"error\":null,\"actions\":[{ \"name\": \"account_number\", \"attempts\": 1, \"disposition\": \"SUCCESS\", \"confidence\": 100, \"interpretation\": \"12345\", \"utterance\": \"1 2 3 4 5\", \"concept\": \"12345\" }, { \"name\": \"pin\", \"attempts\": 1, \"disposition\": \"SUCCESS\", \"confidence\": 100, \"interpretation\": \"9876\", \"utterance\": \"9 8 7 6\", \"concept\": \"9876\" }]}}";
 		Tropo tropo = new Tropo();
 		TropoResult result = tropo.parse(json_session);
 		assertNotNull(result);
@@ -131,16 +131,16 @@ public class TropoTest {
 	@Test
 	public void testObjectArrivesInJson() {
 
-		String json_session = "{\"result\":{\"sessionId\":\"CCFD9C86-1DD1-11B2-B76D-B9B253E4B7FB@161.253.55.20\",\"callState\":\"ANSWERED\",\"sessionDuration\":2,\"sequence\":1,\"complete\":true,\"error\":null,\"actions\":{\"name\":\"zip\",\"attempts\":1,\"disposition\":\"SUCCESS\",\"confidence\":100,\"interpretation\":\"12345\",\"utterance\":\"1 2 3 4 5\"}}}";
+		String json_session = "{\"result\":{\"sessionId\":\"CCFD9C86-1DD1-11B2-B76D-B9B253E4B7FB@161.253.55.20\",\"state\":\"ANSWERED\",\"sessionDuration\":2,\"sequence\":1,\"complete\":true,\"error\":null,\"actions\":{\"name\":\"zip\",\"attempts\":1,\"disposition\":\"SUCCESS\",\"confidence\":100,\"interpretation\":\"12345\",\"utterance\":\"1 2 3 4 5\"}}}";
 		Tropo tropo = new Tropo();
 		TropoResult result = tropo.parse(json_session);
-		assertEquals(result.getCallState(),"ANSWERED");
+		assertEquals(result.getState(),"ANSWERED");
 	}
 	
 	@Test
 	public void testParseTropoResultFromServletRequest() {
 
-		String json_session = "{\"result\":{\"sessionId\":\"CCFD9C86-1DD1-11B2-B76D-B9B253E4B7FB@161.253.55.20\",\"callState\":\"ANSWERED\",\"sessionDuration\":2,\"sequence\":1,\"complete\":true,\"error\":null,\"actions\":[{ \"name\": \"account_number\", \"attempts\": 1, \"disposition\": \"SUCCESS\", \"confidence\": 100, \"interpretation\": \"12345\", \"utterance\": \"1 2 3 4 5\", \"concept\": \"12345\" }, { \"name\": \"pin\", \"attempts\": 1, \"disposition\": \"SUCCESS\", \"confidence\": 100, \"interpretation\": \"9876\", \"utterance\": \"9 8 7 6\", \"concept\": \"9876\" }]}}";
+		String json_session = "{\"result\":{\"sessionId\":\"CCFD9C86-1DD1-11B2-B76D-B9B253E4B7FB@161.253.55.20\",\"state\":\"ANSWERED\",\"sessionDuration\":2,\"sequence\":1,\"complete\":true,\"error\":null,\"actions\":[{ \"name\": \"account_number\", \"attempts\": 1, \"disposition\": \"SUCCESS\", \"confidence\": 100, \"interpretation\": \"12345\", \"utterance\": \"1 2 3 4 5\", \"concept\": \"12345\" }, { \"name\": \"pin\", \"attempts\": 1, \"disposition\": \"SUCCESS\", \"confidence\": 100, \"interpretation\": \"9876\", \"utterance\": \"9 8 7 6\", \"concept\": \"9876\" }]}}";
 		HttpServletRequest request = new MockHttpServletRequest(json_session);
 		
 		Tropo tropo = new Tropo();

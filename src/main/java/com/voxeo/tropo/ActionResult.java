@@ -17,8 +17,13 @@ public class ActionResult implements Serializable {
 	private Integer attempts;
 	private String disposition;
 	private String interpretation;
-	private String utterrance;
+	private String utterance;
 	private Integer confidence;
+	private String value;
+    private String concept;
+    private String xml;
+    private Integer duration;
+    private String url;
 	
 	public String getName() {
 		return name;
@@ -50,11 +55,11 @@ public class ActionResult implements Serializable {
 	public void setInterpretation(String interpretation) {
 		this.interpretation = interpretation;
 	}
-	public String getUtterrance() {
-		return utterrance;
+	public String getUtterance() {
+		return utterance;
 	}
-	public void setUtterrance(String utterrance) {
-		this.utterrance = utterrance;
+	public void setUtterance(String utterrance) {
+		this.utterance = utterrance;
 	}
 	public String getValue() {
 		return value;
@@ -74,8 +79,16 @@ public class ActionResult implements Serializable {
 	public void setXml(String xml) {
 		this.xml = xml;
 	}
-	private String value;
-	private String concept;
-	private String xml;
-
+    public Integer getDuration() {
+        return duration;
+    }
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+    public String getUrl() {
+        return url;
+    }
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }
