@@ -22,7 +22,7 @@ public class CallActionTest {
 			Do.headers(new String[]{"fooKey","fooValue"}, new String[]{"barKey","barValue"}),
 			Do.startRecording(URL("http://foobar"), METHOD("POST"), FORMAT(Format.MP3), USERNAME("jose"), PASSWORD("passwd")));
 			
-		assertEquals(tropo.text(),"{\"tropo\":[{\"call\":{\"to\":\"foo\",\"from\":\"bar\",\"network\":\"SMS\",\"channel\":\"TEXT\",\"timeout\":10,\"answerOnMedia\":false,\"headers\":{\"fooKey\":\"fooValue\",\"barKey\":\"barValue\"},\"startRecording\":{\"url\":\"http://foobar\",\"method\":\"POST\",\"format\":\"audio/mp3\",\"username\":\"jose\",\"password\":\"passwd\"}}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"call\":{\"to\":\"foo\",\"from\":\"bar\",\"network\":\"SMS\",\"channel\":\"TEXT\",\"timeout\":10.0,\"answerOnMedia\":false,\"headers\":{\"fooKey\":\"fooValue\",\"barKey\":\"barValue\"},\"startRecording\":{\"url\":\"http://foobar\",\"method\":\"POST\",\"format\":\"audio/mp3\",\"username\":\"jose\",\"password\":\"passwd\"}}}]}");
 	}
 
 	@Test
@@ -43,16 +43,16 @@ public class CallActionTest {
 		Tropo tropo = new Tropo();
 		tropo.call(TO("foo"), FROM("bar"), NETWORK(Network.SMS), CHANNEL(Channel.TEXT), TIMEOUT(10.0f), ANSWER_ON_MEDIA(false),ALLOW_SIGNALS("exit","stopHold"));
 	
-		assertEquals(tropo.text(),"{\"tropo\":[{\"call\":{\"to\":\"foo\",\"from\":\"bar\",\"network\":\"SMS\",\"channel\":\"TEXT\",\"timeout\":10,\"answerOnMedia\":false,\"allowSignals\":[\"exit\",\"stopHold\"]}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"call\":{\"to\":\"foo\",\"from\":\"bar\",\"network\":\"SMS\",\"channel\":\"TEXT\",\"timeout\":10.0,\"answerOnMedia\":false,\"allowSignals\":[\"exit\",\"stopHold\"]}}]}");
 	}
 	
 	@Test
-	public void testCalwithToArray() {
+	public void testCallwithToArray() {
 		
 		Tropo tropo = new Tropo();
 		tropo.call(TO("+14155551212","+15105551212"), FROM("bar"), NETWORK(Network.SMS), CHANNEL(Channel.TEXT), TIMEOUT(10.0f), ANSWER_ON_MEDIA(false),ALLOW_SIGNALS("exit","stopHold"));
 	
-		assertEquals(tropo.text(),"{\"tropo\":[{\"call\":{\"to\":[\"+14155551212\",\"+15105551212\"],\"from\":\"bar\",\"network\":\"SMS\",\"channel\":\"TEXT\",\"timeout\":10,\"answerOnMedia\":false,\"allowSignals\":[\"exit\",\"stopHold\"]}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"call\":{\"to\":[\"+14155551212\",\"+15105551212\"],\"from\":\"bar\",\"network\":\"SMS\",\"channel\":\"TEXT\",\"timeout\":10.0,\"answerOnMedia\":false,\"allowSignals\":[\"exit\",\"stopHold\"]}}]}");
 	}	
 
 	@Test
@@ -110,7 +110,7 @@ public class CallActionTest {
 		CallAction call = tropo.call(TO("foo"), FROM("bar"), NETWORK(Network.SMS), CHANNEL(Channel.TEXT), TIMEOUT(10.0f), ANSWER_ON_MEDIA(false));
 		call.headers(new String[]{"fooKey","fooValue"}, new String[]{"barKey","barValue"});
 			
-		assertEquals(tropo.text(),"{\"tropo\":[{\"call\":{\"to\":\"foo\",\"from\":\"bar\",\"network\":\"SMS\",\"channel\":\"TEXT\",\"timeout\":10,\"answerOnMedia\":false,\"headers\":{\"fooKey\":\"fooValue\",\"barKey\":\"barValue\"}}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"call\":{\"to\":\"foo\",\"from\":\"bar\",\"network\":\"SMS\",\"channel\":\"TEXT\",\"timeout\":10.0,\"answerOnMedia\":false,\"headers\":{\"fooKey\":\"fooValue\",\"barKey\":\"barValue\"}}}]}");
 	}
 
 	@Test
@@ -120,6 +120,6 @@ public class CallActionTest {
 		CallAction call = tropo.call(TO("foo"), FROM("bar"), NETWORK(Network.SMS), CHANNEL(Channel.TEXT), TIMEOUT(10.0f), ANSWER_ON_MEDIA(false));
 		call.startRecording(URL("http://foobar"), METHOD("POST"), FORMAT(Format.MP3), USERNAME("jose"), PASSWORD("passwd"));
 			
-		assertEquals(tropo.text(),"{\"tropo\":[{\"call\":{\"to\":\"foo\",\"from\":\"bar\",\"network\":\"SMS\",\"channel\":\"TEXT\",\"timeout\":10,\"answerOnMedia\":false,\"startRecording\":{\"url\":\"http://foobar\",\"method\":\"POST\",\"format\":\"audio/mp3\",\"username\":\"jose\",\"password\":\"passwd\"}}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"call\":{\"to\":\"foo\",\"from\":\"bar\",\"network\":\"SMS\",\"channel\":\"TEXT\",\"timeout\":10.0,\"answerOnMedia\":false,\"startRecording\":{\"url\":\"http://foobar\",\"method\":\"POST\",\"format\":\"audio/mp3\",\"username\":\"jose\",\"password\":\"passwd\"}}}]}");
 	}
 }

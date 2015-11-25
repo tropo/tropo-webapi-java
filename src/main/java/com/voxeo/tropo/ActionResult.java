@@ -2,6 +2,9 @@ package com.voxeo.tropo;
 
 import java.io.Serializable;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 /**
  * <p>Wraps the result from a Tropo action. Our {@link Tropo} will take care of generating this classes from the Tropo server
  * JSON response. It is normally included within a {@link TropoResult} object.</p>
@@ -90,5 +93,13 @@ public class ActionResult implements Serializable {
     }
     public void setUrl(String url) {
         this.url = url;
+    }
+    
+    @Override
+    public String toString(){
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting().serializeNulls();
+        Gson gson = builder.create();
+        return gson.toJson(this);
     }
 }

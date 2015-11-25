@@ -270,12 +270,6 @@ public class Tropo extends ArrayBackedJsonAction {
     return parser.session(request);
   }
 
-  @SuppressWarnings("rawtypes")
-  public Map parse(Map json) {
-
-    return parser.parse(json);
-  }
-
   public void render(HttpServletResponse response) {
 
     render(response, text());

@@ -63,6 +63,8 @@ public class TropoTest {
 		Tropo tropo = new Tropo();
 		TropoSession session = tropo.session(json_session);
 		assertNotNull(session);
+		assertEquals(session.getAccountId(), "12345");
+		assertEquals(session.getUserType(), "NONE");
 		assertNotNull(session.getParameters());
 		assertEquals(session.getParameters().get("token"),"token_id");
 	}
@@ -99,7 +101,7 @@ public class TropoTest {
 		
 		Tropo tropo = new Tropo();		
 		tropo.ask(NAME("foo"), BARGEIN(true), TIMEOUT(30.0f), REQUIRED(true));
-		assertEquals(tropo.text(), "{\"tropo\":[{\"ask\":{\"name\":\"foo\",\"bargein\":true,\"timeout\":30,\"required\":true}}]}");
+		assertEquals(tropo.text(), "{\"tropo\":[{\"ask\":{\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"required\":true}}]}");
 		
 		tropo.reset();
 		assertEquals(tropo.text(), "{\"tropo\":[]}");
@@ -112,8 +114,12 @@ public class TropoTest {
 		Tropo tropo = new Tropo();
 		TropoResult result = tropo.parse(json_session);
 		assertNotNull(result);
+		assertEquals(result.getSequence(), 1);
 		assertNotNull(result.getActions());
 		assertEquals(result.getActions().get(0).getName(),"zip");
+		assertEquals(result.getActions().get(0).getInterpretation(),"12345");
+		assertEquals(result.getActions().get(0).getUtterance(),"1 2 3 4 5");
+		assertEquals(result.getActions().get(0).getDisposition(),"SUCCESS");
 	}		
 	
 	@Test

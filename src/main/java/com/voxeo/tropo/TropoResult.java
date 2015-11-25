@@ -3,6 +3,9 @@ package com.voxeo.tropo;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class TropoResult implements Serializable {
 
 	private static final long serialVersionUID = 7944603295887403063L;
@@ -74,4 +77,12 @@ public class TropoResult implements Serializable {
     public void setCalledid(String calledid) {
         this.calledid = calledid;
     }	
+    
+    @Override
+    public String toString(){
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting().serializeNulls();
+        Gson gson = builder.create();
+        return gson.toJson(this);
+    }
 }

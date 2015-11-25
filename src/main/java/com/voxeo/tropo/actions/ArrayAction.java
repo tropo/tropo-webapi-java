@@ -2,10 +2,10 @@ package com.voxeo.tropo.actions;
 
 import java.util.Iterator;
 
-import net.sf.json.JSON;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.voxeo.tropo.Key;
 import com.voxeo.tropo.TropoException;
 
@@ -13,7 +13,7 @@ public abstract class ArrayAction extends Action {
 	
 	public ArrayAction() {
 		
-		super(new JSONArray());
+		super(new JsonArray());
 	}	
 
 	public ArrayAction(Key... keys) {
@@ -25,24 +25,43 @@ public abstract class ArrayAction extends Action {
 	@Override
 	public void reset() {
 
-		setNode(new JSONArray());
+		setNode(new JsonArray());
 	}
 
-	protected JSONObject buildObjectFromKeys(Key... keys) {
+	protected JsonObject buildObjectFromKeys(Key... keys) {
 		
-		JSONObject object = new JSONObject();
+		JsonObject object = new JsonObject();
 		for(Key key: keys) {
 			if (!isValidKey(key)) {
 				throw new TropoException(String.format("Invalid key '%s' for action",key.getName()));
 			}
-			object.put(key.getName(), key.getValue());
+			putProperty(object, key.getName(), key.getValue());
 		}
 		return object;
 	}
 	
-	protected void add(JSON item) {
+	protected void putProperty(JsonObject object, String key, Object value) {
+	    
+        if (value instanceof Boolean) {
+            object.addProperty(key, (Boolean) value);
+        }
+        else if (value instanceof Number) {
+            object.addProperty(key, (Number) value);
+        }
+        else if (value instanceof Character) {
+            object.addProperty(key, (Character) value);
+        }
+        else if (value instanceof String) {
+            object.addProperty(key, (String) value);
+        }
+        else {
+            object.add(key, new Gson().toJsonTree(value));
+        }
+    }
+	
+	protected void add(JsonElement item) {
 		
-		((JSONArray)getNode()).element(item);
+		((JsonArray)getNode()).add(item);
 	}
 	
 	public void put(String key, Action action) {
@@ -54,12 +73,12 @@ public abstract class ArrayAction extends Action {
 		
 		action.validate();
 		action.setParent(this);		
-		JSONArray array = ((JSONArray)getNode());
+		JsonArray array = ((JsonArray)getNode());
 		if (array.size() == 0) {
 			addToArray(array, key, action);
 		} else {
-			JSONObject node = (JSONObject)array.get(array.size()-1);
-			node.put(key,action.json());
+			JsonObject node = (JsonObject)array.get(array.size()-1);
+			node.add(key,action.json());
 		}
 	}
 	
@@ -73,13 +92,13 @@ public abstract class ArrayAction extends Action {
 	@SuppressWarnings("rawtypes")
 	private void checkFields(String... fields) throws TropoException {
 		
-		JSONArray array = ((JSONArray)getNode());
+		JsonArray array = ((JsonArray)getNode());
 		Iterator it = array.iterator();
 		while (it.hasNext()) {
 			Object element = it.next();
-			if (element instanceof JSONObject) {
+			if (element instanceof JsonObject) {
 				for (String field: fields) {
-					Object value = ((JSONObject)element).get(field);
+					Object value = ((JsonObject)element).get(field);
 					if (value == null) {
 						throw new TropoException(String.format("Missing required property: '%s'",field));
 					}
