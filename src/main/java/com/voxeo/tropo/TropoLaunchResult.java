@@ -13,7 +13,7 @@ public class TropoLaunchResult implements Serializable {
 	private String token;
 	private String id;
 	
-	public Boolean getSuccess() {
+	public Boolean isSuccess() {
 		return success;
 	}
 	public void setSuccess(Boolean success) {
@@ -35,10 +35,8 @@ public class TropoLaunchResult implements Serializable {
 	@Override
     public String toString(){
         GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting().serializeNulls();
+        builder.setPrettyPrinting().disableHtmlEscaping().serializeNulls();
         Gson gson = builder.create();
         return gson.toJson(this);
     }
-	
-	
 }

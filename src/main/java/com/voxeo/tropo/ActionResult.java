@@ -98,7 +98,7 @@ public class ActionResult implements Serializable {
     @Override
     public String toString(){
         GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting().serializeNulls();
+        builder.setPrettyPrinting().disableHtmlEscaping().serializeNulls();
         Gson gson = builder.create();
         return gson.toJson(this);
     }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 
 public class TropoResult implements Serializable {
 
@@ -19,7 +20,9 @@ public class TropoResult implements Serializable {
 	private String sessionId;
 	private String state;
 	private String callId;
-	private String calledid;
+	
+	@SerializedName("calledid")
+	private String calledId;
 
 	
 	public ArrayList<ActionResult> getActions() {
@@ -28,7 +31,7 @@ public class TropoResult implements Serializable {
 	public void setActions(ArrayList<ActionResult> actions) {
 		this.actions = actions;
 	}
-	public Boolean getComplete() {
+	public Boolean isComplete() {
 		return complete;
 	}
 	public void setComplete(Boolean complete) {
@@ -71,17 +74,17 @@ public class TropoResult implements Serializable {
     public void setCallId(String callId) {
         this.callId = callId;
     }
-    public String getCalledid() {
-        return calledid;
+    public String getCalledId() {
+        return calledId;
     }
-    public void setCalledid(String calledid) {
-        this.calledid = calledid;
+    public void setCalledId(String calledid) {
+        this.calledId = calledid;
     }	
     
     @Override
     public String toString(){
         GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting().serializeNulls();
+        builder.setPrettyPrinting().disableHtmlEscaping().serializeNulls();
         Gson gson = builder.create();
         return gson.toJson(this);
     }

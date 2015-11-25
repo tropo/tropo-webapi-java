@@ -178,7 +178,7 @@ public class TropoTest {
 		TropoLaunchResult result = tropo.launchSession(token);
 
 		assertNotNull(result);
-		assertEquals(result.getSuccess(),true);
+		assertEquals(result.isSuccess(),true);
 		assertEquals(result.getToken(),token);
 	}
 	
