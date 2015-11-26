@@ -3,8 +3,6 @@ package com.voxeo.tropo;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
 public class TropoResult implements Serializable {
@@ -83,9 +81,6 @@ public class TropoResult implements Serializable {
     
     @Override
     public String toString(){
-        GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting().disableHtmlEscaping().serializeNulls();
-        Gson gson = builder.create();
-        return gson.toJson(this);
+        return TropoUtils.toPrettyString(this);
     }
 }

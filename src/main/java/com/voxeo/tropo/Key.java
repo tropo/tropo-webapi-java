@@ -1,6 +1,12 @@
 package com.voxeo.tropo;
 
-import com.voxeo.tropo.enums.*;
+import com.voxeo.tropo.enums.As;
+import com.voxeo.tropo.enums.Channel;
+import com.voxeo.tropo.enums.Format;
+import com.voxeo.tropo.enums.Mode;
+import com.voxeo.tropo.enums.Network;
+import com.voxeo.tropo.enums.Recognizer;
+import com.voxeo.tropo.enums.Voice;
 
 public class Key {
 

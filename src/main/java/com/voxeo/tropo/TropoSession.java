@@ -3,9 +3,6 @@ package com.voxeo.tropo;
 import java.io.Serializable;
 import java.util.HashMap;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 public class TropoSession implements Serializable {
 
 	private static final long serialVersionUID = -4017185052524417287L;
@@ -85,9 +82,6 @@ public class TropoSession implements Serializable {
 	
 	@Override
     public String toString(){
-        GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting().disableHtmlEscaping().serializeNulls();
-        Gson gson = builder.create();
-        return gson.toJson(this);
+	    return TropoUtils.toPrettyString(this);
     }
 }
