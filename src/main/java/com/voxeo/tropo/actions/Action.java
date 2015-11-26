@@ -60,12 +60,7 @@ public abstract class Action {
         node.add(key, action.json());
         
         array.add(node);
-        // TODO
-        /*
-         * Element, creates a copy. If we want to keep an updatable reference we need to
-         * update the ref. link JsonElement addedNode = (JsonElement) array.getASJObject(
-         * (array.size() - 1) ).get(key); action.node = addedNode;
-         */
+        action.node = array.get(array.size()-1).getAsJsonObject().get(key);
     }
     
     protected void addNull(String arrayName, String key) {
