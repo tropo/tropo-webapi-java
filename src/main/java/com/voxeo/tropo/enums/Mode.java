@@ -1,7 +1,7 @@
 package com.voxeo.tropo.enums;
 
 public enum Mode {
-	DTMF, SPEECH;
+	DTMF, SPEECH, ANY;
 	
 	@Override public String toString() {
 		

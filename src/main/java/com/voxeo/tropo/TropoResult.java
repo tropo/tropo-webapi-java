@@ -3,6 +3,8 @@ package com.voxeo.tropo;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.google.gson.annotations.SerializedName;
+
 public class TropoResult implements Serializable {
 
 	private static final long serialVersionUID = 7944603295887403063L;
@@ -16,7 +18,9 @@ public class TropoResult implements Serializable {
 	private String sessionId;
 	private String state;
 	private String callId;
-	private String calledid;
+	
+	@SerializedName("calledid")
+	private String calledId;
 
 	
 	public ArrayList<ActionResult> getActions() {
@@ -25,7 +29,7 @@ public class TropoResult implements Serializable {
 	public void setActions(ArrayList<ActionResult> actions) {
 		this.actions = actions;
 	}
-	public Boolean getComplete() {
+	public Boolean isComplete() {
 		return complete;
 	}
 	public void setComplete(Boolean complete) {
@@ -68,10 +72,15 @@ public class TropoResult implements Serializable {
     public void setCallId(String callId) {
         this.callId = callId;
     }
-    public String getCalledid() {
-        return calledid;
+    public String getCalledId() {
+        return calledId;
     }
-    public void setCalledid(String calledid) {
-        this.calledid = calledid;
+    public void setCalledId(String calledid) {
+        this.calledId = calledid;
     }	
+    
+    @Override
+    public String toString(){
+        return TropoUtils.toPrettyString(this);
+    }
 }

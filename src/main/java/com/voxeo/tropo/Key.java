@@ -1,6 +1,12 @@
 package com.voxeo.tropo;
 
-import com.voxeo.tropo.enums.*;
+import com.voxeo.tropo.enums.As;
+import com.voxeo.tropo.enums.Channel;
+import com.voxeo.tropo.enums.Format;
+import com.voxeo.tropo.enums.Mode;
+import com.voxeo.tropo.enums.Network;
+import com.voxeo.tropo.enums.Recognizer;
+import com.voxeo.tropo.enums.Voice;
 
 public class Key {
 
@@ -180,16 +186,7 @@ public class Key {
     
 	public static Key createKey(String name, Object value) {
 
-		// There is an issue with JSON-LIB. When an element starts with { or [ then json-lib handles it
-		// as JSON creating wrong text. Ej. "[5 DIGITS]" is transformed to ["5 DIGITS"]
-		if (value instanceof String) {
-			String strValue = (String)value;
-			if (strValue.startsWith("[") || strValue.startsWith("{")) {
-				strValue = strValue.replace("[", "$[$");
-				strValue = strValue.replace("{", "${$");
-				value = strValue;
-			}
-		} else if (value instanceof Enum) {
+		if (value instanceof Enum) {
 			value = value.toString();
 		}
 		Key key = new Key(name);

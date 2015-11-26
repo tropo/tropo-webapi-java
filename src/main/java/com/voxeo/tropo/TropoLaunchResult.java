@@ -10,7 +10,7 @@ public class TropoLaunchResult implements Serializable {
 	private String token;
 	private String id;
 	
-	public Boolean getSuccess() {
+	public Boolean isSuccess() {
 		return success;
 	}
 	public void setSuccess(Boolean success) {
@@ -29,5 +29,8 @@ public class TropoLaunchResult implements Serializable {
 		this.id = id;
 	}
 	
-	
+	@Override
+    public String toString(){
+	    return TropoUtils.toPrettyString(this);
+    }
 }

@@ -1,8 +1,8 @@
 package com.voxeo.tropo.actions;
 
 import static com.voxeo.tropo.Key.VALUE;
-import net.sf.json.JSONObject;
 
+import com.google.gson.JsonObject;
 import com.voxeo.tropo.Key;
 import com.voxeo.tropo.annotations.RequiredKeys;
 import com.voxeo.tropo.annotations.ValidKeys;
@@ -14,8 +14,8 @@ public class SayAction extends ArrayAction {
 	public SayAction(String text) {
 
 		setName("say");
-		JSONObject item = new JSONObject();
-		item.put("value", text);
+		JsonObject item = new JsonObject();
+		item.addProperty("value", text);
 		add(item);		
 	}	
 	

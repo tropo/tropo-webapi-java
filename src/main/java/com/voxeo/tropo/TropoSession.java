@@ -79,4 +79,9 @@ public class TropoSession implements Serializable {
 	public void setFrom(TropoEntity from) {
 		this.from = from;
 	}
+	
+	@Override
+    public String toString(){
+	    return TropoUtils.toPrettyString(this);
+    }
 }

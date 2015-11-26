@@ -81,6 +81,6 @@ public class OnActionTest {
 	            Do.on(EVENT("success"),NEXT("/tropoResultIn")).say("Oh Kay")
 	    );
 		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"ask\":{\"name\":\"foo\",\"bargein\":true,\"timeout\":30,\"required\":true,\"say\":[{\"value\":\"Log in as voice, text, or log out\"}],\"on\":[{\"event\":\"success\",\"next\":\"/tropoResultIn\",\"say\":[{\"value\":\"Oh Kay\"}]}]}}]}");
+		assertEquals(tropo.text(), "{\"tropo\":[{\"ask\":{\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"required\":true,\"say\":[{\"value\":\"Log in as voice, text, or log out\"}],\"on\":[{\"event\":\"success\",\"next\":\"/tropoResultIn\",\"say\":[{\"value\":\"Oh Kay\"}]}]}}]}");
 	}
 }

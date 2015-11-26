@@ -35,4 +35,9 @@ public class TropoEntity implements Serializable {
 	public void setNetwork(String network) {
 		this.network = network;
 	}
+	
+	@Override
+    public String toString(){
+	    return TropoUtils.toPrettyString(this);
+    }
 }

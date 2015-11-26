@@ -33,7 +33,7 @@ public class MessageActionTest {
 			Do.startRecording(URL("http://foobar"), METHOD("POST"), FORMAT(Format.MP3), USERNAME("jose"), PASSWORD("passwd")),
 			Do.say("Please say your account number"));
 			
-		assertEquals(tropo.text(),"{\"tropo\":[{\"message\":{\"to\":\"foo\",\"from\":\"bar\",\"network\":\"SMS\",\"channel\":\"TEXT\",\"timeout\":10,\"answerOnMedia\":false,\"headers\":{\"fooKey\":\"fooValue\",\"barKey\":\"barValue\"},\"startRecording\":{\"url\":\"http://foobar\",\"method\":\"POST\",\"format\":\"audio/mp3\",\"username\":\"jose\",\"password\":\"passwd\"},\"say\":[{\"value\":\"Please say your account number\"}]}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"message\":{\"to\":\"foo\",\"from\":\"bar\",\"network\":\"SMS\",\"channel\":\"TEXT\",\"timeout\":10.0,\"answerOnMedia\":false,\"headers\":{\"fooKey\":\"fooValue\",\"barKey\":\"barValue\"},\"startRecording\":{\"url\":\"http://foobar\",\"method\":\"POST\",\"format\":\"audio/mp3\",\"username\":\"jose\",\"password\":\"passwd\"},\"say\":[{\"value\":\"Please say your account number\"}]}}]}");
 	}
 	
 	@Test

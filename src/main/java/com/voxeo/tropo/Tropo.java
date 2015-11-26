@@ -12,9 +12,9 @@ import static com.voxeo.tropo.Key.NAME;
 import static com.voxeo.tropo.Key.NETWORK;
 import static com.voxeo.tropo.Key.NEXT;
 import static com.voxeo.tropo.Key.PASSWORD;
-import static com.voxeo.tropo.Key.SENSITIVITY;
 import static com.voxeo.tropo.Key.REQUIRED;
 import static com.voxeo.tropo.Key.SEND_TONES;
+import static com.voxeo.tropo.Key.SENSITIVITY;
 import static com.voxeo.tropo.Key.TIMEOUT;
 import static com.voxeo.tropo.Key.TO;
 import static com.voxeo.tropo.Key.URL;
@@ -268,12 +268,6 @@ public class Tropo extends ArrayBackedJsonAction {
   public TropoSession session(HttpServletRequest request) {
 
     return parser.session(request);
-  }
-
-  @SuppressWarnings("rawtypes")
-  public Map parse(Map json) {
-
-    return parser.parse(json);
   }
 
   public void render(HttpServletResponse response) {
