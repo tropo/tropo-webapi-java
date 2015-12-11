@@ -16,9 +16,9 @@ public class RecordActionTest {
 	public void testRecord() {
 		
 		Tropo tropo = new Tropo();
-		tropo.record(NAME("foo"),URL("http://sendme.com/tropo"),BEEP(true),SEND_TONES(false),EXIT_TONE("#"),INTERDIGIT_TIMEOUT(5));
+		tropo.record(NAME("foo"),URL("http://sendme.com/tropo"),BEEP(true),SEND_TONES(false),EXIT_TONE("#"),INTERDIGIT_TIMEOUT(5), MAX_TIME(300.0f), ASYNC_UPLOAD(true));
 		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"send_tones\":false,\"exit_tone\":\"#\",\"interdigitTimeout\":5}}]}");
+		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"send_tones\":false,\"exit_tone\":\"#\",\"interdigitTimeout\":5,\"maxTime\":300.0,\"asyncUpload\":true}}]}");
 	}	
 	
 	@Test

@@ -184,6 +184,16 @@ public class Key {
         return createKey("terminator", value);
     }
     
+    public static Key MAX_TIME(Float value) {
+
+        return createKey("maxTime", value);
+    }
+    
+    public static Key ASYNC_UPLOAD(Boolean value) {
+
+        return createKey("asyncUpload", value);
+    }
+    
 	public static Key createKey(String name, Object value) {
 
 		if (value instanceof Enum) {
