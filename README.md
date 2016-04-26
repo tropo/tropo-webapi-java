@@ -26,9 +26,10 @@ Requirements
 You can install this library in any Java application or application server. The library depends primarily on Json-lib and Commons Httpclient. These libraries also depend on other artifacts. The following listing shows all the libraries that need to be present in an application that uses Tropo's Java Webapi:
 
 	* gson-2.4.jar
-	* commons-httpclient-3.1.jar
-	* commons-logging-1.1.1.jar
-	* common-codec-1.2.jar
+	* httpclient-4.5.2.jar
+	* httpcore-4.4.4.jar
+	* commons-logging-1.2.jar
+	* common-codec-1.9.jar
 	
 
 All libraries have been included in the [dist/dependencies](https://github.com/tropo/tropo-webapi-java/tree/master/dist/dependencies) folder.
