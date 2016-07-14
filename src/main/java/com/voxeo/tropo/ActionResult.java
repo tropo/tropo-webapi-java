@@ -24,6 +24,11 @@ public class ActionResult implements Serializable {
     private String xml;
     private Integer duration;
     private String url;
+    
+    /*Depend on upload status after recording completion. "uploadStatus": ["success"|"failed"|"unavailable”], will provide
+      information about the recording status
+    */
+    private String uploadStatus;
 	
 	public String getName() {
 		return name;
@@ -90,6 +95,12 @@ public class ActionResult implements Serializable {
     }
     public void setUrl(String url) {
         this.url = url;
+    }
+    public String getuploadStatus() {
+        return uploadStatus;
+    }
+    public void setuploadStatus(String uploadStatus) {
+        this.uploadStatus = uploadStatus;
     }
     
     @Override
