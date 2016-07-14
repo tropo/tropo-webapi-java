@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.voxeo.tropo</groupId>
   <artifactId>tropo-webapi-java</artifactId>
-  <version>0.4.2</version>
+  <version>0.4.3</version>
   <packaging>jar</packaging>
   <name>Tropo Java WebApi</name>
   <description>WebApi Java implementation for the Tropo Cloud platform</description>
