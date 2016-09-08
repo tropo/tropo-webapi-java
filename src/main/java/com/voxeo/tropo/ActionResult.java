@@ -25,7 +25,7 @@ public class ActionResult implements Serializable {
     private Integer duration;
     private String url;
     
-    /*Depend on upload status after recording completion. "uploadStatus": ["success"|"failed"|"unavailable”], will provide
+    /*Depend on upload status after recording completion. "uploadStatus": ["success"|"failed"|"unavailable"], will provide
       information about the recording status
     */
     private String uploadStatus;
