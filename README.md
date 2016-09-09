@@ -43,23 +43,9 @@ If you want to use the Maven artifact from your own projects you can add the fol
   <dependency>
     <groupId>com.voxeo.tropo</groupId>
     <artifactId>tropo-webapi-java</artifactId>
-    <version>0.3.3</version>
+    <version>0.4.3</version>
   </dependency>
 ```
-
-You will have also to link to our public maven Repository:
-
-```xml
-  <repositories>
-    <repository>
-      <id>tropo-public</id>
-      <name>Uncle Tropos's Public Maven Repo</name>
-      <url>http://maven.tropo.com:8081/nexus/content/groups/public</url>
-    </repository>
-  </repositories>
-```
-
-You can also check the build status of the project at any time from our public [CI server](http://ci.voxeolabs.net/jenkins/job/tropo-java-webapi/).
 
 Building it from Source
 ------------------------

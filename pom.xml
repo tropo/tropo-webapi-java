@@ -70,7 +70,6 @@
     <profile>
       <id>release</id>
       <properties>
-        <gpg.keyname>C0F5498A</gpg.keyname>
         <gpg.defaultKeyring>false</gpg.defaultKeyring>
       </properties>
       <build>
