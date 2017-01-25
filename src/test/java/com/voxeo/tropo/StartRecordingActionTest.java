@@ -23,6 +23,24 @@ public class StartRecordingActionTest {
 	}	
 	
 	@Test
+	public void testStartRecordingWithTranscription() {
+		
+		Tropo tropo = new Tropo();
+		tropo.startRecording(URL("http://postrecording.com/tropo"),Key.createKey("transcriptionOutURI", "http://url.com"));
+		
+		assertEquals(tropo.text(), "{\"tropo\":[{\"startRecording\":{\"url\":\"http://postrecording.com/tropo\",\"transcriptionOutURI\":\"http://url.com\"}}]}");
+	}	
+	
+	@Test
+	public void testStartRecordingWithAsyncUpload() {
+		
+		Tropo tropo = new Tropo();
+		tropo.startRecording(URL("http://postrecording.com/tropo"),Key.ASYNC_UPLOAD(true));
+		
+		assertEquals(tropo.text(), "{\"tropo\":[{\"startRecording\":{\"url\":\"http://postrecording.com/tropo\",\"asyncUpload\":true}}]}");
+	}
+	
+	@Test
 	public void testStartRecordingLargeExample() {
 
 		Tropo tropo = new Tropo();
