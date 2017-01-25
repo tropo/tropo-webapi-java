@@ -9,7 +9,7 @@ import com.voxeo.tropo.Key;
 import com.voxeo.tropo.annotations.RequiredKeys;
 import com.voxeo.tropo.annotations.ValidKeys;
 
-@ValidKeys(keys = { "name", "text", "mode", "required", "choices", "allowSignals", "attempts", "bargein", "minConfidence", "recognizer", "terminator", "timeout", "sensitivity", "voice",
+@ValidKeys(keys = { "name", "text", "mode", "required", "choices", "allowSignals", "attempts", "bargein", "minConfidence", "recognizer", "timeout", "sensitivity", "voice",
     "interdigitTimeout" })
 @RequiredKeys(keys = { "name" })
 public class AskAction extends JsonAction {
