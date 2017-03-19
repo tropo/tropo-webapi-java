@@ -114,7 +114,7 @@ public class TropoTest {
 		Tropo tropo = new Tropo();
 		TropoResult result = tropo.parse(json_session);
 		assertNotNull(result);
-		assertEquals(result.getSequence(), 1);
+		assertEquals(result.getSequence(), new Integer(1));
 		assertNotNull(result.getActions());
 		assertEquals(result.getActions().get(0).getName(),"zip");
 		assertEquals(result.getActions().get(0).getInterpretation(),"12345");
