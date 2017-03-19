@@ -8,8 +8,8 @@ import com.voxeo.tropo.Key;
 import com.voxeo.tropo.annotations.RequiredKeys;
 import com.voxeo.tropo.annotations.ValidKeys;
 
-@ValidKeys(keys={"name","allowSignals","mute","on","playTones","terminator","id","send_tones","exit_tone","interdigitTimeout"})
-@RequiredKeys(keys={"id"})
+@ValidKeys(keys={"name","allowSignals","mute","on","playTones","terminator","id","send_tones","exit_tone","interdigitTimeout","joinPrompt","leavePrompt","required","promptLogSecurity"})
+@RequiredKeys(keys={"id","name"})
 public class ConferenceAction extends JsonAction {
 
 	private ActionSupportHandler<NestedOnAction> onActionSupportHandler = new ActionSupportHandler<NestedOnAction>(NestedOnAction.class);	

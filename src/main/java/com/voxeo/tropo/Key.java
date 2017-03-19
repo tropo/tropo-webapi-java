@@ -1,5 +1,8 @@
 package com.voxeo.tropo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.voxeo.tropo.enums.As;
 import com.voxeo.tropo.enums.Channel;
 import com.voxeo.tropo.enums.Format;
@@ -43,6 +46,7 @@ public class Key {
 		return createKey("timeout", value);
 	}
 
+	@Deprecated
 	public static Key INTERDIGIT_TIMEOUT(Integer value) {
 
 		return createKey("interdigitTimeout", value);
@@ -77,10 +81,12 @@ public class Key {
 
 		return createKey("mute", value);
 	}
+	@Deprecated
 	public static Key EXIT_TONE(String value) {
 
 		return createKey("exit_tone", value);
 	}
+	@Deprecated
 	public static Key SEND_TONES(Boolean value) {
 
 		return createKey("send_tones", value);
@@ -192,6 +198,63 @@ public class Key {
     public static Key ASYNC_UPLOAD(Boolean value) {
 
         return createKey("asyncUpload", value);
+    }
+
+    public static Key INTERDIGIT_TIMEOUT(Float value) {
+
+      return createKey("interdigitTimeout", value);
+    }
+
+    public static Key JOIN_PROMPT(Boolean value) {
+
+      return createKey("joinPrompt", value);
+    }
+
+    public static Key JOIN_PROMPT(String value, Voice voice) {
+
+      Map<String, String> map = new HashMap<String, String>();
+      map.put("value", value);
+      if (voice != null) {
+        map.put("voice", voice.toString());
+      }
+
+      return createKey("joinPrompt", map);
+    }
+
+    public static Key JOIN_PROMPT(String value) {
+
+      return JOIN_PROMPT(value, null);
+    }
+
+    public static Key LEAVE_PROMPT(Boolean value) {
+
+      return createKey("leavePrompt", value);
+    }
+
+    public static Key LEAVE_PROMPT(String value, Voice voice) {
+
+      Map<String, String> map = new HashMap<String, String>();
+      map.put("value", value);
+      if (voice != null) {
+        map.put("voice", voice.toString());
+      }
+
+      return createKey("leavePrompt", map);
+    }
+
+    public static Key LEAVE_PROMPT(String value) {
+
+      return LEAVE_PROMPT(value, null);
+    }
+
+    public static Key PLAY_TONES(Boolean value) {
+
+      return createKey("playTones", value);
+    }
+
+    public static Key PROMPT_LOG_SECURITY() {
+      
+      return createKey("promptLogSecurity", "suppress");
     }
     
 	public static Key createKey(String name, Object value) {
