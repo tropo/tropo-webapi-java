@@ -28,6 +28,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.client.HttpClient;
 import support.ActionSupportHandler;
 
 import com.voxeo.tropo.actions.ArrayBackedJsonAction;
@@ -303,6 +304,11 @@ public class Tropo extends ArrayBackedJsonAction {
   public TropoLaunchResult launchSession(String token, Map<String, String> params) {
 
     SessionLauncher launcher = new SessionLauncher();
+    return launcher.launchSession(baseUrl, token, params);
+  }
+
+  public TropoLaunchResult launchSession(String token, Map<String, String> params, HttpClient httpClient) {
+    SessionLauncher launcher = new SessionLauncher(httpClient);
     return launcher.launchSession(baseUrl, token, params);
   }
 
