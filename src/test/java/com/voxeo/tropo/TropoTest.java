@@ -5,12 +5,17 @@ import static org.junit.Assert.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.voxeo.tropo.actions.Do;
 import com.voxeo.tropo.mock.MockHttpServletRequest;
 import com.voxeo.tropo.mock.MockHttpServletResponse;
+
+import java.util.Collections;
 
 public class TropoTest {
 
@@ -181,8 +186,21 @@ public class TropoTest {
 		assertEquals(result.isSuccess(),true);
 		assertEquals(result.getToken(),token);
 	}
-	
-	
+
+	@Test(expected = TropoException.class)
+	public void testLaunchSessionWithProvidedHttpClientExpectTimeout() {
+
+		// This tropo test is hosted in a special Tropo username "hudson"'s account
+		String token = "bb308b34ed83d54cab226f4af7969e4c7d7d9196cdb3210b5ef0cb345616629005bfd05efe3f4409cd496ca2";
+		Tropo tropo = new Tropo();
+
+		//creates a config with 1 ms socket timeout, will not connect in time
+		RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(1).build();
+		HttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();
+
+		TropoLaunchResult result = tropo.launchSession(token, Collections.EMPTY_MAP, httpClient);
+	}
+
 	@Test
 	public void testEmpty() {
 

@@ -14,11 +14,23 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 
 public class SessionLauncher {
+
+	private final HttpClient client;
+
+	public SessionLauncher() {
+		client = HttpClientBuilder.create().build();
+	}
+
+	public SessionLauncher(HttpClient httpClient) {
+		if (httpClient == null) {
+			httpClient = HttpClientBuilder.create().build();
+		}
+		client = httpClient;
+	}
 
 	public TropoLaunchResult launchSession(String baseUrl, String token, Map<String, String> mapParams) {
 		
@@ -28,7 +40,6 @@ public class SessionLauncher {
 		String url = baseUrl + "sessions?action=create";
 
 		TropoParser parser = new TropoParser();
-	    HttpClient client = HttpClientBuilder.create().build();
 
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("token", token));
