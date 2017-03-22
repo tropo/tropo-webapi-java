@@ -16,7 +16,7 @@ public class StartRecordingActionTest {
 	public void testStartRecording() {
 		
 		Tropo tropo = new Tropo();
-		tropo.startRecording(Key.URL("http://postrecording.com/tropo"), Key.METHOD(Method.POST.toString()));
+		tropo.startRecording(Key.URL("http://postrecording.com/tropo"), Key.METHOD(Method.POST));
 		
 		assertEquals(tropo.text(), "{\"tropo\":[{\"startRecording\":{\"url\":\"http://postrecording.com/tropo\",\"method\":\"POST\"}}]}");
 	}	
