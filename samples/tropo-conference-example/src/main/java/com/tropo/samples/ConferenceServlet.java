@@ -1,12 +1,5 @@
 package com.tropo.samples;
 
-import static com.voxeo.tropo.Key.EVENT;
-import static com.voxeo.tropo.Key.EXIT_TONE;
-import static com.voxeo.tropo.Key.ID;
-import static com.voxeo.tropo.Key.MUTE;
-import static com.voxeo.tropo.Key.NAME;
-import static com.voxeo.tropo.Key.SEND_TONES;
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -14,24 +7,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.voxeo.tropo.Key;
 import com.voxeo.tropo.Tropo;
-import com.voxeo.tropo.actions.Do;
+import com.voxeo.tropo.TropoSession;
 
-@SuppressWarnings("serial")
 public class ConferenceServlet extends HttpServlet {
 
-	@Override
-	public void service(HttpServletRequest request, 
-			HttpServletResponse response) throws ServletException, IOException {
+  private static final long serialVersionUID = 7658399518995371027L;
 
-		Tropo tropo = new Tropo();
-		
-		tropo.say("Thank you for calling. You will now join the conference.");
-		
-		tropo.conference(NAME("foo"),ID("1234"),MUTE(false),SEND_TONES(false),EXIT_TONE("#")).and(
-			Do.on(EVENT("join")).and(
-			Do.say("Welcome to the conference")));
-		
-		tropo.render(response);
-	}
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    Tropo tropo = new Tropo();
+    
+    TropoSession tropoSession = tropo.session(req);
+    System.out.println(tropoSession.getId());
+
+    tropo.say("Thank you for calling. You will now join the conference.");
+
+    tropo.conference(Key.ID("1234"), Key.ALLOW_SIGNALS("exit", "quit", "bye"), Key.INTERDIGIT_TIMEOUT(11.2F),
+        //Key.JOIN_PROMPT("Welcome to the conference"), Key.LEAVE_PROMPT("There is someone that leave the conference"),
+        Key.JOIN_PROMPT(true), Key.LEAVE_PROMPT(true),
+        Key.MUTE(false), Key.NAME("foo"), Key.PLAY_TONES(true), Key.REQUIRED(true), Key.TERMINATOR("#"));
+
+    tropo.render(resp);
+  }
+
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    doGet(req, resp);
+  }
 }

@@ -1,5 +1,8 @@
 package com.voxeo.tropo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.voxeo.tropo.enums.As;
 import com.voxeo.tropo.enums.Channel;
 import com.voxeo.tropo.enums.Format;
@@ -28,6 +31,14 @@ public class Key {
 		return createKey("value", value);
 	}
 
+  /**
+   * This determines whether Tropo should move on to the next verb; if required
+   * is set to 'true', Tropo will only move on to the next verb if the current
+   * operation completely successfully.
+   * <p>
+   * Default: true
+   * </p>
+   */
 	public static Key REQUIRED(Boolean value) {
 
 		return createKey("required", value);
@@ -43,6 +54,16 @@ public class Key {
 		return createKey("timeout", value);
 	}
 
+  /**
+   * This is useful to allow to help users restart the process if they mistyped.
+   * 
+   * @deprecated The preferred way to do this is via the
+   *             {@link #INTERDIGIT_TIMEOUT(Float)}
+   * @param value
+   *          How long does Tropo wait between key presses to determine the user
+   *          is done with their input.
+   */
+	@Deprecated
 	public static Key INTERDIGIT_TIMEOUT(Integer value) {
 
 		return createKey("interdigitTimeout", value);
@@ -73,14 +94,37 @@ public class Key {
 		return createKey("id", value);
 	}
 
+  /**
+   * Adds the user to the conference room with their audio muted.
+   * <p>
+   * Default: false
+   * </p>
+   */
 	public static Key MUTE(Boolean value) {
 
 		return createKey("mute", value);
 	}
+
+  /**
+   * This is the touch-tone key used to exit the conference.
+   * 
+   * @deprecated The preferred way to do this is via the
+   *             {@link #TERMINATOR(String)}
+   */
+	@Deprecated
 	public static Key EXIT_TONE(String value) {
 
 		return createKey("exit_tone", value);
 	}
+
+  /**
+   * This defines whether to send touch tone phone input to the conference or
+   * block the audio.
+   * 
+   * @deprecated The preferred way to do this is via the
+   *             {@link #PLAY_TONES(Boolean)}
+   */
+	@Deprecated
 	public static Key SEND_TONES(Boolean value) {
 
 		return createKey("send_tones", value);
@@ -150,10 +194,30 @@ public class Key {
 
 		return createKey("voice", voice);
 	}
+
+  /**
+   * Define allowSignals as an empty string (""), it defines the function as
+   * "uninterruptible".
+   */
 	public static Key ALLOW_SIGNALS() {
 
 		return createKey("allowSignals", "");
 	}
+
+  /**
+   * <p>
+   * It allows you to assign a signal to this function. Events from the Tropo
+   * REST API with a matching signal name will "interrupt" the function (i.e.,
+   * stop it from running). If it already ran and completed, your interrupt
+   * request will be ignored. If the function has not run yet, the interrupt
+   * will be queued until it does run.
+   * </p>
+   * <p>
+   * By default, allowSignals will accept any signal as valid; you can also use
+   * an array - the function will stop if it receives an interrupt signal
+   * matching any of the names in the array.
+   * </P>
+   */
 	public static Key ALLOW_SIGNALS(String... signals) {
 
 		return createKey("allowSignals", signals);
@@ -179,6 +243,9 @@ public class Key {
         return createKey("milliseconds", milliseconds);
     }
 
+  /**
+   * This is the touch-tone key (also known as "DTMF digit") used to exit.
+   */
     public static Key TERMINATOR(String value) {
 
         return createKey("terminator", value);
@@ -192,6 +259,124 @@ public class Key {
     public static Key ASYNC_UPLOAD(Boolean value) {
 
         return createKey("asyncUpload", value);
+    }
+
+  /**
+   * How long does Tropo wait between key presses to determine the user is done
+   * with their input. This is useful to allow to help users restart the process
+   * if they mistyped.
+   * <p>
+   * Default: 5.0
+   * </p>
+   */
+    public static Key INTERDIGIT_TIMEOUT(Float value) {
+
+      return createKey("interdigitTimeout", value);
+    }
+
+  /**
+   * Defines a prompt that plays to all participants of a conference when
+   * someone joins the conference. If set to true, the default beep is played.
+   * <p>
+   * Default: false
+   * </p>
+   */
+    public static Key JOIN_PROMPT(Boolean value) {
+
+      return createKey("joinPrompt", value);
+    }
+
+  /**
+   * Defines a prompt that plays to all participants of a conference when
+   * someone joins the conference.It's possible to define either TTS or an audio
+   * URL using additional attributes value and voice
+   * 
+   * @param value
+   *          value is used to play simple TTS and/or an audio URL, and supports
+   *          SSML
+   * @param voice
+   *          voice is used to define which of the available voices should be
+   *          used for TTS; if voice is left undefined, the default voice will
+   *          be used
+   * @return
+   */
+    public static Key JOIN_PROMPT(String value, Voice voice) {
+
+      Map<String, String> map = new HashMap<String, String>();
+      map.put("value", value);
+      if (voice != null) {
+        map.put("voice", voice.toString());
+      }
+
+      return createKey("joinPrompt", map);
+    }
+
+    public static Key JOIN_PROMPT(String value) {
+
+      return JOIN_PROMPT(value, null);
+    }
+
+  /**
+   * Defines a prompt that plays to all participants of a conference when
+   * someone leaves the conference. If set to true, the default beep is played.
+   * <p>
+   * Default: false
+   * </p>
+   */
+    public static Key LEAVE_PROMPT(Boolean value) {
+
+      return createKey("leavePrompt", value);
+    }
+
+  /**
+   * Defines a prompt that plays to all participants of a conference when
+   * someone leaves the conference.It's possible to define either TTS or an
+   * audio URL using additional attributes value and voice
+   * 
+   * @param value
+   *          value is used to play simple TTS and/or an audio URL, and supports
+   *          SSML
+   * @param voice
+   *          voice is used to define which of the available voices should be
+   *          used for TTS; if voice is left undefined, the default voice will
+   *          be used
+   * @return
+   */
+    public static Key LEAVE_PROMPT(String value, Voice voice) {
+
+      Map<String, String> map = new HashMap<String, String>();
+      map.put("value", value);
+      if (voice != null) {
+        map.put("voice", voice.toString());
+      }
+
+      return createKey("leavePrompt", map);
+    }
+
+    public static Key LEAVE_PROMPT(String value) {
+
+      return LEAVE_PROMPT(value, null);
+    }
+
+  /**
+   * This defines whether to send touch tone phone input to the conference or
+   * block the audio.
+   * <p>
+   * Default: false
+   * </p>
+   */
+    public static Key PLAY_TONES(Boolean value) {
+
+      return createKey("playTones", value);
+    }
+
+  /**
+   * Controls whether Tropo logs the text to speech string used by the method,
+   * which disables output logging for this method.
+   */
+    public static Key PROMPT_LOG_SECURITY() {
+      
+      return createKey("promptLogSecurity", "suppress");
     }
     
 	public static Key createKey(String name, Object value) {
