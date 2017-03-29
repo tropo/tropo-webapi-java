@@ -46,6 +46,7 @@ import com.voxeo.tropo.actions.TransferAction;
 import com.voxeo.tropo.actions.WaitAction;
 import com.voxeo.tropo.enums.Channel;
 import com.voxeo.tropo.enums.Format;
+import com.voxeo.tropo.enums.LogSecurityState;
 import com.voxeo.tropo.enums.Network;
 
 public class Tropo extends ArrayBackedJsonAction {
@@ -310,6 +311,11 @@ public class Tropo extends ArrayBackedJsonAction {
   public TropoLaunchResult launchSession(String token, Map<String, String> params, HttpClient httpClient) {
     SessionLauncher launcher = new SessionLauncher(httpClient);
     return launcher.launchSession(baseUrl, token, params);
+  }
+
+  public void generalLogSecurity(LogSecurityState value) {
+
+    addObject("tropo", "generalLogSecurity", value.toString());
   }
 
   public String getBaseUrl() {

@@ -70,7 +70,15 @@ public abstract class Action {
         node.add(key, null);
         array.add(node);
     }
-    
+
+    protected void addObject(String arrayName, String objectName, String objectValue) {
+
+        JsonArray array = getJSONArray(arrayName);
+        JsonObject node = new JsonObject();
+        node.addProperty(objectName, objectValue);
+        array.add(node);
+  }
+
     public Action and(Action... actions) {
     
         validate();
