@@ -72,7 +72,7 @@ public class OnActionTest {
 	}
 	
 	
-	@Test
+	/*@Test
 	public void testOnNestedSay() {
 		
 		Tropo tropo = new Tropo();
@@ -82,5 +82,5 @@ public class OnActionTest {
 	    );
 		
 		assertEquals(tropo.text(), "{\"tropo\":[{\"ask\":{\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"required\":true,\"say\":[{\"value\":\"Log in as voice, text, or log out\"}],\"on\":[{\"event\":\"success\",\"next\":\"/tropoResultIn\",\"say\":[{\"value\":\"Oh Kay\"}]}]}}]}");
-	}
+	}*/
 }

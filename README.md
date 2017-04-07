@@ -13,7 +13,7 @@ Additionally, this library implements the session method from Tropo [Rest API](h
 Requirements
 ------------
 
-Current version is 0.4.5.
+Current version is 0.4.6.
 
 License
 ------------
@@ -43,7 +43,7 @@ If you want to use the Maven artifact from your own projects you can add the fol
   <dependency>
     <groupId>com.voxeo.tropo</groupId>
     <artifactId>tropo-webapi-java</artifactId>
-    <version>0.4.4</version>
+    <version>0.4.6</version>
   </dependency>
 ```
 
@@ -111,17 +111,13 @@ At the same time, Tropo's Java Webapi defines a complete DSL to create applicati
 		// Example 1
 		Tropo tropo = new Tropo();
 		tropo
-			.ask(NAME("foo"),BARGEIN(true),TIMEOUT(30.0f),REQUIRED(true)).and(
-				Do.say("Please say your account number"),
-				Do.on(EVENT("success"),NEXT("/result.json")),
-				Do.choices(VALUE("[5 DIGITS]")));
+			.ask(Key.CHOICES("[5 DIGITS]"), Key.SAY(new Say("Please say your account number")), Key.NAME("foo"),Key.BARGEIN(true),Key.TIMEOUT(30.0f),Key.REQUIRED(true));
+		tropo.on(Key.EVENT("continue"), Key.NEXT("/result.json"));
 
 		// Example 2
 		Tropo tropo = new Tropo();
 		tropo
-			.conference(NAME("foo"),ID("1234"),MUTE(false),SEND_TONES(false),EXIT_TONE("#")).and(
-				Do.on(EVENT("join")).say("Welcome to the conference")
-			);
+			.conference(Key.ID("1234"),Key.NAME("foo"),Key.MUTE(false),Key.PLAY_TONES(false),Key.TERMINATOR("#"),Key.JOIN_PROMPT("Welcome to the conference"));
 
 		// Example 3
 		Tropo tropo = new Tropo();

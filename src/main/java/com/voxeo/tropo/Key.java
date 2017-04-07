@@ -3,7 +3,10 @@ package com.voxeo.tropo;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.voxeo.tropo.actions.AskAction.Choices;
+import com.voxeo.tropo.actions.AskAction.Say;
 import com.voxeo.tropo.enums.As;
+import com.voxeo.tropo.enums.AsrLogSecurity;
 import com.voxeo.tropo.enums.Channel;
 import com.voxeo.tropo.enums.EmailFormat;
 import com.voxeo.tropo.enums.Format;
@@ -73,7 +76,7 @@ public class Key {
 
 	public static Key CHOICES(String value) {
 
-		return createKey("choices", value);
+		return CHOICES(new Choices(value));
 	}
 
 	public static Key EVENT(String value) {
@@ -514,6 +517,129 @@ public class Key {
     public static Key TRANSCRIPTION_ID(String value) {
 
     	return createKey("transcriptionID", value);
+    }
+
+  /**
+   * <p>
+   * The choices object tells Tropo how to handle user input. It indicates the
+   * structure of the expected data, if any, and the various acceptable modes of
+   * input - some applications require just keypad input (dtmf), others are
+   * speech driven and some can accept both.
+   * </p>
+   * <p>
+   * These are the properties for the choices object:
+   * </p>
+   * <ul>
+   * <li><strong>value</strong> -- This is the grammar which determines the type
+   * of expected data. See the examples below for more detail.</li>
+   * <li><strong>mode</strong> (default: any) -- Only applies to the voice
+   * channel and can be either 'speech', 'dtmf', or 'any'.</li>
+   * <li><strong>terminator</strong> (default: #) -- This is the touch-tone key
+   * (also known as "DTMF digit") that indicates the end of input. A common use
+   * of the terminator is the # key, eg:
+   * "Please enter your five digit zip code, then press the pound key."</li>
+   * </ul>
+   */
+    public static Key CHOICES(Choices choices) {
+      
+      return createKey("choices", choices);
+    }
+
+  /**
+   * <p>
+   * This determines what is played or sent to the caller. This can be a single
+   * object or an array of objects. When say is a part of an ask, it takes an
+   * event key. This determines if the prompt will be played based on a
+   * particular event; the possible events are:
+   * </p>
+   * <ul>
+   * <li><strong>nomatch</strong> -- Returned if the user did not say or input a
+   * valid response.</li>
+   * <li><strong>timeout</strong> -- Returned if there was no user input in the
+   * allotted time.</li>
+   * </ul>
+   * <p>
+   * Each of these event descriptors can also take an attempt value, based on
+   * the number of attempted input requests. For example, if you want to define
+   * a different say depending on the attempt, you would specify one say with
+   * the event 'nomatch:1' and a different say for the event 'nomatch:2'.
+   * </p>
+   */
+    public static Key SAY(Say... says) {
+
+      return createKey("say", says);
+    }
+    
+    public static Key SAY(String value) {
+
+      return SAY(new Say(value));
+    }
+
+  /**
+   * <p>
+   * This field defines how long the application should wait - in seconds -
+   * after input before determining a match. This is most useful for options
+   * with variable input - for example, if you ask a caller for their 4 OR 5
+   * digit pin number and use the [4-5 DIGITS] grammar, the user might reply
+   * with 4 digits and then stop, even if you define a terminator. This field
+   * allows you to define how long you want the app to wait before the
+   * application decided the caller is finished responding and has no further
+   * input.
+   * </p>
+   */
+    public static Key SPEECH_COMPLETE_TIMEOUT(Float value) {
+      
+      return createKey("speechCompleteTimeout", value);
+    }
+
+  /**
+   * <p>
+   * This field defines how long the application should wait - in seconds -
+   * after partial input before determining a "no match". For example, if you
+   * prompt the caller to select three choices from a list of options, and the
+   * caller responds with only one then stops talking, this defines how long the
+   * app will wait before considering the caller finished and returning a no
+   * match.
+   * </p>
+   */
+    public static Key SPEECH_INCOMPLETE_TIMEOUT(Float value) {
+
+      return createKey("speechIncompleteTimeout", value);
+    }
+
+  /**
+   * <p>
+   * Control whether Tropo should log the input from the user in response to the
+   * ask method. Possible values are "none" (the default), "suppress" (which
+   * prevents logging entirely), or "mask" (which replaces selected characters
+   * with a *. If set to "mask", then you also must set the maskTemplate
+   * parameter to a valid masking pattern.
+   * </p>
+   */
+    public static Key ASR_LOG_SECURITY(AsrLogSecurity asrLogSecurity) {
+
+      return createKey("asrLogSecurity", asrLogSecurity);
+    }
+
+  /**
+   * <p>
+   * When asrLogSecurity is set to "mask", this parameter defines the pattern
+   * that should be masked. Only digit input can be masked, for any other input
+   * Tropo will ignore the maskTemplate and suppress the input logging entirely.
+   * </p>
+   * <p>
+   * The mask template is a masking pattern constructed of three characters. "D"
+   * in any postion indicates that Tropo should log the digit that appears at
+   * that position. "X" in a position tells Tropo to suppress the digit
+   * appearing at that position, and Tropo will replace it with a "*". A hyphen
+   * or dash "-" tells Tropo to replace one or more digits with a star. For
+   * example, with a maskTemplate of XXDD- the string 123456789 becomes
+   * "**34*****".
+   * </p>
+   */
+    public static Key MASK_TEMPLATE(String value) {
+
+      return createKey("maskTemplate", value);
     }
     
 	public static Key createKey(String name, Object value) {
