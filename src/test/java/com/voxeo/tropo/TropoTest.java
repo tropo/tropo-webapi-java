@@ -1,7 +1,24 @@
 package com.voxeo.tropo;
 
-import static com.voxeo.tropo.Key.*;
-import static org.junit.Assert.*;
+import static com.voxeo.tropo.Key.BARGEIN;
+import static com.voxeo.tropo.Key.BEEP;
+import static com.voxeo.tropo.Key.CHOICES;
+import static com.voxeo.tropo.Key.EVENT;
+import static com.voxeo.tropo.Key.EXIT_TONE;
+import static com.voxeo.tropo.Key.NAME;
+import static com.voxeo.tropo.Key.NEXT;
+import static com.voxeo.tropo.Key.REQUIRED;
+import static com.voxeo.tropo.Key.SAY;
+import static com.voxeo.tropo.Key.SEND_TONES;
+import static com.voxeo.tropo.Key.TIMEOUT;
+import static com.voxeo.tropo.Key.URL;
+import static com.voxeo.tropo.Key.VALUE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,11 +28,10 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.voxeo.tropo.actions.AskAction.Say;
 import com.voxeo.tropo.actions.Do;
 import com.voxeo.tropo.mock.MockHttpServletRequest;
 import com.voxeo.tropo.mock.MockHttpServletResponse;
-
-import java.util.Collections;
 
 public class TropoTest {
 
@@ -105,8 +121,8 @@ public class TropoTest {
 	public void testReset() {
 		
 		Tropo tropo = new Tropo();		
-		tropo.ask(NAME("foo"), BARGEIN(true), TIMEOUT(30.0f), REQUIRED(true));
-		assertEquals(tropo.text(), "{\"tropo\":[{\"ask\":{\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"required\":true}}]}");
+		tropo.ask(CHOICES("[5 DIGITS]"),SAY(new Say("Please say your account number")),NAME("foo"), BARGEIN(true), TIMEOUT(30.0f), REQUIRED(true));
+		assertEquals(tropo.text(), "{\"tropo\":[{\"ask\":{\"choices\":{\"value\":\"[5 DIGITS]\"},\"say\":[{\"value\":\"Please say your account number\"}],\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"required\":true}}]}");
 		
 		tropo.reset();
 		assertEquals(tropo.text(), "{\"tropo\":[]}");

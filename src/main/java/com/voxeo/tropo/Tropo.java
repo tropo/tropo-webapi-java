@@ -88,11 +88,23 @@ public class Tropo extends ArrayBackedJsonAction {
     return askActionSupportHandler.build(this, "tropo", keys);
   }
 
+  /**
+   * @deprecated A choices and a say are required.
+   * @see Tropo#ask(Key...)
+   * @since 0.4.6
+   */
+  @Deprecated
   public AskAction ask(String name, Boolean bargein, Float timeout, Boolean required) {
 
     return ask(NAME(name), BARGEIN(bargein), TIMEOUT(timeout), REQUIRED(required));
   }
 
+  /**
+   * @deprecated A choices and a say are required.
+   * @see Tropo#ask(Key...)
+   * @since 0.4.6
+   */
+  @Deprecated
   public AskAction ask(String name, Boolean bargein, Float timeout, Float sensitivity, Boolean required) {
 
     return ask(NAME(name), BARGEIN(bargein), TIMEOUT(timeout), SENSITIVITY(sensitivity), REQUIRED(required));
