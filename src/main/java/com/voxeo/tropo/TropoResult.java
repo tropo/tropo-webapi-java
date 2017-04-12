@@ -21,6 +21,7 @@ public class TropoResult implements Serializable {
 	
 	@SerializedName("calledid")
 	private String calledId;
+	private String userType;
 
 	
 	public ArrayList<ActionResult> getActions() {
@@ -79,6 +80,12 @@ public class TropoResult implements Serializable {
         this.calledId = calledid;
     }	
     
+    public String getUserType() {
+      return userType;
+    }
+    public void setUserType(String userType) {
+      this.userType = userType;
+    }
     @Override
     public String toString(){
         return TropoUtils.toPrettyString(this);

@@ -1,6 +1,7 @@
 package com.voxeo.tropo;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.voxeo.tropo.actions.AskAction.Choices;
@@ -640,6 +641,90 @@ public class Key {
     public static Key MASK_TEMPLATE(String value) {
 
       return createKey("maskTemplate", value);
+    }
+
+  /**
+   * This contains the Session Initiation Protocol (SIP) Headers for the current
+   * session. This is advanced network information.
+   */
+    public static Key HEADERS(Map<String,String> object) {
+
+      return createKey("headers", object);
+    }
+
+  /**
+   * <p>
+   * If set to false, no machineDetection will be attempted and the field will
+   * be Boolean.
+   * </p>
+   * <p>
+   * If you do not include an introduction and machineDetection is true, then
+   * Tropo will return as soon as it is confident the answering endpoint is a
+   * user or machine. However, this results in silence while Tropo makes the
+   * determination. Silence ranges from 1 to 10 seconds.
+   * </p>
+   */
+    public static Key MACHINE_DETECTION(Boolean value) {
+
+      return createKey("machineDetection", value);
+    }
+
+    public static Key MACHINE_DETECTION(String introduction) {
+
+      return MACHINE_DETECTION(introduction, null);
+    }
+
+  /**
+   * <p>
+   * If introduction is set, Tropo plays the TTS string using voice or plays the
+   * audio file if a URL is defined (same behavior as say) during this wait.
+   * Tropo will not return until introduction is done playing, even if it has
+   * determined a human voice or machine response before the introduction is
+   * complete.
+   * </p>
+   * <p>
+   * For the most accurate results, the "introduction" should be long enough to
+   * give Tropo time to detect a human or machine. The longer the introduction,
+   * the more time we have to determine how the call was answered. If the
+   * introduction is long enough to play until the voicemail "beep" plays, Tropo
+   * will have the most accurate detection. It takes a minimum of four seconds
+   * to determine if a call was answered by a human or machine, so introductions
+   * four seconds or shorter will always return HUMAN.
+   * </p>
+   */
+    public static Key MACHINE_DETECTION(String introduction, Voice voice) {
+
+      Map<String, String> map = new LinkedHashMap<String, String>();
+      map.put("introduction", introduction);
+      if (voice != null) {
+        map.put("voice", voice.toString());
+      }
+
+      return createKey("machineDetection", map);
+    }
+
+  /**
+   * <p>
+   * Configures a URL for a webhook for CDRs to be sent at the completion of the
+   * call. This overrides any URLs you have set in your application
+   * configuration.
+   * </p>
+   */
+    public static Key CALLBACK_URL(String value) {
+
+      return createKey("callbackUrl", value);
+    }
+
+  /**
+   * <p>
+   * Set by you, an arbitrary label for this call. The label you set will appear
+   * in your CDR, allowing you to track a CDR by a string you define. See
+   * Labeling your CDRs for examples.
+   * </p>
+   */
+    public static Key LABEL(String value) {
+
+      return createKey("label", value);
     }
     
 	public static Key createKey(String name, Object value) {

@@ -127,7 +127,7 @@ public class AskAction extends JsonAction {
       this(value, null, null);
     }
 
-    public Say(String value, Voice voice) {
+    private Say(String value, Voice voice) {
       this(value, voice, null);
     }
 
@@ -135,11 +135,11 @@ public class AskAction extends JsonAction {
       this(value, null, event);
     }
 
-    public Say(String value, Voice voice, String event) {
+    private Say(String value, Voice voice, String event) {
       this(value, null, null, null, null, voice, null, event);
     }
 
-    public Say(String value, String[] allowSignals, As as, String name, Boolean required, Voice voice,
+    private Say(String value, String[] allowSignals, As as, String name, Boolean required, Voice voice,
         String promptLogSecurity, String event) {
       if (value == null || value.trim().equals("")) {
         throw new TropoException("Missing required property: value of Say");
