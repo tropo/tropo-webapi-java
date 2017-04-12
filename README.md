@@ -13,7 +13,7 @@ Additionally, this library implements the session method from Tropo [Rest API](h
 Requirements
 ------------
 
-Current version is 0.4.6.
+Current version is 0.4.7-SNAPSHOT.
 
 License
 ------------
@@ -43,7 +43,7 @@ If you want to use the Maven artifact from your own projects you can add the fol
   <dependency>
     <groupId>com.voxeo.tropo</groupId>
     <artifactId>tropo-webapi-java</artifactId>
-    <version>0.4.6</version>
+    <version>0.4.7-SNAPSHOT</version>
   </dependency>
 ```
 
@@ -121,7 +121,7 @@ At the same time, Tropo's Java Webapi defines a complete DSL to create applicati
 
 		// Example 3
 		Tropo tropo = new Tropo();
-		tropo.call(TO("foo"), FROM("bar"), NETWORK(Network.SMS), CHANNEL(Channel.TEXT), TIMEOUT(10.0f), ANSWER_ON_MEDIA(false)).and(
+		tropo.call(NAME("call"), TO("foo"), FROM("bar"), NETWORK(Network.SMS), CHANNEL(Channel.TEXT), TIMEOUT(10.0f), ANSWER_ON_MEDIA(false)).and(
 			Do.headers(new String[]{"fooKey","fooValue"}, new String[]{"barKey","barValue"}),
 			Do.startRecording(URL("http://foobar"), METHOD("POST"), FORMAT(Format.MP3), USERNAME("jose"), PASSWORD("passwd")));
 
