@@ -235,21 +235,45 @@ public class Tropo extends ArrayBackedJsonAction {
     return messageActionSupportHandler.build(this, "tropo", keys);
   }
 
+  /**
+   * @deprecated A say and a name are required.
+   * @see Tropo#message(Key...)
+   * @since 0.4.7
+   */
+  @Deprecated
   public MessageAction message(String to) {
 
     return message(TO(to));
   }
 
+  /**
+   * @deprecated A say and a name are required.
+   * @see Tropo#message(Key...)
+   * @since 0.4.7
+   */
+  @Deprecated
   public MessageAction message(String to, Network network) {
 
     return message(TO(to), NETWORK(network));
   }
 
+  /**
+   * @deprecated A say and a name are required.
+   * @see Tropo#message(Key...)
+   * @since 0.4.7
+   */
+  @Deprecated
   public MessageAction message(String to, Network network, String from) {
 
     return message(TO(to), NETWORK(network), FROM(from));
   }
 
+  /**
+   * @deprecated A say and a name are required.
+   * @see Tropo#message(Key...)
+   * @since 0.4.7
+   */
+  @Deprecated
   public MessageAction message(String to, Network network, String from, Channel channel) {
 
     return message(TO(to), NETWORK(network), FROM(from), CHANNEL(channel));

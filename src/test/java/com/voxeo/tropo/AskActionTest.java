@@ -24,7 +24,7 @@ public class AskActionTest {
     public void testAsk() {
     
         Tropo tropo = new Tropo();
-        tropo.ask(Key.CHOICES("[1 DIGIT]"), Key.SAY(new Say("Please say a digit")), Key.NAME("foo"), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
+        tropo.ask(Key.CHOICES("[1 DIGIT]"), Key.SAY_OF_ASK(new Say("Please say a digit")), Key.NAME("foo"), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
         
         assertEquals(tropo.text(), "{\"tropo\":[{\"ask\":{\"choices\":{\"value\":\"[1 DIGIT]\"},\"say\":[{\"value\":\"Please say a digit\"}],\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"required\":true}}]}");
     }
@@ -33,7 +33,7 @@ public class AskActionTest {
     public void testAskWithSensitivity() {
     
         Tropo tropo = new Tropo();
-        tropo.ask(Key.CHOICES("[1 DIGIT]"), Key.SAY(new Say("Please say a digit")), Key.NAME("foo"), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.SENSITIVITY(30.1f), Key.REQUIRED(true));
+        tropo.ask(Key.CHOICES("[1 DIGIT]"), Key.SAY_OF_ASK(new Say("Please say a digit")), Key.NAME("foo"), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.SENSITIVITY(30.1f), Key.REQUIRED(true));
         
         assertEquals(tropo.text(),
                 "{\"tropo\":[{\"ask\":{\"choices\":{\"value\":\"[1 DIGIT]\"},\"say\":[{\"value\":\"Please say a digit\"}],\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"sensitivity\":30.1,\"required\":true}}]}");
@@ -43,7 +43,7 @@ public class AskActionTest {
     public void testNewAskWithSayAndOnBlocks() {
 
       Tropo tropo = new Tropo();
-      tropo.ask(Key.NAME("foo"), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true), Key.SAY(new Say("Please say your account number")), Key.CHOICES("[5 DIGITS]"));
+      tropo.ask(Key.NAME("foo"), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true), Key.SAY_OF_ASK(new Say("Please say your account number")), Key.CHOICES("[5 DIGITS]"));
       tropo.on(Key.EVENT("continue"), Key.NEXT("/result.json"));
 
       assertEquals(
@@ -95,7 +95,7 @@ public class AskActionTest {
     
         Tropo tropo = new Tropo();
         try {
-            tropo.ask(Key.NAME("foo"), Key.CHOICES(new Choices(null)), Key.SAY(new Say("[1 DIGIT]")), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
+            tropo.ask(Key.NAME("foo"), Key.CHOICES(new Choices(null)), Key.SAY_OF_ASK(new Say("[1 DIGIT]")), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
             fail("Expected exception in test");
         }
         catch (TropoException te) {
@@ -108,7 +108,7 @@ public class AskActionTest {
     
         Tropo tropo = new Tropo();
         try {
-            tropo.ask(Key.NAME("foo"), Key.CHOICES(new Choices("")), Key.SAY(new Say("[1 DIGIT]")), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
+            tropo.ask(Key.NAME("foo"), Key.CHOICES(new Choices("")), Key.SAY_OF_ASK(new Say("[1 DIGIT]")), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
             fail("Expected exception in test");
         }
         catch (TropoException te) {
@@ -121,7 +121,7 @@ public class AskActionTest {
     
         Tropo tropo = new Tropo();
         try {
-            tropo.ask(Key.NAME("foo"), Key.CHOICES("Please say a digit"), Key.SAY(new Say(null)), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
+            tropo.ask(Key.NAME("foo"), Key.CHOICES("Please say a digit"), Key.SAY_OF_ASK(new Say(null)), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
             fail("Expected exception in test");
         }
         catch (TropoException te) {
@@ -134,7 +134,7 @@ public class AskActionTest {
     
         Tropo tropo = new Tropo();
         try {
-            tropo.ask(Key.NAME("foo"), Key.CHOICES("Please say a digit"), Key.SAY(new Say("")), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
+            tropo.ask(Key.NAME("foo"), Key.CHOICES("Please say a digit"), Key.SAY_OF_ASK(new Say("")), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
             fail("Expected exception in test");
         }
         catch (TropoException te) {
@@ -159,7 +159,7 @@ public class AskActionTest {
     public void testAllowSignals() {
     
         Tropo tropo = new Tropo();
-        tropo.ask(Key.CHOICES("[1 DIGIT]"), Key.SAY(new Say("Please say a digit")), Key.NAME("foo"), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true), Key.ALLOW_SIGNALS("exit", "stopHold"));
+        tropo.ask(Key.CHOICES("[1 DIGIT]"), Key.SAY_OF_ASK(new Say("Please say a digit")), Key.NAME("foo"), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true), Key.ALLOW_SIGNALS("exit", "stopHold"));
         
         assertEquals(tropo.text(),
                 "{\"tropo\":[{\"ask\":{\"choices\":{\"value\":\"[1 DIGIT]\"},\"say\":[{\"value\":\"Please say a digit\"}],\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"required\":true,\"allowSignals\":[\"exit\",\"stopHold\"]}}]}");
@@ -172,7 +172,7 @@ public class AskActionTest {
       tropo.ask(Key.CHOICES(new Choices("[4 DIGITS]", Mode.DTMF, "*")), Key.ALLOW_SIGNALS("exit", "quit"),
           Key.ATTEMPTS(3), Key.BARGEIN(true), Key.INTERDIGIT_TIMEOUT(3.5f), Key.MIN_CONFIDENCE(30), Key.NAME("foo"),
           Key.RECOGNIZER(Recognizer.ENGLISH_US), Key.REQUIRED(true),
-          Key.SAY(new Say("Sorry, I did not hear anything.", "timeout"),
+          Key.SAY_OF_ASK(new Say("Sorry, I did not hear anything.", "timeout"),
               new Say("Don't think that was a year.", "nomatch:1"), new Say("Nope, still not a year.", "nomatch:2"),
               new Say("What is your birth year?")),
           Key.SENSITIVITY(0.5f), Key.SPEECH_COMPLETE_TIMEOUT(0.5f), Key.SPEECH_INCOMPLETE_TIMEOUT(0.5f),
