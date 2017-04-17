@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.voxeo.tropo.actions.AskAction.Choices;
-import com.voxeo.tropo.actions.AskAction.Say;
 import com.voxeo.tropo.enums.As;
 import com.voxeo.tropo.enums.AsrLogSecurity;
 import com.voxeo.tropo.enums.Channel;
@@ -566,14 +565,14 @@ public class Key {
    * the event 'nomatch:1' and a different say for the event 'nomatch:2'.
    * </p>
    */
-    public static Key SAY(Say... says) {
+    public static Key SAY_OF_ASK(com.voxeo.tropo.actions.AskAction.Say... says) {
 
       return createKey("say", says);
     }
     
-    public static Key SAY(String value) {
+    public static Key SAY_OF_ASK(String value) {
 
-      return SAY(new Say(value));
+      return SAY_OF_ASK(new com.voxeo.tropo.actions.AskAction.Say(value));
     }
 
   /**
@@ -725,6 +724,17 @@ public class Key {
     public static Key LABEL(String value) {
 
       return createKey("label", value);
+    }
+
+  /**
+   * <p>
+   * This determines what is played or sent to the caller. This can be a single
+   * object or an array of objects.
+   * </p>
+   */
+    public static Key SAY_OF_MESSAGE(com.voxeo.tropo.actions.MessageAction.Say... says) {
+
+      return createKey("say", says);
     }
     
 	public static Key createKey(String name, Object value) {

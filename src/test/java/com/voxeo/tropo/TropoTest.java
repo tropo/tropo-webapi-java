@@ -8,7 +8,6 @@ import static com.voxeo.tropo.Key.EXIT_TONE;
 import static com.voxeo.tropo.Key.NAME;
 import static com.voxeo.tropo.Key.NEXT;
 import static com.voxeo.tropo.Key.REQUIRED;
-import static com.voxeo.tropo.Key.SAY;
 import static com.voxeo.tropo.Key.SEND_TONES;
 import static com.voxeo.tropo.Key.TIMEOUT;
 import static com.voxeo.tropo.Key.URL;
@@ -121,7 +120,7 @@ public class TropoTest {
 	public void testReset() {
 		
 		Tropo tropo = new Tropo();		
-		tropo.ask(CHOICES("[5 DIGITS]"),SAY(new Say("Please say your account number")),NAME("foo"), BARGEIN(true), TIMEOUT(30.0f), REQUIRED(true));
+		tropo.ask(CHOICES("[5 DIGITS]"),Key.SAY_OF_ASK(new Say("Please say your account number")),NAME("foo"), BARGEIN(true), TIMEOUT(30.0f), REQUIRED(true));
 		assertEquals(tropo.text(), "{\"tropo\":[{\"ask\":{\"choices\":{\"value\":\"[5 DIGITS]\"},\"say\":[{\"value\":\"Please say your account number\"}],\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"required\":true}}]}");
 		
 		tropo.reset();
