@@ -13,7 +13,7 @@ Additionally, this library implements the session method from Tropo [Rest API](h
 Requirements
 ------------
 
-Current version is 0.4.7-SNAPSHOT.
+Current version is 0.4.7.
 
 License
 ------------
@@ -43,7 +43,7 @@ If you want to use the Maven artifact from your own projects you can add the fol
   <dependency>
     <groupId>com.voxeo.tropo</groupId>
     <artifactId>tropo-webapi-java</artifactId>
-    <version>0.4.7-SNAPSHOT</version>
+    <version>0.4.7</version>
   </dependency>
 ```
 
@@ -111,7 +111,7 @@ At the same time, Tropo's Java Webapi defines a complete DSL to create applicati
 		// Example 1
 		Tropo tropo = new Tropo();
 		tropo
-			.ask(Key.CHOICES("[5 DIGITS]"), Key.SAY(new Say("Please say your account number")), Key.NAME("foo"),Key.BARGEIN(true),Key.TIMEOUT(30.0f),Key.REQUIRED(true));
+			.ask(Key.CHOICES("[5 DIGITS]"), Key.SAY_OF_ASK(new Say("Please say your account number")), Key.NAME("foo"),Key.BARGEIN(true),Key.TIMEOUT(30.0f),Key.REQUIRED(true));
 		tropo.on(Key.EVENT("continue"), Key.NEXT("/result.json"));
 
 		// Example 2
@@ -121,16 +121,16 @@ At the same time, Tropo's Java Webapi defines a complete DSL to create applicati
 
 		// Example 3
 		Tropo tropo = new Tropo();
-		tropo.call(NAME("call"), TO("foo"), FROM("bar"), NETWORK(Network.SMS), CHANNEL(Channel.TEXT), TIMEOUT(10.0f), ANSWER_ON_MEDIA(false)).and(
-			Do.headers(new String[]{"fooKey","fooValue"}, new String[]{"barKey","barValue"}),
-			Do.startRecording(URL("http://foobar"), METHOD("POST"), FORMAT(Format.MP3), USERNAME("jose"), PASSWORD("passwd")));
+		Map<String, String> map = new LinkedHashMap<String, String>();
+		map.put("fooKey", "fooValue");
+		map.put("barKey", "barValue");
+		tropo.call(Key.NAME("call"), Key.TO("foo"), Key.FROM("bar"), Key.NETWORK(Network.SMS), Key.CHANNEL(Channel.TEXT), Key.TIMEOUT(10.0f), Key.ANSWER_ON_MEDIA(false),
+			Key.HEADERS(map));
 
 		// Example 4
 		Tropo tropo = new Tropo();
-		tropo.message(TO("foo"), FROM("bar"), NETWORK(Network.SMS), CHANNEL(Channel.TEXT), TIMEOUT(10.0f), ANSWER_ON_MEDIA(false)).and(
-			Do.headers(new String[]{"fooKey","fooValue"}, new String[]{"barKey","barValue"}),
-			Do.startRecording(URL("http://foobar"), METHOD("POST"), FORMAT(Format.MP3), USERNAME("jose"), PASSWORD("passwd")),
-			Do.say("Please say your account number"));
+		tropo.message(Key.NAME("message"), Key.SAY_OF_MESSAGE(new Say("This is an announcement")),Key.TO("foo"), Key.FROM("bar"), Key.NETWORK(Network.SMS), Key.CHANNEL(Channel.TEXT),
+			Key.TIMEOUT(10.0f), Key.ANSWER_ON_MEDIA(false));
 
 
 Below you can also find a very trivial servlet POST method:
