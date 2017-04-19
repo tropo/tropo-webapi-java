@@ -142,7 +142,7 @@ public class AskAction extends JsonAction {
     private Say(String value, String[] allowSignals, As as, String name, Boolean required, Voice voice,
         String promptLogSecurity, String event) {
       if (value == null || value.trim().equals("")) {
-        throw new TropoException("Missing required property: value of Say");
+        throw new TropoException("Missing required property: value of ask.say");
       } else {
         this.value = value;
       }

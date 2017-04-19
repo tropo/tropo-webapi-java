@@ -125,6 +125,12 @@ public class Tropo extends ArrayBackedJsonAction {
     return onActionSupportHandler.build(this, "tropo", keys);
   }
 
+  /**
+   * @deprecated A say is required.
+   * @see Tropo#on(Key...)
+   * @since 0.4.8
+   */
+  @Deprecated
   public OnAction on(String event, String next) {
 
     return on(EVENT(event), NEXT(next));

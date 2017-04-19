@@ -91,4 +91,28 @@ public class MessageActionTest {
       assertEquals(te.getMessage(), "Missing required property: 'name'");
     }
   }
+
+	@Test
+  public void testFailsMessageWithNoSayValue() {
+
+    Tropo tropo = new Tropo();
+    try {
+      tropo.message(Key.SAY_OF_MESSAGE(new Say(null)), Key.TO("+13055551212"), Key.NAME("message"));
+      fail("Expected exception in test");
+    } catch (TropoException te) {
+      assertEquals(te.getMessage(), "Missing required property: value of message.say");
+    }
+  }
+
+	@Test
+  public void testFailsMessageWithNoSayValue1() {
+
+    Tropo tropo = new Tropo();
+    try {
+      tropo.message(Key.SAY_OF_MESSAGE(new Say("")), Key.TO("+13055551212"), Key.NAME("message"));
+      fail("Expected exception in test");
+    } catch (TropoException te) {
+      assertEquals(te.getMessage(), "Missing required property: value of message.say");
+    }
+  }
 }

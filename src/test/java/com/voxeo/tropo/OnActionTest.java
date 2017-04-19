@@ -1,12 +1,9 @@
 package com.voxeo.tropo;
 
-import static com.voxeo.tropo.Key.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
-
-import com.voxeo.tropo.actions.Do;
 
 public class OnActionTest {
 
@@ -14,73 +11,67 @@ public class OnActionTest {
 	public void testOn() {
 		
 		Tropo tropo = new Tropo();
-		tropo.on(EVENT("hangup"),NEXT("myresource"));
+		tropo.on(Key.EVENT("connect"),Key.NEXT("myresource"),Key.SAY_OF_ON("Nice answer!"),Key.POST("http://example.com/tropo"));
 		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"on\":{\"event\":\"hangup\",\"next\":\"myresource\"}}]}");
+		assertEquals(tropo.text(),  "{\"tropo\":[{\"on\":{\"event\":\"connect\",\"next\":\"myresource\",\"say\":[{\"value\":\"Nice answer!\"}],\"post\":\"http://example.com/tropo\"}}]}");
 	}	
 
-	@Test
-	public void testOnWithValue() {
-		
-		Tropo tropo = new Tropo();
-		tropo.on(EVENT("hangup"),VALUE("Sorry. We are hanging up."));
-		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"on\":{\"event\":\"hangup\",\"value\":\"Sorry. We are hanging up.\"}}]}");
-	}	
-	
 	@Test
 	public void testFailsOnWithNoEventParameter() {
 
 		Tropo tropo = new Tropo();
 		try {
-			tropo.on(NEXT("myresource"));
+			tropo.on(Key.NEXT("myresource"));
 			fail("Expected exception in test");
 		} catch (TropoException te) {
 			assertEquals(te.getMessage(), "Missing required property: 'event'");
 		}
 	}
+
+	@Test
+  public void testFailsOnWithNoSayParameter() {
+
+    Tropo tropo = new Tropo();
+    try {
+      tropo.on(Key.EVENT("hangup"));
+      fail("Expected exception in test");
+    } catch (TropoException te) {
+      assertEquals(te.getMessage(), "Missing required property: 'say'");
+    }
+  }
+
+	@Test
+  public void testFailsOnWithNoSayvalue() {
+
+    Tropo tropo = new Tropo();
+    try {
+      tropo.on(Key.EVENT("hangup"),Key.NEXT("myresource"),Key.SAY_OF_ON(new com.voxeo.tropo.actions.OnAction.Say(null)));
+      fail("Expected exception in test");
+    } catch (TropoException te) {
+      assertEquals(te.getMessage(), "Missing required property: value of on.say");
+    }
+  }
+
+	@Test
+  public void testFailsOnWithNoSayvalue1() {
+
+    Tropo tropo = new Tropo();
+    try {
+      tropo.on(Key.EVENT("hangup"),Key.NEXT("myresource"),Key.SAY_OF_ON(new com.voxeo.tropo.actions.OnAction.Say("")));
+      fail("Expected exception in test");
+    } catch (TropoException te) {
+      assertEquals(te.getMessage(), "Missing required property: value of on.say");
+    }
+  }
 	
 	@Test
 	public void testOnFailsWithInvalidElement() {
 
 		Tropo tropo = new Tropo();
 		try {
-			tropo.on(TO("hangup"),NEXT("myresource"));
+			tropo.on(Key.TO("hangup"),Key.NEXT("myresource"));
 		} catch (TropoException te) {
 			assertEquals(te.getMessage(), "Invalid key 'to' for action");
 		}
 	}
-	
-	@Test
-	public void testOnTraditionalWay() {
-		
-		Tropo tropo = new Tropo();
-		tropo.on("hangup","myresource");
-		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"on\":{\"event\":\"hangup\",\"next\":\"myresource\"}}]}");
-	}
-	
-	@Test
-	public void testOnAndSay() {
-		
-		Tropo tropo = new Tropo();
-		tropo.and(
-			Do.on(EVENT("error"),NEXT("error.json")),
-			Do.say(VALUE("blah")));
-		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"on\":[{\"event\":\"error\",\"next\":\"error.json\"}]},{\"say\":[{\"value\":\"blah\"}]}]}");
-	}
-	
-	
-	/*@Test
-	public void testOnNestedSay() {
-		
-		Tropo tropo = new Tropo();
-		tropo.ask(NAME("foo"),BARGEIN(true),TIMEOUT(30.0f),REQUIRED(true)).and(
-	            Do.say("Log in as voice, text, or log out"),
-	            Do.on(EVENT("success"),NEXT("/tropoResultIn")).say("Oh Kay")
-	    );
-		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"ask\":{\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"required\":true,\"say\":[{\"value\":\"Log in as voice, text, or log out\"}],\"on\":[{\"event\":\"success\",\"next\":\"/tropoResultIn\",\"say\":[{\"value\":\"Oh Kay\"}]}]}}]}");
-	}*/
 }
