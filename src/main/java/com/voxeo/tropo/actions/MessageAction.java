@@ -31,7 +31,7 @@ public class MessageAction extends JsonAction {
     public Say(String value) {
 
       if (value == null || value.trim().equals("")) {
-        throw new TropoException("Missing required property: value of Message.Say");
+        throw new TropoException("Missing required property: value of message.say");
       }
 
       this.value = value;

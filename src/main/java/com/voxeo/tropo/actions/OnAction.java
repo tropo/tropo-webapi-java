@@ -1,14 +1,17 @@
 package com.voxeo.tropo.actions;
 
 import static com.voxeo.tropo.Key.VALUE;
-import support.ActionSupportHandler;
 
 import com.voxeo.tropo.Key;
+import com.voxeo.tropo.TropoException;
 import com.voxeo.tropo.annotations.RequiredKeys;
 import com.voxeo.tropo.annotations.ValidKeys;
+import com.voxeo.tropo.enums.Voice;
 
-@ValidKeys(keys={"next","event","name","value","required"})
-@RequiredKeys(keys={"event"})
+import support.ActionSupportHandler;
+
+@ValidKeys(keys={"next","event","say","post"})
+@RequiredKeys(keys={"event","say"})
 public class OnAction extends JsonAction {
 
 	private ActionSupportHandler<SayAction> sayActionSupportHandler = new ActionSupportHandler<SayAction>(SayAction.class);	
@@ -34,4 +37,40 @@ public class OnAction extends JsonAction {
 
 		return sayActionSupportHandler.build(this, keys);
 	}
+
+  public static class Say {
+
+    private String value;
+
+    private Voice voice;
+
+    public Say(String value) {
+      this(value, null);
+    }
+
+    public Say(String value, Voice voice) {
+
+      if (value == null || value.trim().equals("")) {
+        throw new TropoException("Missing required property: value of on.say");
+      }
+      this.value = value;
+      this.voice = voice;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    public void setValue(String value) {
+      this.value = value;
+    }
+
+    public Voice getVoice() {
+      return voice;
+    }
+
+    public void setVoice(Voice voice) {
+      this.voice = voice;
+    }
+  }
 }

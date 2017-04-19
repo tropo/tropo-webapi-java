@@ -44,11 +44,11 @@ public class AskActionTest {
 
       Tropo tropo = new Tropo();
       tropo.ask(Key.NAME("foo"), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true), Key.SAY_OF_ASK(new Say("Please say your account number")), Key.CHOICES("[5 DIGITS]"));
-      tropo.on(Key.EVENT("continue"), Key.NEXT("/result.json"));
+      tropo.on(Key.SAY_OF_ON("Nice answer!"),Key.EVENT("continue"), Key.NEXT("/result.json"));
 
       assertEquals(
           tropo.text(),
-          "{\"tropo\":[{\"ask\":{\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"required\":true,\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}},{\"on\":{\"event\":\"continue\",\"next\":\"/result.json\"}}]}");
+          "{\"tropo\":[{\"ask\":{\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"required\":true,\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}},{\"on\":{\"say\":[{\"value\":\"Nice answer!\"}],\"event\":\"continue\",\"next\":\"/result.json\"}}]}");
     }
     
     @Test
@@ -125,7 +125,7 @@ public class AskActionTest {
             fail("Expected exception in test");
         }
         catch (TropoException te) {
-            assertEquals(te.getMessage(), "Missing required property: value of Say");
+            assertEquals(te.getMessage(), "Missing required property: value of ask.say");
         }
     }
 
@@ -138,7 +138,7 @@ public class AskActionTest {
             fail("Expected exception in test");
         }
         catch (TropoException te) {
-            assertEquals(te.getMessage(), "Missing required property: value of Say");
+            assertEquals(te.getMessage(), "Missing required property: value of ask.say");
         }
     }
     

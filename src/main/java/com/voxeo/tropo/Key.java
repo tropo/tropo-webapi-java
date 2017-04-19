@@ -736,6 +736,27 @@ public class Key {
 
       return createKey("say", says);
     }
+
+    public static Key SAY_OF_ON(String value) {
+
+      return SAY_OF_ON(new com.voxeo.tropo.actions.OnAction.Say(value));
+    }
+
+  /**
+   * <p>
+   * This determines what is played or sent to the caller. This can be a single
+   * object or an array of objects.
+   * </p>
+   */
+    public static Key SAY_OF_ON(com.voxeo.tropo.actions.OnAction.Say... says) {
+
+      return createKey("say", says);
+    }
+
+    public static Key POST(String value) {
+
+      return createKey("post", value);
+    }
     
 	public static Key createKey(String name, Object value) {
 
