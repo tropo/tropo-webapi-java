@@ -2,7 +2,6 @@ package com.voxeo.tropo;
 
 import static com.voxeo.tropo.Key.BARGEIN;
 import static com.voxeo.tropo.Key.BEEP;
-import static com.voxeo.tropo.Key.CHOICES;
 import static com.voxeo.tropo.Key.EVENT;
 import static com.voxeo.tropo.Key.EXIT_TONE;
 import static com.voxeo.tropo.Key.NAME;
@@ -107,20 +106,20 @@ public class TropoTest {
 		
 		Tropo tropo = new Tropo();
 		tropo.say("Welcome to the app");
-		tropo.on(EVENT("hangup"), NEXT("/hangup.json"));
+		tropo.on(EVENT("hangup"), NEXT("/hangup.json"), Key.SAY_OF_ON("hangup"));
 		tropo.record(NAME("foo"), BEEP(true), SEND_TONES(false), EXIT_TONE("#"), URL("http://sendme.com/tropo")).and(
 			Do.say("Please say your account number"),
 			Do.choices(VALUE("[5 DIGITS]"))
 		);
 		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"Welcome to the app\"}]},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\"}},{\"record\":{\"name\":\"foo\",\"beep\":true,\"send_tones\":false,\"exit_tone\":\"#\",\"url\":\"http://sendme.com/tropo\",\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
+		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"Welcome to the app\"}]},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\",\"say\":[{\"value\":\"hangup\"}]}},{\"record\":{\"name\":\"foo\",\"beep\":true,\"send_tones\":false,\"exit_tone\":\"#\",\"url\":\"http://sendme.com/tropo\",\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
 	}		
 
 	@Test
 	public void testReset() {
 		
 		Tropo tropo = new Tropo();		
-		tropo.ask(CHOICES("[5 DIGITS]"),Key.SAY_OF_ASK(new Say("Please say your account number")),NAME("foo"), BARGEIN(true), TIMEOUT(30.0f), REQUIRED(true));
+		tropo.ask(Key.CHOICES_OF_ASK("[5 DIGITS]"),Key.SAY_OF_ASK(new Say("Please say your account number")),NAME("foo"), BARGEIN(true), TIMEOUT(30.0f), REQUIRED(true));
 		assertEquals(tropo.text(), "{\"tropo\":[{\"ask\":{\"choices\":{\"value\":\"[5 DIGITS]\"},\"say\":[{\"value\":\"Please say your account number\"}],\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"required\":true}}]}");
 		
 		tropo.reset();

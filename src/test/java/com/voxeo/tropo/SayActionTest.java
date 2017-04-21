@@ -56,10 +56,10 @@ public class SayActionTest {
 	public void testSayAndOn() {
 		
 		Tropo tropo = new Tropo();
-		tropo.say(VALUE("blah"));
-		tropo.on(EVENT("error"),NEXT("error.json"));
+		tropo.say(Key.VALUE("blah"));
+		tropo.on(Key.EVENT("error"),Key.NEXT("error.json"),Key.SAY_OF_ON("say of on"));
 		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"blah\"}]},{\"on\":{\"event\":\"error\",\"next\":\"error.json\"}}]}");
+		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"blah\"}]},{\"on\":{\"event\":\"error\",\"next\":\"error.json\",\"say\":[{\"value\":\"say of on\"}]}}]}");
 	}	
 	
 	@Test

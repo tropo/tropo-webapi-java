@@ -201,14 +201,14 @@ public class Tropo extends ArrayBackedJsonAction {
     return transferActionSupportHandler.build(this, "tropo", keys);
   }
 
-  public TransferAction transfer(String to) {
+  public TransferAction transfer(String to, String name) {
 
-    return transfer(TO(to));
+    return transfer(Key.TO(to), Key.NAME(name));
   }
 
-  public TransferAction transfer(String to, String from) {
+  public TransferAction transfer(String to, String from, String name) {
 
-    return transfer(TO(to), FROM(from));
+    return transfer(Key.TO(to), Key.FROM(from), Key.NAME(name));
   }
 
   public CallAction call(Key... keys) {

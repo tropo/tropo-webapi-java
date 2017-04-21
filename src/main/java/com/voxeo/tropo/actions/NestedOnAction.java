@@ -6,10 +6,11 @@ import support.ActionSupportHandler;
 import com.voxeo.tropo.Key;
 import com.voxeo.tropo.annotations.ValidKeys;
 
-@ValidKeys(keys={"next","value","event","name","required"})
+@ValidKeys(keys={"next","value","event","name","required","post"})
 public class NestedOnAction extends ArrayAction {
 
 	private ActionSupportHandler<SayAction> sayActionSupportHandler = new ActionSupportHandler<SayAction>(SayAction.class);	
+	private ActionSupportHandler<AskAction> askActionSupportHandler = new ActionSupportHandler<AskAction>(AskAction.class);
 
 	public NestedOnAction() {
 		
@@ -31,5 +32,10 @@ public class NestedOnAction extends ArrayAction {
 	public SayAction say(Key... keys) {
 
 		return sayActionSupportHandler.build(this, keys);
-	}	
+	}
+
+  public AskAction ask(Key... keys) {
+
+    return askActionSupportHandler.build(this, keys);
+  }
 }

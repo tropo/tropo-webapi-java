@@ -14,6 +14,7 @@ import com.voxeo.tropo.enums.Method;
 import com.voxeo.tropo.enums.Mode;
 import com.voxeo.tropo.enums.Network;
 import com.voxeo.tropo.enums.Recognizer;
+import com.voxeo.tropo.enums.Terminator;
 import com.voxeo.tropo.enums.Voice;
 
 public class Key {
@@ -74,9 +75,9 @@ public class Key {
 		return createKey("interdigitTimeout", value);
 	}
 
-	public static Key CHOICES(String value) {
+	public static Key CHOICES_OF_ASK(String value) {
 
-		return CHOICES(new Choices(value));
+		return CHOICES_OF_ASK(new Choices(value));
 	}
 
 	public static Key EVENT(String value) {
@@ -540,7 +541,7 @@ public class Key {
    * "Please enter your five digit zip code, then press the pound key."</li>
    * </ul>
    */
-    public static Key CHOICES(Choices choices) {
+    public static Key CHOICES_OF_ASK(Choices choices) {
       
       return createKey("choices", choices);
     }
@@ -753,9 +754,42 @@ public class Key {
       return createKey("say", says);
     }
 
+  /**
+   * <p>
+   * This parameter is only available in the 'connect' event of transfer.
+   * Because a transfer is a blocking function, your 'continue' event won't fire
+   * until the transfer is completed and so your web application doesn't know if
+   * the transfer succeeded or not. When given a URL, the 'post' action will
+   * send a simplified Result object as an HTTP POST to this URL. Like all other
+   * actions that are sent during the connect event, this happens while the
+   * first caller is hearing the 'ring' event, and before the two parties are
+   * connected. Any response by your web application to this HTTP post is
+   * ignored. It is simply a webhook that fires to alert your web application
+   * that the call has been connected.
+   * </p>
+   */
     public static Key POST(String value) {
 
       return createKey("post", value);
+    }
+
+  /**
+   * <p>
+   * This specifies the number of times the audio file specified in the ring
+   * event will repeat itself.
+   * </p>
+   */
+    public static Key RING_REPEAT(Integer value) {
+
+      return createKey("ringRepeat", value);
+    }
+
+    public static Key CHOICES(Terminator value) {
+
+      Map<String, String> map = new HashMap<String, String>();
+      map.put("terminator", value.toString());
+
+      return createKey("choices", map);
     }
     
 	public static Key createKey(String name, Object value) {
