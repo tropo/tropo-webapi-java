@@ -10,8 +10,8 @@ import com.voxeo.tropo.Key;
 import com.voxeo.tropo.annotations.RequiredKeys;
 import com.voxeo.tropo.annotations.ValidKeys;
 
-@ValidKeys(keys={"to","allowSignals","choices","from","headers","name","on","required","ringRepeat","timeout","answerOnMedia","interdigitTimeout"})
-@RequiredKeys(keys={"to"})
+@ValidKeys(keys={"to","allowSignals","choices","from","headers","name","on","required","ringRepeat","timeout","answerOnMedia","interdigitTimeout","machineDetection","playTones","voice","callbackUrl","promptLogSecurity","label"})
+@RequiredKeys(keys={"to","name"})
 public class TransferAction extends JsonAction {
 
 	private ActionSupportHandler<NestedOnAction> onRecordingActionSupportHandler = new ActionSupportHandler<NestedOnAction>(NestedOnAction.class);
