@@ -141,9 +141,20 @@ public class Tropo extends ArrayBackedJsonAction {
     return recordActionSupportHandler.build(this, "tropo", keys);
   }
 
+  /**
+   * @deprecated A sendTones and a exitTone are invalid.
+   * @see Tropo#record(String, String, Boolean)
+   * @since 0.4.8
+   */
+  @Deprecated
   public RecordAction record(String name, String url, Boolean beep, Boolean sendTones, String exitTone) {
 
     return record(NAME(name), URL(url), BEEP(beep), SEND_TONES(sendTones), EXIT_TONE(exitTone));
+  }
+
+  public RecordAction record(String name, String url, Boolean beep) {
+
+    return record(NAME(name), URL(url), BEEP(beep));
   }
 
   public RedirectAction redirect(Key... keys) {
