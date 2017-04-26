@@ -1,6 +1,5 @@
 package com.voxeo.tropo;
 
-import static com.voxeo.tropo.Key.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -8,6 +7,7 @@ import org.junit.Test;
 
 import com.voxeo.tropo.actions.Do;
 import com.voxeo.tropo.actions.RecordAction;
+import com.voxeo.tropo.actions.RecordAction.Say;
 import com.voxeo.tropo.enums.Voice;
 
 public class RecordActionTest {
@@ -16,9 +16,9 @@ public class RecordActionTest {
 	public void testRecord() {
 		
 		Tropo tropo = new Tropo();
-		tropo.record(NAME("foo"),URL("http://sendme.com/tropo"),BEEP(true),SEND_TONES(false),EXIT_TONE("#"),INTERDIGIT_TIMEOUT(5), MAX_TIME(300.0f), ASYNC_UPLOAD(true));
+		tropo.record(Key.NAME("foo"),Key.URL("http://sendme.com/tropo"),Key.BEEP(true),Key.INTERDIGIT_TIMEOUT(5f), Key.MAX_TIME(300.0f), Key.ASYNC_UPLOAD(true));
 		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"send_tones\":false,\"exit_tone\":\"#\",\"interdigitTimeout\":5,\"maxTime\":300.0,\"asyncUpload\":true}}]}");
+		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"interdigitTimeout\":5.0,\"maxTime\":300.0,\"asyncUpload\":true}}]}");
 	}	
 	
 	@Test
@@ -26,7 +26,7 @@ public class RecordActionTest {
 
 		Tropo tropo = new Tropo();
 		try {
-			tropo.record(URL("http://sendme.com/tropo"),BEEP(true),SEND_TONES(false),EXIT_TONE("#"));
+			tropo.record(Key.URL("http://sendme.com/tropo"),Key.BEEP(true));
 			fail("Expected exception in test");
 		} catch (TropoException te) {
 			assertEquals(te.getMessage(), "Missing required property: 'name'");
@@ -38,7 +38,7 @@ public class RecordActionTest {
 
 		Tropo tropo = new Tropo();
 		try {
-			tropo.record(NAME("foo"),BEEP(true),SEND_TONES(false),EXIT_TONE("#"));
+			tropo.record(Key.NAME("foo"),Key.BEEP(true));
 			fail("Expected exception in test");
 		} catch (TropoException te) {
 			assertEquals(te.getMessage(), "Missing required property: 'url'");
@@ -51,32 +51,59 @@ public class RecordActionTest {
 
 		Tropo tropo = new Tropo();
 		try {
-			tropo.record(NAME("foo"),URL("invalid"), BEEP(true),SEND_TONES(false),EXIT_TONE("#"));
+			tropo.record(Key.NAME("foo"),Key.URL("invalid"));
 			fail("Expected exception in test");
 		} catch (TropoException te) {
 			assertEquals(te.getMessage(),  "The 'url' parameter must be a valid URL");
 		}
 	}
-	
-	@Test
-	public void testRecordAcceptsEmailAddress() {
-		
-		Tropo tropo = new Tropo();
-		tropo.record(NAME("foo"),URL("mailto:foo@bar.com"),BEEP(true),SEND_TONES(false),EXIT_TONE("#"));
-		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"mailto:foo@bar.com\",\"beep\":true,\"send_tones\":false,\"exit_tone\":\"#\"}}]}");
-	}
 
+	@Test
+  public void testFailsRecordWithInvalidSay() {
+
+    Tropo tropo = new Tropo();
+    try {
+      tropo.record(Key.NAME("foo"),Key.URL("http://sendme.com/tropo"),Key.SAY_OF_RECORD(new Say(null)));
+      fail("Expected exception in test");
+    } catch (TropoException te) {
+      assertEquals(te.getMessage(),  "Missing required property: value of record.say");
+    }
+  }
+
+	@Test
+  public void testFailsRecordWithInvalidSay1() {
+
+    Tropo tropo = new Tropo();
+    try {
+      tropo.record(Key.NAME("foo"),Key.URL("http://sendme.com/tropo"),Key.SAY_OF_RECORD(new Say("")));
+      fail("Expected exception in test");
+    } catch (TropoException te) {
+      assertEquals(te.getMessage(),  "Missing required property: value of record.say");
+    }
+  }
+
+	@Test
+  public void testFailsRecordWithInvalidSay2() {
+
+    Tropo tropo = new Tropo();
+    try {
+      tropo.record(Key.NAME("foo"),Key.URL("http://sendme.com/tropo"),Key.SAY_OF_RECORD(new Say("Sorry, I did not hear anything. Please call back.","nomatch:1")));
+      fail("Expected exception in test");
+    } catch (TropoException te) {
+      assertEquals(te.getMessage(),  "For record, the only possible event is 'timeout'.");
+    }
+  }
+	
 	@Test
 	public void testRecordWithTranscriptionRequest() {
 
 		Tropo tropo = new Tropo();
-		tropo.record(NAME("foo"), URL("http://sendme.com/tropo"), BEEP(true), SEND_TONES(true), EXIT_TONE("#")).and(
-			Do.transcription(ID("bling"), URL("mailto:jose@voxeo.com"), EMAIL_FORMAT("encoded")),
+		tropo.record(Key.NAME("foo"), Key.URL("http://sendme.com/tropo"), Key.BEEP(true)).and(
+			Do.transcription(Key.ID("bling"), Key.URL("mailto:jose@voxeo.com"), Key.EMAIL_FORMAT("encoded")),
 			Do.say("Please say your account number"),
-			Do.choices(VALUE("[5 DIGITS]")));
+			Do.choices(Key.VALUE("[5 DIGITS]")));
 			
-		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"send_tones\":true,\"exit_tone\":\"#\",\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\"},\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\"},\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
 	}
 
 	@Test
@@ -84,7 +111,7 @@ public class RecordActionTest {
 
 		Tropo tropo = new Tropo();
 		try {
-			tropo.record(TO("foo"),URL("http://sendme.com/tropo"),BEEP(true),SEND_TONES(false),EXIT_TONE("#"));
+			tropo.record(Key.TO("foo"),Key.URL("http://sendme.com/tropo"),Key.BEEP(true));
 		} catch (TropoException te) {
 			assertEquals(te.getMessage(), "Invalid key 'to' for action");
 		}
@@ -94,42 +121,42 @@ public class RecordActionTest {
 	public void testAllowSignals() {
 		
 		Tropo tropo = new Tropo();
-		tropo.record(NAME("foo"),URL("http://sendme.com/tropo"),BEEP(true),SEND_TONES(false),EXIT_TONE("#"),ALLOW_SIGNALS("exit","stopHold"));
+		tropo.record(Key.NAME("foo"),Key.URL("http://sendme.com/tropo"),Key.BEEP(true),Key.ALLOW_SIGNALS("exit","stopHold"));
 		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"send_tones\":false,\"exit_tone\":\"#\",\"allowSignals\":[\"exit\",\"stopHold\"]}}]}");
+		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"allowSignals\":[\"exit\",\"stopHold\"]}}]}");
 	}
 	
 	@Test
 	public void testRecordTraditionalWay() {
 		
 		Tropo tropo = new Tropo();
-		tropo.record("foo","http://sendme.com/tropo",true,false,"#");
+		tropo.record("foo","http://sendme.com/tropo",true);
 		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"send_tones\":false,\"exit_tone\":\"#\"}}]}");
+		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true}}]}");
 	}
 
 	@Test
 	public void testRecordWithSayTranscriptionChoicesSplitted() {
 
 		Tropo tropo = new Tropo();
-		RecordAction record = tropo.record("foo","http://sendme.com/tropo",true,true,"#");
-		record.transcription(ID("bling"), URL("mailto:jose@voxeo.com"), EMAIL_FORMAT("encoded"));
-		record.say(VALUE("Please say your account number"));
-		record.choices(VALUE("[5 DIGITS]"));
+		RecordAction record = tropo.record("foo","http://sendme.com/tropo",true);
+		record.transcription(Key.ID("bling"), Key.URL("mailto:jose@voxeo.com"), Key.EMAIL_FORMAT("encoded"));
+		record.say(Key.VALUE("Please say your account number"));
+		record.choices(Key.VALUE("[5 DIGITS]"));
 			
-		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"send_tones\":true,\"exit_tone\":\"#\",\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\"},\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\"},\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
 	}
 
 	@Test
 	public void testRecordWithSayTranscriptionChoicesEvenMoreTraditionalWay() {
 
 		Tropo tropo = new Tropo();
-		RecordAction record = tropo.record("foo","http://sendme.com/tropo",true,true,"#");
+		RecordAction record = tropo.record("foo","http://sendme.com/tropo",true);
 		record.transcription("bling", "mailto:jose@voxeo.com", "encoded");
 		record.say("Please say your account number");
 		record.choices("[5 DIGITS]");
 			
-		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"send_tones\":true,\"exit_tone\":\"#\",\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\"},\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\"},\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
 	}
 	
 	
@@ -137,8 +164,8 @@ public class RecordActionTest {
 	public void testRecordAcceptsVoice() {
 		
 		Tropo tropo = new Tropo();
-		tropo.record(NAME("foo"),URL("http://sendme.com/tropo"),BEEP(true),SEND_TONES(false),EXIT_TONE("#"),VOICE(Voice.ALLISON));
+		tropo.record(Key.NAME("foo"),Key.URL("http://sendme.com/tropo"),Key.BEEP(true),Key.VOICE(Voice.ALLISON));
 		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"send_tones\":false,\"exit_tone\":\"#\",\"voice\":\"allison\"}}]}");
+		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"voice\":\"allison\"}}]}");
 	}
 }

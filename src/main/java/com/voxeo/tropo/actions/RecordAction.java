@@ -4,15 +4,17 @@ import static com.voxeo.tropo.Key.EMAIL_FORMAT;
 import static com.voxeo.tropo.Key.ID;
 import static com.voxeo.tropo.Key.URL;
 import static com.voxeo.tropo.Key.VALUE;
-import support.ActionSupportHandler;
 
 import com.voxeo.tropo.Key;
 import com.voxeo.tropo.TropoException;
 import com.voxeo.tropo.annotations.RequiredKeys;
 import com.voxeo.tropo.annotations.ValidKeys;
+import com.voxeo.tropo.enums.EmailFormat;
 
-@ValidKeys(keys={"name","send_tones","exit_tone","attempts","allowSignals","bargein","beep","choices","format","maxSilence","maxTime","method",
-        "minConfidence","required","transcription","url","password","username","timeout","voice","interdigitTimeout", "asyncUpload"})
+import support.ActionSupportHandler;
+
+@ValidKeys(keys={"name","attempts","allowSignals","bargein","beep","choices","format","maxSilence","maxTime","method",
+        "required","transcription","url","password","username","timeout","voice","interdigitTimeout", "asyncUpload","say","promptLogSecurity"})
 @RequiredKeys(keys={"url","name"})
 public class RecordAction extends JsonAction {
 	
@@ -61,6 +63,93 @@ public class RecordAction extends JsonAction {
 
 		return transcription(ID(id), URL(url), EMAIL_FORMAT(emailFormat));
 	}
+	
+  public static class Say {
+    private String value;
+
+    private String event;
+
+    public Say(String value) {
+      if (value == null || value.trim().equals(""))
+        throw new TropoException("Missing required property: value of record.say");
+      this.value = value;
+    }
+
+    public Say(String value, String event) {
+      if (value == null || value.trim().equals(""))
+        throw new TropoException("Missing required property: value of record.say");
+      if (!("timeout".equals(event)))
+        throw new TropoException("For record, the only possible event is 'timeout'.");
+      this.value = value;
+      this.event = "timeout";
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    public void setValue(String value) {
+      this.value = value;
+    }
+
+    public String getEvent() {
+      return event;
+    }
+
+    public void setEvent(String event) {
+      this.event = event;
+    }
+  }
+  
+  public static class Transcription {
+    private String id;
+
+    private String url;
+
+    private EmailFormat emailFormat;
+
+    public Transcription(String url) {
+      super();
+      this.url = url;
+    }
+
+    public Transcription(String id, String url) {
+      super();
+      this.id = id;
+      this.url = url;
+    }
+
+    public Transcription(String id, String url, EmailFormat emailFormat) {
+      super();
+      this.id = id;
+      this.url = url;
+      this.emailFormat = emailFormat;
+    }
+
+    public String getId() {
+      return id;
+    }
+
+    public void setId(String id) {
+      this.id = id;
+    }
+
+    public String getUrl() {
+      return url;
+    }
+
+    public void setUrl(String url) {
+      this.url = url;
+    }
+
+    public EmailFormat getEmailFormat() {
+      return emailFormat;
+    }
+
+    public void setEmailFormat(EmailFormat emailFormat) {
+      this.emailFormat = emailFormat;
+    }
+  }
 	
 	@Override
 	protected void validate() throws TropoException {

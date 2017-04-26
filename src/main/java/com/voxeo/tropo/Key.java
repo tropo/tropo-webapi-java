@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.voxeo.tropo.actions.AskAction.Choices;
+import com.voxeo.tropo.actions.RecordAction.Transcription;
 import com.voxeo.tropo.enums.As;
 import com.voxeo.tropo.enums.AsrLogSecurity;
 import com.voxeo.tropo.enums.Channel;
@@ -790,6 +791,46 @@ public class Key {
       map.put("terminator", value.toString());
 
       return createKey("choices", map);
+    }
+
+  /**
+   * <p>
+   * This determines what is played or sent to the caller. This can be a single
+   * object or an array of objects. When say is a part of a record action, it
+   * can also take an event key. This determines if the prompt will be played
+   * based on a particular event; for record, the only possible event is
+   * 'timeout'.
+   * </p>
+   */
+    public static Key SAY_OF_RECORD(com.voxeo.tropo.actions.RecordAction.Say... says ) {
+
+      return createKey("say", says);
+    }
+
+  /**
+   * <p>
+   * This allows you to submit a recording to be transcribed and specifies where
+   * to send the transcription. This field is a hash containing other fields.
+   * </p>
+   * <ul>
+   * <li>id - the value that's included with your transcription when it's sent
+   * to your URL. This allows you to keep track of transcriptions; accepts a
+   * string.</li>
+   * <li>url - The address this transcription will be POSTed to; use a mailto:
+   * url to have the transcription emailed.</li>
+   * <li>emailFormat - the format of the email. Setting it as "encoded" will
+   * include a chunk of JSON in the email body or you can set it as "omit" to
+   * send as a human-readable message. It defaults to "omit", so unless you want
+   * JSON, this can be left out.</li>
+   * </ul>
+   * <p>
+   * The transcription arrives as the content of the HTTP POST, as opposed to a
+   * header, named field or variable.
+   * </p>
+   */
+    public static Key TRANSCRIPTION(Transcription transcription) {
+
+      return createKey("transcription", transcription);
     }
     
 	public static Key createKey(String name, Object value) {

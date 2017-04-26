@@ -107,12 +107,12 @@ public class TropoTest {
 		Tropo tropo = new Tropo();
 		tropo.say("Welcome to the app");
 		tropo.on(EVENT("hangup"), NEXT("/hangup.json"), Key.SAY_OF_ON("hangup"));
-		tropo.record(NAME("foo"), BEEP(true), SEND_TONES(false), EXIT_TONE("#"), URL("http://sendme.com/tropo")).and(
+		tropo.record(NAME("foo"), BEEP(true), URL("http://sendme.com/tropo")).and(
 			Do.say("Please say your account number"),
 			Do.choices(VALUE("[5 DIGITS]"))
 		);
 		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"Welcome to the app\"}]},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\",\"say\":[{\"value\":\"hangup\"}]}},{\"record\":{\"name\":\"foo\",\"beep\":true,\"send_tones\":false,\"exit_tone\":\"#\",\"url\":\"http://sendme.com/tropo\",\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
+		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"Welcome to the app\"}]},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\",\"say\":[{\"value\":\"hangup\"}]}},{\"record\":{\"name\":\"foo\",\"beep\":true,\"url\":\"http://sendme.com/tropo\",\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
 	}		
 
 	@Test
