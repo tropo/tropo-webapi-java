@@ -1,10 +1,5 @@
 package com.voxeo.tropo;
 
-import static com.voxeo.tropo.Key.BARGEIN;
-import static com.voxeo.tropo.Key.FROM;
-import static com.voxeo.tropo.Key.ID;
-import static com.voxeo.tropo.Key.NAME;
-import static com.voxeo.tropo.Key.TO;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -19,9 +14,9 @@ public class RedirectActionTest {
 	public void testRedirect() {
 		
 		Tropo tropo = new Tropo();
-		tropo.redirect(TO("sip:1234"),FROM("4155551212"));
+		tropo.redirect(Key.TO("sip:1234"),Key.NAME("redirect"),Key.REQUIRED(true));
 		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"redirect\":{\"to\":\"sip:1234\",\"from\":\"4155551212\"}}]}");
+		assertEquals(tropo.text(),  "{\"tropo\":[{\"redirect\":{\"to\":\"sip:1234\",\"name\":\"redirect\",\"required\":true}}]}");
 	}	
 
 	@Test
@@ -29,8 +24,8 @@ public class RedirectActionTest {
 
 		Tropo tropo = new Tropo();
 		try {
-			tropo.conference(NAME("foo"),ID("1234")).and(
-					Do.redirect(TO("sip:1234"),FROM("4155551212")));
+			tropo.conference(Key.NAME("foo"),Key.ID("1234")).and(
+					Do.redirect(Key.TO("sip:1234"),Key.NAME("redirect")));
 						
 			fail("Expected exception in test");
 		} catch (TropoException te) {
@@ -43,7 +38,7 @@ public class RedirectActionTest {
 
 		Tropo tropo = new Tropo();
 		try {
-			tropo.redirect(FROM("4155551212"));
+			tropo.redirect(Key.NAME("redirect"));
 			fail("Expected exception in test");
 		} catch (TropoException te) {
 			assertEquals(te.getMessage(), "Missing required property: 'to'");
@@ -51,31 +46,26 @@ public class RedirectActionTest {
 	}
 
 	@Test
+  public void testFailsRedirectWithNoNameParameter() {
+
+    Tropo tropo = new Tropo();
+    try {
+      tropo.redirect(Key.TO("sip:1234"));
+      fail("Expected exception in test");
+    } catch (TropoException te) {
+      assertEquals(te.getMessage(), "Missing required property: 'name'");
+    }
+  }
+
+	@Test
 	public void testRedirectFailsWithInvalidElement() {
 
 		Tropo tropo = new Tropo();
 		try {
-			tropo.redirect(BARGEIN(true),FROM("4155551212"));
+			tropo.redirect(Key.BARGEIN(true));
 		} catch (TropoException te) {
 			assertEquals(te.getMessage(), "Invalid key 'bargein' for action");
 		}
 	}
 	
-	@Test
-	public void testRedirectTraditional() {
-		
-		Tropo tropo = new Tropo();
-		tropo.redirect("sip:1234","4155551212");
-		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"redirect\":{\"to\":\"sip:1234\",\"from\":\"4155551212\"}}]}");
-	}
-	
-	@Test
-	public void testRedirectTraditional2() {
-		
-		Tropo tropo = new Tropo();
-		tropo.redirect("sip:1234");
-		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"redirect\":{\"to\":\"sip:1234\"}}]}");
-	}
 }
