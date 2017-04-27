@@ -162,11 +162,23 @@ public class Tropo extends ArrayBackedJsonAction {
     return redirectActionSupportHandler.build(this, "tropo", keys);
   }
 
+  /**
+   * @deprecated A name is invalid.
+   * @see Tropo#redirect(Key...)
+   * @since 0.4.8
+   */
+  @Deprecated
   public RedirectAction redirect(String to) {
 
     return redirect(TO(to));
   }
 
+  /**
+   * @deprecated A name is invalid.
+   * @see Tropo#redirect(Key...)
+   * @since 0.4.8
+   */
+  @Deprecated
   public RedirectAction redirect(String to, String from) {
 
     return redirect(TO(to), FROM(from));
