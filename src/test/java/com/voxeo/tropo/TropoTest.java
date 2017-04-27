@@ -3,11 +3,9 @@ package com.voxeo.tropo;
 import static com.voxeo.tropo.Key.BARGEIN;
 import static com.voxeo.tropo.Key.BEEP;
 import static com.voxeo.tropo.Key.EVENT;
-import static com.voxeo.tropo.Key.EXIT_TONE;
 import static com.voxeo.tropo.Key.NAME;
 import static com.voxeo.tropo.Key.NEXT;
 import static com.voxeo.tropo.Key.REQUIRED;
-import static com.voxeo.tropo.Key.SEND_TONES;
 import static com.voxeo.tropo.Key.TIMEOUT;
 import static com.voxeo.tropo.Key.URL;
 import static com.voxeo.tropo.Key.VALUE;
@@ -222,5 +220,42 @@ public class TropoTest {
 		assertTrue(tropo.isEmpty());
 		tropo.say("1234");
 		assertFalse(tropo.isEmpty());
+	}
+
+	@Test
+	public void testSession() {
+
+	  String requestBody = "{\"session\":{\"id\":\"0206f42b41db24008375ca4e745dc784\",\"accountId\":\"1\",\"applicationId\":\"1\",\"timestamp\":\"2017-04-27T08:55:49.252Z\",\"userType\":\"HUMAN\",\"initialText\":null,\"callId\":\"363241bb23fd2e2fd56775f112afb27f\",\"to\":{\"id\":\"9999452355\",\"e164Id\":\"9999452355\",\"name\":\"9999452355\",\"channel\":\"VOICE\",\"network\":\"SIP\"},\"from\":{\"id\":\"pengxli\",\"e164Id\":\"pengxli\",\"name\":\"pengxli\",\"channel\":\"VOICE\",\"network\":\"SIP\"},\"headers\":{\"Call-ID\":\"83369ZmNjOTdlZWVmOTk4ZjVkMmM2ODg3YWMyYTExZDRmMGU\",\"CSeq\":\"1 INVITE\",\"Max-Forwards\":\"69\",\"Request URI\":\"sip:9999452355@10.140.254.38;x-rt=0\",\"Record-Route\":\"<sip:192.168.26.102:5060;transport=udp;lr>\",\"x-sid\":\"0721d0422c85a7e0eb0c6dc4949827ea\",\"User-Agent\":\"X-Lite release 4.9.7.1 stamp 83369\",\"From\":\"<sip:pengxli@10.140.254.38>;tag=adf8ca71\",\"Supported\":\"replaces\",\"Allow\":\"SUBSCRIBE\r\nNOTIFY\r\nINVITE\r\nACK\r\nCANCEL\r\nBYE\r\nREFER\r\nINFO\r\nOPTIONS\r\nMESSAGE\",\"Via\":\"SIP/2.0/UDP 192.168.26.102:5060;branch=z9hG4bK1rc8iqaigvz77;rport=5060\r\nSIP/2.0/UDP 192.168.26.1:5678;branch=z9hG4bK-524287-1---33c9837c07a3ea75;rport=5678\",\"Contact\":\"<sip:pengxli@192.168.26.1:5678>\",\"To\":\"<sip:9999452355@10.140.254.38>\",\"Content-Length\":\"335\",\"Content-Type\":\"application/sdp\"}}}";
+	  HttpServletRequest mockRequest = new MockHttpServletRequest(requestBody);
+
+	  Tropo tropo = new Tropo();
+	  TropoSession session = tropo.session(mockRequest);
+	  assertNotNull(session);
+	  assertEquals(session.getAccountId(), "1");
+	  assertEquals(session.getCallId(), "363241bb23fd2e2fd56775f112afb27f");
+	  assertEquals(session.getId(), "0206f42b41db24008375ca4e745dc784");
+	  assertEquals(session.getInitialText(), null);
+	  assertEquals(session.getTimestamp(), "2017-04-27T08:55:49.252Z");
+	  assertEquals(session.getUserType(), "HUMAN");
+
+	  TropoEntity to = session.getTo();
+	  assertNotNull(to);
+	  assertEquals(to.getId(), "9999452355");
+	  assertEquals(to.getE164Id(), "9999452355");
+	  assertEquals(to.getName(), "9999452355");
+	  assertEquals(to.getChannel(), "VOICE");
+	  assertEquals(to.getNetwork(), "SIP");
+
+	  TropoEntity from = session.getFrom();
+	  assertNotNull(from);
+    assertEquals(from.getId(), "pengxli");
+    assertEquals(from.getE164Id(), "pengxli");
+    assertEquals(from.getName(), "pengxli");
+    assertEquals(from.getChannel(), "VOICE");
+    assertEquals(from.getNetwork(), "SIP");
+
+    assertEquals(session.getParameters(), null);
+
+    assertNotNull(session.getHeaders());
 	}
 }

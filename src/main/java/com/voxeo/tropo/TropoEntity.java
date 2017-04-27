@@ -10,6 +10,7 @@ public class TropoEntity implements Serializable {
 	private String name;
 	private String channel;
 	private String network;
+	private String e164Id;
 	
 	public String getId() {
 		return id;
@@ -35,8 +36,14 @@ public class TropoEntity implements Serializable {
 	public void setNetwork(String network) {
 		this.network = network;
 	}
-	
-	@Override
+	public String getE164Id() {
+    return e164Id;
+  }
+  public void setE164Id(String e164Id) {
+    this.e164Id = e164Id;
+  }
+  
+  @Override
     public String toString(){
 	    return TropoUtils.toPrettyString(this);
     }
