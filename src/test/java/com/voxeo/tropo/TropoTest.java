@@ -14,6 +14,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
@@ -257,5 +258,49 @@ public class TropoTest {
     assertEquals(session.getParameters(), null);
 
     assertNotNull(session.getHeaders());
+	}
+
+	@Test
+	public void testResult() {
+
+	  String requestBody = "{\"result\":{\"sessionId\":\"c377075800c4bad1031ba7eca97641c1\",\"callId\":\"15c1e1abe490752831f98ee6c6ea2b2f\",\"state\":\"ANSWERED\",\"sessionDuration\":10,\"sequence\":1,\"complete\":true,\"error\":null,\"calledid\":\"9999452355\",\"actions\":[{\"name\":\"one\",\"attempts\":1,\"disposition\":\"SUCCESS\",\"confidence\":100,\"interpretation\":\"1\",\"utterance\":\"1\",\"value\":\"1\"},{\"name\":\"two\",\"attempts\":1,\"disposition\":\"SUCCESS\",\"confidence\":100,\"interpretation\":\"12\",\"utterance\":\"12\",\"value\":\"12\"}]}}";
+	  Tropo tropo = new Tropo();
+	  TropoResult result = tropo.parse(requestBody);
+	  assertNotNull(result);
+	  assertEquals(result.getCallId(), "15c1e1abe490752831f98ee6c6ea2b2f");
+	  assertEquals(result.getCalledId(), "9999452355");
+	  assertEquals(result.isComplete(), true);
+	  assertEquals(result.getError(), null);
+	  assertEquals(result.getSequence(), new Integer(1));
+	  assertEquals(result.getDuration(), null);
+	  assertEquals(result.getConnectedDuration(), null);
+	  assertEquals(result.getSessionDuration(), new Integer(10));
+	  assertEquals(result.getSessionId(), "c377075800c4bad1031ba7eca97641c1");
+	  assertEquals(result.getState(), "ANSWERED");
+
+	  ArrayList<ActionResult> actions = result.getActions();
+	  assertNotNull(result);
+
+	  assertEquals(actions.get(0).getName(), "one");
+	  assertEquals(actions.get(0).getAttempts(), new Integer(1));
+	  assertEquals(actions.get(0).getDisposition(), "SUCCESS");
+	  assertEquals(actions.get(0).getConfidence(), new Integer(100));
+	  assertEquals(actions.get(0).getInterpretation(), "1");
+	  assertEquals(actions.get(0).getUtterance(), "1");
+	  assertEquals(actions.get(0).getValue(), "1");
+	  assertEquals(actions.get(0).getConcept(), null);
+	  assertEquals(actions.get(0).getXml(), null);
+	  assertEquals(actions.get(0).getuploadStatus(), null);
+
+	  assertEquals(actions.get(1).getName(), "two");
+    assertEquals(actions.get(1).getAttempts(), new Integer(1));
+    assertEquals(actions.get(1).getDisposition(), "SUCCESS");
+    assertEquals(actions.get(1).getConfidence(), new Integer(100));
+    assertEquals(actions.get(1).getInterpretation(), "12");
+    assertEquals(actions.get(1).getUtterance(), "12");
+    assertEquals(actions.get(1).getValue(), "12");
+    assertEquals(actions.get(1).getConcept(), null);
+    assertEquals(actions.get(1).getXml(), null);
+    assertEquals(actions.get(1).getuploadStatus(), null);
 	}
 }

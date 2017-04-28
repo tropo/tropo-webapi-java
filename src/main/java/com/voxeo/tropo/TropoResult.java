@@ -22,6 +22,8 @@ public class TropoResult implements Serializable {
 	@SerializedName("calledid")
 	private String calledId;
 	private String userType;
+	private Integer duration;
+	private Integer connectedDuration;
 
 	
 	public ArrayList<ActionResult> getActions() {
@@ -85,6 +87,18 @@ public class TropoResult implements Serializable {
     }
     public void setUserType(String userType) {
       this.userType = userType;
+    }
+    public Integer getDuration() {
+      return duration;
+    }
+    public void setDuration(Integer duration) {
+      this.duration = duration;
+    }
+    public Integer getConnectedDuration() {
+      return connectedDuration;
+    }
+    public void setConnectedDuration(Integer connectedDuration) {
+      this.connectedDuration = connectedDuration;
     }
     @Override
     public String toString(){
