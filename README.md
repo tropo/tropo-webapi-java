@@ -13,7 +13,7 @@ Additionally, this library implements the session method from Tropo [Rest API](h
 Requirements
 ------------
 
-Current version is 0.4.7.
+Current version is 0.4.8.
 
 License
 ------------
@@ -43,7 +43,7 @@ If you want to use the Maven artifact from your own projects you can add the fol
   <dependency>
     <groupId>com.voxeo.tropo</groupId>
     <artifactId>tropo-webapi-java</artifactId>
-    <version>0.4.7</version>
+    <version>0.4.8</version>
   </dependency>
 ```
 
@@ -84,16 +84,16 @@ With Tropo's Java Webapi you can build Tropo apps with type-safety and tradition
 
 		// Example 1
 		Tropo tropo = new Tropo();
-		RecordAction record = tropo.record("foo","http://sendme.com/tropo",true,true,"#");
+		RecordAction record = tropo.record("foo","http://sendme.com/tropo",true);
 		record.transcription(ID("bling"), URL("mailto:jose@voxeo.com"), EMAIL_FORMAT("encoded"));
 		record.say(VALUE("Please say your account number"));
 		record.choices(VALUE("[5 DIGITS]"));
 
 		// Example 2
 		Tropo tropo = new Tropo();
-		tropo.on(EVENT("error"), NEXT("/error.json")); // For fatal programming errors. Log some details so we can fix it
-		tropo.on(EVENT("hangup"), NEXT("/hangup.json")); // When a user hangs or call is done. We will want to log some details.
-		tropo.on(EVENT("continue"), NEXT("/next.json"));
+		tropo.on(EVENT("error"), NEXT("/error.json"), SAY_OF_ON(new com.voxeo.tropo.actions.OnAction.Say("error"))); // For fatal programming errors. Log some details so we can fix it
+		tropo.on(EVENT("hangup"), NEXT("/hangup.json"), SAY_OF_ON(new com.voxeo.tropo.actions.OnAction.Say("hangup"))); // When a user hangs or call is done. We will want to log some details.
+		tropo.on(EVENT("continue"), NEXT("/next.json"), SAY_OF_ON(new com.voxeo.tropo.actions.OnAction.Say("continue")));
 		tropo.say("Hello");
 		tropo.startRecording(URL("http://heroku-voip.marksilver.net/post_audio_to_s3?filename=foo.wav&unique_id=bar"));
 		// [From this point, until stop_recording(), we will record what the caller *and* the IVR say]
