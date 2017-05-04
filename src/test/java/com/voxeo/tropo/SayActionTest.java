@@ -20,46 +20,28 @@ public class SayActionTest {
 	public void testSay() {
 		
 		Tropo tropo = new Tropo();
-		tropo.say("1234");
+		tropo.say("1234", "say");
 		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"1234\"}]}]}");
+		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"1234\",\"name\":\"say\"}]}]}");
 	}
 	
 	@Test
 	public void testSayWithKeyArgument() {
 		
 		Tropo tropo = new Tropo();
-		tropo.say(VALUE("1234"));
+		tropo.say(Key.VALUE("1234"), Key.NAME("say"));
 		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"1234\"}]}]}");
+		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"1234\",\"name\":\"say\"}]}]}");
 	}
 	
-	@Test
-	public void testSayWithArrayArgument() {
-		
-		Tropo tropo = new Tropo();
-		tropo.say(VALUE("1234")).say(VALUE("abcd"),EVENT("nomatch:1"));
-		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"1234\"},{\"value\":\"abcd\",\"event\":\"nomatch:1\"}]}]}");
-	}
-	
-	@Test
-	public void testSayWithMoreThanTwoArrayArguments() {
-		
-		Tropo tropo = new Tropo();
-		tropo.say(VALUE("1234")).say(VALUE("abcd"),EVENT("nomatch:1")).say(VALUE("zywx"),EVENT("nomatch:2"));
-		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"1234\"},{\"value\":\"abcd\",\"event\":\"nomatch:1\"},{\"value\":\"zywx\",\"event\":\"nomatch:2\"}]}]}");
-	}
-
 	@Test
 	public void testSayAndOn() {
 		
 		Tropo tropo = new Tropo();
-		tropo.say(Key.VALUE("blah"));
+		tropo.say(Key.VALUE("blah"), Key.NAME("say"));
 		tropo.on(Key.EVENT("error"),Key.NEXT("error.json"),Key.SAY_OF_ON("say of on"));
 		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"blah\"}]},{\"on\":{\"event\":\"error\",\"next\":\"error.json\",\"say\":[{\"value\":\"say of on\"}]}}]}");
+		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"blah\",\"name\":\"say\"}]},{\"on\":{\"event\":\"error\",\"next\":\"error.json\",\"say\":[{\"value\":\"say of on\"}]}}]}");
 	}	
 	
 	@Test
@@ -67,45 +49,45 @@ public class SayActionTest {
 
 		Tropo tropo = new Tropo();
 		try {
-			tropo.say(VOICE(Voice.ALLISON));
+			tropo.say(Key.VOICE(Voice.ALLISON));
 			fail("Expected exception in test");
 		} catch (TropoException te) {
 			assertEquals(te.getMessage(), "Missing required property: 'value'");
 		}
 	}
+
+	@Test
+  public void testFailsSayWithNoNameParameter() {
+
+    Tropo tropo = new Tropo();
+    try {
+      tropo.say(Key.VALUE("Hello"));
+      fail("Expected exception in test");
+    } catch (TropoException te) {
+      assertEquals(te.getMessage(), "Missing required property: 'name'");
+    }
+  }
 	
 	@Test
 	public void testSayAndOnWithAndSyntax() {
 		
 		Tropo tropo = new Tropo();
 		tropo.and(
-			Do.say(VALUE("blah")),
-			Do.on(EVENT("error"),NEXT("error.json")));
+			Do.say(Key.VALUE("blah"), Key.NAME("say")),
+			Do.on(Key.EVENT("error"),Key.NEXT("error.json")));
 		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"blah\"}]},{\"on\":[{\"event\":\"error\",\"next\":\"error.json\"}]}]}");
+		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"blah\",\"name\":\"say\"}]},{\"on\":[{\"event\":\"error\",\"next\":\"error.json\"}]}]}");
 	}
-
-	@Test
-	public void testTwoSaysWithArrays() {
-		
-		Tropo tropo = new Tropo();
-		tropo.and(
-			Do.say(VALUE("1234")).say(VALUE("abcd"),EVENT("nomatch:1")),
-			Do.say(VALUE("0987")).say(VALUE("zyxw"),EVENT("nomatch:2"))
-		);
-		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"1234\"},{\"value\":\"abcd\",\"event\":\"nomatch:1\"}]},{\"say\":[{\"value\":\"0987\"},{\"value\":\"zyxw\",\"event\":\"nomatch:2\"}]}]}");
-	}		
 
 	@Test
 	public void testSeveralSayCallsTraditionalWay() {
 		
 		Tropo tropo = new Tropo();
 		
-		tropo.say("foo");
-		tropo.say("bar");
+		tropo.say("foo", "say");
+		tropo.say("bar", "say");
 		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"foo\"}]},{\"say\":[{\"value\":\"bar\"}]}]}");
+		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"foo\",\"name\":\"say\"}]},{\"say\":[{\"value\":\"bar\",\"name\":\"say\"}]}]}");
 	}		
 
 	@Test
@@ -113,7 +95,7 @@ public class SayActionTest {
 
 		Tropo tropo = new Tropo();
 		try {
-			tropo.say(TO("test"));
+			tropo.say(Key.TO("test"));
 			fail("Expected exception in test");
 		} catch (TropoException te) {
 			assertEquals(te.getMessage(), "Invalid key 'to' for action");
@@ -124,35 +106,35 @@ public class SayActionTest {
 	public void testAllowUnnamedSignals() {
 		
 		Tropo tropo = new Tropo();
-		tropo.say(VALUE("blah"),ALLOW_SIGNALS());
+		tropo.say(Key.VALUE("blah"),Key.NAME("say"),Key.ALLOW_SIGNALS());
 		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"blah\",\"allowSignals\":\"\"}]}]}");
+		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"blah\",\"name\":\"say\",\"allowSignals\":\"\"}]}]}");
 	}
 	
 	@Test
 	public void testAllowSignals() {
 		
 		Tropo tropo = new Tropo();
-		tropo.say(VALUE("blah"),ALLOW_SIGNALS("exit","stopHold"));
+		tropo.say(Key.VALUE("blah"),Key.NAME("say"),Key.ALLOW_SIGNALS("exit","stopHold"));
 		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"blah\",\"allowSignals\":[\"exit\",\"stopHold\"]}]}]}");
+		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"blah\",\"name\":\"say\",\"allowSignals\":[\"exit\",\"stopHold\"]}]}]}");
 	}
 	
 	@Test
 	public void testVoicesInLowercases() {
 		
 		Tropo tropo = new Tropo();
-		tropo.say(VALUE("blah"), VOICE(Voice.ALLISON));
+		tropo.say(Key.VALUE("blah"), Key.NAME("say"), Key.VOICE(Voice.ALLISON));
 		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"blah\",\"voice\":\"allison\"}]}]}");
+		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"blah\",\"name\":\"say\",\"voice\":\"allison\"}]}]}");
 	}
 	
 	@Test
 	public void testAsParameter() {
 		
 		Tropo tropo = new Tropo();
-		tropo.say(VALUE("blah"), AS(As.DATE));
+		tropo.say(Key.VALUE("blah"), Key.NAME("say"), Key.AS(As.DATE));
 		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"blah\",\"as\":\"DATE\"}]}]}");
+		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"blah\",\"name\":\"say\",\"as\":\"DATE\"}]}]}");
 	}
 }

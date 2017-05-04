@@ -29,6 +29,8 @@ public class ActionResult implements Serializable {
       information about the recording status
     */
     private String uploadStatus;
+    private Integer connectedDuration;
+    private String userType;
 	
 	public String getName() {
 		return name;
@@ -101,6 +103,18 @@ public class ActionResult implements Serializable {
     }
     public void setuploadStatus(String uploadStatus) {
         this.uploadStatus = uploadStatus;
+    }
+    public Integer getConnectedDuration() {
+      return connectedDuration;
+    }
+    public void setConnectedDuration(Integer connectedDuration) {
+      this.connectedDuration = connectedDuration;
+    }
+    public String getUserType() {
+      return userType;
+    }
+    public void setUserType(String userType) {
+      this.userType = userType;
     }
     
     @Override

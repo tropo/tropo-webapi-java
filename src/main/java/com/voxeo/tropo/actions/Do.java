@@ -1,7 +1,5 @@
 package com.voxeo.tropo.actions;
 
-import static com.voxeo.tropo.Key.VALUE;
-
 import com.voxeo.tropo.Key;
 
 /**
@@ -30,9 +28,9 @@ public class Do {
 		return new SayAction(keys);
 	}
 	
-	public static SayAction say(String text) {
+	public static SayAction say(String text, String name) {
 
-		return say(VALUE(text));
+		return say(Key.VALUE(text), Key.NAME(name));
 	}
 	
 	public static StartRecordingAction startRecording(Key... keys) {

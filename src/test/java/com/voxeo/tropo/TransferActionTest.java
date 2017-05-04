@@ -154,13 +154,13 @@ public class TransferActionTest {
         Key.MACHINE_DETECTION(false), Key.CHOICES(Terminator.ZERO), Key.INTERDIGIT_TIMEOUT(5.5f), Key.RING_REPEAT(5),
         Key.PLAY_TONES(true), Key.VOICE(Voice.TOM), Key.CALLBACK_URL("http://localhost:8080/tropo"),
         Key.LABEL("transferLabel"));
-    transfer.and(Do.on(Key.EVENT("ring")).say("http://www.phono.com/audio/holdmusic.mp3"));
+    transfer.and(Do.on(Key.EVENT("ring")).say("http://www.phono.com/audio/holdmusic.mp3","say"));
     transfer.and(Do.on(Key.EVENT("connect")).ask(Key.ATTEMPTS(3),
         Key.SAY_OF_ASK(new Say("Sorry. Please enter you 5 digit account number again.", "nomatch"),
             new Say("Sorry, I did not hear anything.", "timeout"), new Say("Please enter 5 digit account number")),
         Key.REQUIRED(true), Key.BARGEIN(true), Key.TIMEOUT(10f), Key.NAME("ask"),
         Key.CHOICES_OF_ASK(new com.voxeo.tropo.actions.AskAction.Choices("[5 DIGITS]", Mode.DTMF))));
 
-    assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"name\":\"say\",\"value\":\"you are now being transfered\"}]},{\"transfer\":{\"name\":\"transfer\",\"to\":\"14075550100\",\"from\":\"14075550122\",\"timeout\":60.0,\"answerOnMedia\":false,\"required\":true,\"allowSignals\":[\"exit\",\"quit\"],\"machineDetection\":false,\"choices\":{\"terminator\":\"0\"},\"interdigitTimeout\":5.5,\"ringRepeat\":5,\"playTones\":true,\"voice\":\"tom\",\"callbackUrl\":\"http://localhost:8080/tropo\",\"label\":\"transferLabel\",\"on\":[{\"event\":\"ring\",\"say\":[{\"value\":\"http://www.phono.com/audio/holdmusic.mp3\"}]},{\"event\":\"connect\",\"ask\":{\"attempts\":3,\"say\":[{\"value\":\"Sorry. Please enter you 5 digit account number again.\",\"event\":\"nomatch\"},{\"value\":\"Sorry, I did not hear anything.\",\"event\":\"timeout\"},{\"value\":\"Please enter 5 digit account number\"}],\"required\":true,\"bargein\":true,\"timeout\":10.0,\"name\":\"ask\",\"choices\":{\"value\":\"[5 DIGITS]\",\"mode\":\"DTMF\"}}}]}}]}");
+    assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"name\":\"say\",\"value\":\"you are now being transfered\"}]},{\"transfer\":{\"name\":\"transfer\",\"to\":\"14075550100\",\"from\":\"14075550122\",\"timeout\":60.0,\"answerOnMedia\":false,\"required\":true,\"allowSignals\":[\"exit\",\"quit\"],\"machineDetection\":false,\"choices\":{\"terminator\":\"0\"},\"interdigitTimeout\":5.5,\"ringRepeat\":5,\"playTones\":true,\"voice\":\"tom\",\"callbackUrl\":\"http://localhost:8080/tropo\",\"label\":\"transferLabel\",\"on\":[{\"event\":\"ring\",\"say\":[{\"value\":\"http://www.phono.com/audio/holdmusic.mp3\",\"name\":\"say\"}]},{\"event\":\"connect\",\"ask\":{\"attempts\":3,\"say\":[{\"value\":\"Sorry. Please enter you 5 digit account number again.\",\"event\":\"nomatch\"},{\"value\":\"Sorry, I did not hear anything.\",\"event\":\"timeout\"},{\"value\":\"Please enter 5 digit account number\"}],\"required\":true,\"bargein\":true,\"timeout\":10.0,\"name\":\"ask\",\"choices\":{\"value\":\"[5 DIGITS]\",\"mode\":\"DTMF\"}}}]}}]}");
   }
 }

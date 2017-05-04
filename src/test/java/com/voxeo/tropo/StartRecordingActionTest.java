@@ -46,15 +46,15 @@ public class StartRecordingActionTest {
 		tropo.on(Key.EVENT("error"), Key.NEXT("/error.json"), Key.SAY_OF_ON("error")); // For fatal programming errors. Log some details so we can fix it
 		tropo.on(Key.EVENT("hangup"), Key.NEXT("/hangup.json"),Key.SAY_OF_ON("hangup")); // When a user hangs or call is done. We will want to log some details.
 		tropo.on(Key.EVENT("continue"), Key.NEXT("/next.json"), Key.SAY_OF_ON("continue"));
-		tropo.say("Hello");
+		tropo.say("Hello", "say");
 		tropo.startRecording(Key.URL("http://heroku-voip.marksilver.net/post_audio_to_s3?filename=foo.wav&unique_id=bar"));
 		// [From this point, until stop_recording(), we will record what the caller *and* the IVR say]
-		tropo.say("You are now on the record.");
+		tropo.say("You are now on the record.", "say");
 		// Prompt the user to incriminate themselve on-the-record
-		tropo.say("Go ahead, sing-along.");
-		tropo.say("http://denalidomain.com/music/keepers/HappyHappyBirthdaytoYou-Disney.mp3");
+		tropo.say("Go ahead, sing-along.", "say");
+		tropo.say("http://denalidomain.com/music/keepers/HappyHappyBirthdaytoYou-Disney.mp3", "say");
 		
-		assertEquals(tropo.text(),"{\"tropo\":[{\"on\":{\"event\":\"error\",\"next\":\"/error.json\",\"say\":[{\"value\":\"error\"}]}},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\",\"say\":[{\"value\":\"hangup\"}]}},{\"on\":{\"event\":\"continue\",\"next\":\"/next.json\",\"say\":[{\"value\":\"continue\"}]}},{\"say\":[{\"value\":\"Hello\"}]},{\"startRecording\":{\"url\":\"http://heroku-voip.marksilver.net/post_audio_to_s3?filename=foo.wav&unique_id=bar\"}},{\"say\":[{\"value\":\"You are now on the record.\"}]},{\"say\":[{\"value\":\"Go ahead, sing-along.\"}]},{\"say\":[{\"value\":\"http://denalidomain.com/music/keepers/HappyHappyBirthdaytoYou-Disney.mp3\"}]}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"on\":{\"event\":\"error\",\"next\":\"/error.json\",\"say\":[{\"value\":\"error\"}]}},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\",\"say\":[{\"value\":\"hangup\"}]}},{\"on\":{\"event\":\"continue\",\"next\":\"/next.json\",\"say\":[{\"value\":\"continue\"}]}},{\"say\":[{\"value\":\"Hello\",\"name\":\"say\"}]},{\"startRecording\":{\"url\":\"http://heroku-voip.marksilver.net/post_audio_to_s3?filename=foo.wav&unique_id=bar\"}},{\"say\":[{\"value\":\"You are now on the record.\",\"name\":\"say\"}]},{\"say\":[{\"value\":\"Go ahead, sing-along.\",\"name\":\"say\"}]},{\"say\":[{\"value\":\"http://denalidomain.com/music/keepers/HappyHappyBirthdaytoYou-Disney.mp3\",\"name\":\"say\"}]}]}");
 	}	
 	
 	@Test

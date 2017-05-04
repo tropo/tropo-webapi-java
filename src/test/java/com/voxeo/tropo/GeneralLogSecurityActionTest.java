@@ -13,11 +13,11 @@ public class GeneralLogSecurityActionTest {
 
     Tropo tropo = new Tropo();
     tropo.generalLogSecurity(LogSecurityState.SUPPRESS);
-    tropo.say("this is not logged");
+    tropo.say("this is not logged", "nolog");
     tropo.generalLogSecurity(LogSecurityState.NONE);
-    tropo.say("this will be logged");
+    tropo.say("this will be logged", "log");
 
     assertEquals(tropo.text(),
-        "{\"tropo\":[{\"generalLogSecurity\":\"suppress\"},{\"say\":[{\"value\":\"this is not logged\"}]},{\"generalLogSecurity\":\"none\"},{\"say\":[{\"value\":\"this will be logged\"}]}]}");
+        "{\"tropo\":[{\"generalLogSecurity\":\"suppress\"},{\"say\":[{\"value\":\"this is not logged\",\"name\":\"nolog\"}]},{\"generalLogSecurity\":\"none\"},{\"say\":[{\"value\":\"this will be logged\",\"name\":\"log\"}]}]}");
   }
 }

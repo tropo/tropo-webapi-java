@@ -104,14 +104,14 @@ public class TropoTest {
 	public void testSayOnAndRecordTraditionalWay() {
 		
 		Tropo tropo = new Tropo();
-		tropo.say("Welcome to the app");
+		tropo.say("Welcome to the app", "say");
 		tropo.on(EVENT("hangup"), NEXT("/hangup.json"), Key.SAY_OF_ON("hangup"));
 		tropo.record(NAME("foo"), BEEP(true), URL("http://sendme.com/tropo")).and(
-			Do.say("Please say your account number"),
+			Do.say("Please say your account number","say"),
 			Do.choices(VALUE("[5 DIGITS]"))
 		);
 		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"Welcome to the app\"}]},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\",\"say\":[{\"value\":\"hangup\"}]}},{\"record\":{\"name\":\"foo\",\"beep\":true,\"url\":\"http://sendme.com/tropo\",\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
+		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"Welcome to the app\",\"name\":\"say\"}]},{\"on\":{\"event\":\"hangup\",\"next\":\"/hangup.json\",\"say\":[{\"value\":\"hangup\"}]}},{\"record\":{\"name\":\"foo\",\"beep\":true,\"url\":\"http://sendme.com/tropo\",\"say\":[{\"value\":\"Please say your account number\",\"name\":\"say\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
 	}		
 
 	@Test
@@ -179,12 +179,12 @@ public class TropoTest {
 	public void testOutputIsRenderedToServletResponse() {
 
 		Tropo tropo = new Tropo();
-		tropo.say("1234");
+		tropo.say("1234", "say");
 
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		tropo.render(response);
 		
-		assertEquals(response.getContent(), "{\"tropo\":[{\"say\":[{\"value\":\"1234\"}]}]}");
+		assertEquals(response.getContent(), "{\"tropo\":[{\"say\":[{\"value\":\"1234\",\"name\":\"say\"}]}]}");
 	}	
 	
 	@Test
@@ -219,7 +219,7 @@ public class TropoTest {
 
 		Tropo tropo = new Tropo();
 		assertTrue(tropo.isEmpty());
-		tropo.say("1234");
+		tropo.say("1234", "say");
 		assertFalse(tropo.isEmpty());
 	}
 
@@ -272,8 +272,6 @@ public class TropoTest {
 	  assertEquals(result.isComplete(), true);
 	  assertEquals(result.getError(), null);
 	  assertEquals(result.getSequence(), new Integer(1));
-	  assertEquals(result.getDuration(), null);
-	  assertEquals(result.getConnectedDuration(), null);
 	  assertEquals(result.getSessionDuration(), new Integer(10));
 	  assertEquals(result.getSessionId(), "c377075800c4bad1031ba7eca97641c1");
 	  assertEquals(result.getState(), "ANSWERED");
