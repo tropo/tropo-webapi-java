@@ -19,7 +19,6 @@ import static com.voxeo.tropo.Key.TIMEOUT;
 import static com.voxeo.tropo.Key.TO;
 import static com.voxeo.tropo.Key.URL;
 import static com.voxeo.tropo.Key.USERNAME;
-import static com.voxeo.tropo.Key.VALUE;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -29,7 +28,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.client.HttpClient;
-import support.ActionSupportHandler;
 
 import com.voxeo.tropo.actions.ArrayBackedJsonAction;
 import com.voxeo.tropo.actions.AskAction;
@@ -48,6 +46,8 @@ import com.voxeo.tropo.enums.Channel;
 import com.voxeo.tropo.enums.Format;
 import com.voxeo.tropo.enums.LogSecurityState;
 import com.voxeo.tropo.enums.Network;
+
+import support.ActionSupportHandler;
 
 public class Tropo extends ArrayBackedJsonAction {
 
@@ -73,9 +73,9 @@ public class Tropo extends ArrayBackedJsonAction {
     parser = new TropoParser();
   }
 
-  public SayAction say(String text) {
+  public SayAction say(String text, String name) {
 
-    return say(VALUE(text));
+    return say(Key.VALUE(text), Key.NAME(name));
   }
 
   public SayAction say(Key... keys) {
