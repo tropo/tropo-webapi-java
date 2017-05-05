@@ -4,7 +4,7 @@ import com.voxeo.tropo.Key;
 import com.voxeo.tropo.annotations.RequiredKeys;
 import com.voxeo.tropo.annotations.ValidKeys;
 
-@ValidKeys(keys={"milliseconds"})
+@ValidKeys(keys={"allowSignals", "milliseconds"})
 @RequiredKeys(keys={"milliseconds"})
 public class WaitAction extends JsonAction {
 
