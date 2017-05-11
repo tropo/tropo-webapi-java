@@ -13,7 +13,7 @@ Additionally, this library implements the session method from Tropo [Rest API](h
 Requirements
 ------------
 
-Current version is 0.4.9.
+Current version is 15.7.0.
 
 License
 ------------
@@ -43,7 +43,7 @@ If you want to use the Maven artifact from your own projects you can add the fol
   <dependency>
     <groupId>com.voxeo.tropo</groupId>
     <artifactId>tropo-webapi-java</artifactId>
-    <version>0.4.9</version>
+    <version>15.7.0</version>
   </dependency>
 ```
 
