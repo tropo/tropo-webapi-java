@@ -347,7 +347,7 @@ public class Tropo extends ArrayBackedJsonAction {
     try {
       response.setContentType("application/json");
       response.setCharacterEncoding("UTF-8");
-      response.addHeader("WebAPI-Lang-Ver", "Java V15.8.0 SNAPSHOT");
+      response.addHeader("WebAPI-Lang-Ver", "Java V15.8.0 2017-05-22");
 
       response.getWriter().write(text());
       response.getWriter().flush();
