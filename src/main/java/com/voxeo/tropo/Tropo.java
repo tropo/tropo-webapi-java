@@ -46,6 +46,7 @@ import com.voxeo.tropo.enums.Channel;
 import com.voxeo.tropo.enums.Format;
 import com.voxeo.tropo.enums.LogSecurityState;
 import com.voxeo.tropo.enums.Network;
+import com.voxeo.tropo.actions.AnswerAction;
 
 import support.ActionSupportHandler;
 
@@ -65,7 +66,8 @@ public class Tropo extends ArrayBackedJsonAction {
   private ActionSupportHandler<TransferAction>       transferActionSupportHandler       = new ActionSupportHandler<TransferAction>(TransferAction.class);
   private ActionSupportHandler<CallAction>           callActionSupportHandler           = new ActionSupportHandler<CallAction>(CallAction.class);
   private ActionSupportHandler<MessageAction>        messageActionSupportHandler        = new ActionSupportHandler<MessageAction>(MessageAction.class);
-  private ActionSupportHandler<WaitAction>           waitActionSupportHandler        = new ActionSupportHandler<WaitAction>(WaitAction.class);
+  private ActionSupportHandler<WaitAction>           waitActionSupportHandler       	= new ActionSupportHandler<WaitAction>(WaitAction.class);
+  private ActionSupportHandler<AnswerAction>         answerActionSupportHandler			= new ActionSupportHandler<AnswerAction>(AnswerAction.class);
 
   public Tropo() {
 
@@ -82,6 +84,24 @@ public class Tropo extends ArrayBackedJsonAction {
 
     return sayActionSupportHandler.build(this, "tropo", keys);
   }
+  
+  
+  public AnswerAction answer(Key... keys) {
+
+	return answerActionSupportHandler.build(this, "tropo", keys);
+  }
+  
+  
+  public AnswerAction answer(String text, String name) {
+
+	    return answer(Key.VALUE(text), Key.NAME(name));
+  }
+  
+  public void answer() {
+
+	    addNull("tropo", "answer");
+}
+
 
   public AskAction ask(Key... keys) {
 
