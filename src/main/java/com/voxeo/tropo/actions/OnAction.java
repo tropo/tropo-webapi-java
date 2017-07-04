@@ -11,7 +11,7 @@ import com.voxeo.tropo.enums.Voice;
 import support.ActionSupportHandler;
 
 @ValidKeys(keys={"next","event","say","post"})
-@RequiredKeys(keys={"event","say"})
+@RequiredKeys(keys={"event"})
 public class OnAction extends JsonAction {
 
 	private ActionSupportHandler<SayAction> sayActionSupportHandler = new ActionSupportHandler<SayAction>(SayAction.class);	

@@ -29,18 +29,6 @@ public class OnActionTest {
 	}
 
 	@Test
-  public void testFailsOnWithNoSayParameter() {
-
-    Tropo tropo = new Tropo();
-    try {
-      tropo.on(Key.EVENT("hangup"));
-      fail("Expected exception in test");
-    } catch (TropoException te) {
-      assertEquals(te.getMessage(), "Missing required property: 'say'");
-    }
-  }
-
-	@Test
   public void testFailsOnWithNoSayvalue() {
 
     Tropo tropo = new Tropo();
