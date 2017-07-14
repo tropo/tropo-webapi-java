@@ -168,4 +168,13 @@ public class RecordActionTest {
 		
 		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"voice\":\"allison\"}}]}");
 	}
+
+	@Test
+  public void testRecordWithSensitivity() {
+    
+    Tropo tropo = new Tropo();
+    tropo.record(Key.NAME("foo"),Key.URL("http://sendme.com/tropo"),Key.SENSITIVITY(0.5F));
+    
+    assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"sensitivity\":0.5}}]}");
+  }
 }

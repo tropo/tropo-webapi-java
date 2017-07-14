@@ -14,7 +14,7 @@ import com.voxeo.tropo.enums.EmailFormat;
 import support.ActionSupportHandler;
 
 @ValidKeys(keys={"name","attempts","allowSignals","bargein","beep","choices","format","maxSilence","maxTime","method",
-        "required","transcription","url","password","username","timeout","voice","interdigitTimeout", "asyncUpload","say","promptLogSecurity"})
+        "required","transcription","url","password","username","timeout","voice","interdigitTimeout", "asyncUpload","say","promptLogSecurity","sensitivity"})
 @RequiredKeys(keys={"url","name"})
 public class RecordAction extends JsonAction {
 	
