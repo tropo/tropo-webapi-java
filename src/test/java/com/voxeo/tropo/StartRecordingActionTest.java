@@ -25,9 +25,9 @@ public class StartRecordingActionTest {
 	public void testStartRecordingWithTranscription() {
 		
 		Tropo tropo = new Tropo();
-		tropo.startRecording(Key.URL("http://postrecording.com/tropo"),Key.TRANSCRIPTION_OUT_URI("mailto:xxx@url.com"),Key.TRANSCRIPTION_EMAIL_FORMAT(EmailFormat.ENCODED),Key.TRANSCRIPTION_ID("1234"));
+		tropo.startRecording(Key.URL("http://postrecording.com/tropo"),Key.TRANSCRIPTION_OUT_URI("mailto:xxx@url.com"),Key.TRANSCRIPTION_EMAIL_FORMAT(EmailFormat.ENCODED),Key.TRANSCRIPTION_ID("1234"),Key.TRANSCRIPTION_LANGUAGE("pt-br"));
 		
-		assertEquals(tropo.text(), "{\"tropo\":[{\"startRecording\":{\"url\":\"http://postrecording.com/tropo\",\"transcriptionOutURI\":\"mailto:xxx@url.com\",\"transcriptionEmailFormat\":\"encoded\",\"transcriptionID\":\"1234\"}}]}");
+		assertEquals(tropo.text(), "{\"tropo\":[{\"startRecording\":{\"url\":\"http://postrecording.com/tropo\",\"transcriptionOutURI\":\"mailto:xxx@url.com\",\"transcriptionEmailFormat\":\"encoded\",\"transcriptionID\":\"1234\",\"transcriptionLanguage\":\"pt-br\"}}]}");
 	}	
 	
 	@Test

@@ -99,11 +99,11 @@ public class RecordActionTest {
 
 		Tropo tropo = new Tropo();
 		tropo.record(Key.NAME("foo"), Key.URL("http://sendme.com/tropo"), Key.BEEP(true)).and(
-			Do.transcription(Key.ID("bling"), Key.URL("mailto:jose@voxeo.com"), Key.EMAIL_FORMAT("encoded")),
+			Do.transcription(Key.ID("bling"), Key.URL("mailto:jose@voxeo.com"), Key.EMAIL_FORMAT("encoded"), Key.LANGUAGE("en-uk")),
 			Do.say("Please say your account number","say"),
 			Do.choices(Key.VALUE("[5 DIGITS]")));
 			
-		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\"},\"say\":[{\"value\":\"Please say your account number\",\"name\":\"say\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\",\"language\":\"en-uk\"},\"say\":[{\"value\":\"Please say your account number\",\"name\":\"say\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
 	}
 
 	@Test
@@ -140,11 +140,11 @@ public class RecordActionTest {
 
 		Tropo tropo = new Tropo();
 		RecordAction record = tropo.record("foo","http://sendme.com/tropo",true);
-		record.transcription(Key.ID("bling"), Key.URL("mailto:jose@voxeo.com"), Key.EMAIL_FORMAT("encoded"));
+		record.transcription(Key.ID("bling"), Key.URL("mailto:jose@voxeo.com"), Key.EMAIL_FORMAT("encoded"), Key.LANGUAGE("en-uk"));
 		record.say(Key.VALUE("Please say your account number"));
 		record.choices(Key.VALUE("[5 DIGITS]"));
 			
-		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\"},\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\",\"language\":\"en-uk\"},\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
 	}
 
 	@Test
@@ -152,11 +152,11 @@ public class RecordActionTest {
 
 		Tropo tropo = new Tropo();
 		RecordAction record = tropo.record("foo","http://sendme.com/tropo",true);
-		record.transcription("bling", "mailto:jose@voxeo.com", "encoded");
+		record.transcription("bling", "mailto:jose@voxeo.com", "encoded", "en-uk");
 		record.say("Please say your account number");
 		record.choices("[5 DIGITS]");
 			
-		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\"},\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\",\"language\":\"en-uk\"},\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
 	}
 	
 	
