@@ -521,6 +521,11 @@ public class Key {
     	return createKey("transcriptionID", value);
     }
 
+    public static Key TRANSCRIPTION_LANGUAGE(String value) {
+
+      return createKey("transcriptionLanguage", value);
+    }
+
   /**
    * <p>
    * The choices object tells Tropo how to handle user input. It indicates the
@@ -831,6 +836,11 @@ public class Key {
     public static Key TRANSCRIPTION(Transcription transcription) {
 
       return createKey("transcription", transcription);
+    }
+
+    public static Key LANGUAGE(String value) {
+
+      return createKey("language", value);
     }
     
 	public static Key createKey(String name, Object value) {

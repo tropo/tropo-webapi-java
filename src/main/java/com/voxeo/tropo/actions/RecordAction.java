@@ -59,9 +59,9 @@ public class RecordAction extends JsonAction {
 		return transcriptionActionSupportHandler.build(this, keys);
 	}	
 	
-	public TranscriptionAction transcription(String id, String url, String emailFormat) {
+	public TranscriptionAction transcription(String id, String url, String emailFormat, String language) {
 
-		return transcription(ID(id), URL(url), EMAIL_FORMAT(emailFormat));
+		return transcription(ID(id), URL(url), EMAIL_FORMAT(emailFormat), Key.LANGUAGE(language));
 	}
 	
   public static class Say {

@@ -15,7 +15,7 @@ import com.voxeo.tropo.annotations.ValidKeys;
  * supports US English.
  * </p>
  */
-@ValidKeys(keys={"format","method","url","username","password","asyncUpload","transcriptionOutURI","transcriptionEmailFormat","transcriptionID"})
+@ValidKeys(keys={"format","method","url","username","password","asyncUpload","transcriptionOutURI","transcriptionEmailFormat","transcriptionID","transcriptionLanguage"})
 @RequiredKeys(keys={"url"})
 public class StartRecordingAction extends JsonAction {
 
