@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.client.HttpClient;
 
+import com.voxeo.tropo.actions.AnswerAction;
 import com.voxeo.tropo.actions.ArrayBackedJsonAction;
 import com.voxeo.tropo.actions.AskAction;
 import com.voxeo.tropo.actions.CallAction;
@@ -66,6 +67,7 @@ public class Tropo extends ArrayBackedJsonAction {
   private ActionSupportHandler<CallAction>           callActionSupportHandler           = new ActionSupportHandler<CallAction>(CallAction.class);
   private ActionSupportHandler<MessageAction>        messageActionSupportHandler        = new ActionSupportHandler<MessageAction>(MessageAction.class);
   private ActionSupportHandler<WaitAction>           waitActionSupportHandler        = new ActionSupportHandler<WaitAction>(WaitAction.class);
+  private ActionSupportHandler<AnswerAction>         answerActionSupportHandler           = new ActionSupportHandler<AnswerAction>(AnswerAction.class);
 
   public Tropo() {
 
@@ -382,6 +384,11 @@ public class Tropo extends ArrayBackedJsonAction {
   public void generalLogSecurity(LogSecurityState value) {
 
     addObject("tropo", "generalLogSecurity", value.toString());
+  }
+
+  public AnswerAction answer(Key... keys) {
+
+    return answerActionSupportHandler.build(this, "tropo", keys);
   }
 
   public String getBaseUrl() {
