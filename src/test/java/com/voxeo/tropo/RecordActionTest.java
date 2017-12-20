@@ -8,6 +8,7 @@ import org.junit.Test;
 import com.voxeo.tropo.actions.Do;
 import com.voxeo.tropo.actions.RecordAction;
 import com.voxeo.tropo.actions.RecordAction.Say;
+import com.voxeo.tropo.actions.RecordAction.Url;
 import com.voxeo.tropo.enums.Voice;
 
 public class RecordActionTest {
@@ -176,5 +177,32 @@ public class RecordActionTest {
     tropo.record(Key.NAME("foo"),Key.URL("http://sendme.com/tropo"),Key.SENSITIVITY(0.5F));
     
     assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"sensitivity\":0.5}}]}");
+  }
+
+	@Test
+  public void testRecordUrl() {
+    
+    Tropo tropo = new Tropo();
+    tropo.record(Key.NAME("foo"),Key.URL(new Url("http://sendme.com/tropo")),Key.BEEP(true),Key.INTERDIGIT_TIMEOUT(5f), Key.MAX_TIME(300.0f), Key.ASYNC_UPLOAD(true));
+    
+    assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":{\"url\":\"http://sendme.com/tropo\"},\"beep\":true,\"interdigitTimeout\":5.0,\"maxTime\":300.0,\"asyncUpload\":true}}]}");
+  }
+
+	@Test
+  public void testRecordUrl1() {
+    
+    Tropo tropo = new Tropo();
+    tropo.record(Key.NAME("foo"),Key.URL(new Url("http://sendme.com/tropo"), new Url("http://sendme1.com/tropo")),Key.BEEP(true),Key.INTERDIGIT_TIMEOUT(5f), Key.MAX_TIME(300.0f), Key.ASYNC_UPLOAD(true));
+    
+    assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":[{\"url\":\"http://sendme.com/tropo\"},{\"url\":\"http://sendme1.com/tropo\"}],\"beep\":true,\"interdigitTimeout\":5.0,\"maxTime\":300.0,\"asyncUpload\":true}}]}");
+  }
+
+	@Test
+  public void testRecordUrl2() {
+    
+    Tropo tropo = new Tropo();
+    tropo.record(Key.NAME("foo"),Key.URL("http://sendme.com/tropo", "http://sendme1.com/tropo"),Key.BEEP(true),Key.INTERDIGIT_TIMEOUT(5f), Key.MAX_TIME(300.0f), Key.ASYNC_UPLOAD(true));
+    
+    assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":[{\"url\":\"http://sendme.com/tropo\"},{\"url\":\"http://sendme1.com/tropo\"}],\"beep\":true,\"interdigitTimeout\":5.0,\"maxTime\":300.0,\"asyncUpload\":true}}]}");
   }
 }
