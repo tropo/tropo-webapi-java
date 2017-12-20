@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.voxeo.tropo.Key;
 import com.voxeo.tropo.TropoException;
+import com.voxeo.tropo.actions.RecordAction.Url;
 
 public abstract class JsonAction extends Action {
     
@@ -150,13 +151,30 @@ public abstract class JsonAction extends Action {
     
     public void checkUrl(String url) throws TropoException {
     
-        String string = (String) get(url);
-        if (string != null) {
-            try {
-                new URL(string);
-            }
-            catch (MalformedURLException e) {
-                throw new TropoException("The 'url' parameter must be a valid URL");
+        Object urls = get(url);
+        if (urls != null) {
+            if (urls instanceof String) {
+                try {
+                    new URL((String) urls);
+                } catch (MalformedURLException e) {
+                    throw new TropoException("The 'url' parameter must be a valid URL");
+                }
+            } else if (urls instanceof JsonObject) {
+                try {
+                    String sUrl = ((JsonPrimitive)((JsonObject) urls).get("url")).getAsString();
+                    new URL(sUrl);
+                } catch (MalformedURLException e) {
+                    throw new TropoException("The 'url' parameter must be a valid URL");
+                }
+            } else if (urls instanceof JsonArray) {
+                for (JsonElement oUrl : (JsonArray) urls) {
+                  try {
+                        String sUrl = ((JsonPrimitive)((JsonObject) oUrl).get("url")).getAsString();
+                        new URL(sUrl);
+                    } catch (MalformedURLException e) {
+                        throw new TropoException("The 'url' parameter must be a valid URL");
+                    }
+                }
             }
         }
     }

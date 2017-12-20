@@ -1,11 +1,14 @@
 package com.voxeo.tropo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.voxeo.tropo.actions.AskAction.Choices;
 import com.voxeo.tropo.actions.RecordAction.Transcription;
+import com.voxeo.tropo.actions.RecordAction.Url;
 import com.voxeo.tropo.enums.As;
 import com.voxeo.tropo.enums.AsrLogSecurity;
 import com.voxeo.tropo.enums.Channel;
@@ -173,6 +176,28 @@ public class Key {
 
 		return createKey("url", value);
 	}
+
+	public static Key URL(String... value) {
+
+	  List<Url> urls = new ArrayList<Url>();
+
+	  for (String url : value) {
+	    urls.add(new Url(url));
+	  }
+
+    return createKey("url", urls);
+  }
+
+	public static Key URL(Url value) {
+
+    return createKey("url", value);
+  }
+
+	public static Key URL(Url... value) {
+
+    return createKey("url", value);
+  }
+
 	public static Key BEEP(Boolean value) {
 
 		return createKey("beep", value);
