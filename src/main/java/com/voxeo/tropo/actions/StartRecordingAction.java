@@ -1,6 +1,7 @@
 package com.voxeo.tropo.actions;
 
 import com.voxeo.tropo.Key;
+import com.voxeo.tropo.TropoException;
 import com.voxeo.tropo.annotations.RequiredKeys;
 import com.voxeo.tropo.annotations.ValidKeys;
 
@@ -29,5 +30,12 @@ public class StartRecordingAction extends JsonAction {
 	
 		super(keys);
 		setName("startRecording");
-	}	
+	}
+
+	@Override
+  protected void validate() throws TropoException {
+    
+    super.validate();
+    checkUrl("url");
+  }
 }

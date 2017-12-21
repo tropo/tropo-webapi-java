@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.voxeo.tropo.actions.RecordAction.Url;
 import com.voxeo.tropo.enums.EmailFormat;
 import com.voxeo.tropo.enums.Format;
 import com.voxeo.tropo.enums.Method;
@@ -106,4 +107,30 @@ public class StartRecordingActionTest {
 			assertEquals(te.getMessage(), "Invalid key 'to' for action");
 		}
 	}
+
+	@Test
+  public void testStartRecordingAndUrl() {
+    
+    Tropo tropo = new Tropo();
+    tropo.startRecording(Key.URL(new Url("http://postrecording.com/tropo")), Key.METHOD(Method.POST));
+    
+    assertEquals(tropo.text(), "{\"tropo\":[{\"startRecording\":{\"url\":{\"url\":\"http://postrecording.com/tropo\"},\"method\":\"POST\"}}]}");
+  }
+
+	@Test
+  public void testStartRecordingAndUrl1() {
+    
+    Tropo tropo = new Tropo();
+    tropo.startRecording(Key.URL("http://postrecording.com/tropo", "http://postrecording1.com/tropo"), Key.METHOD(Method.POST));
+    
+    assertEquals(tropo.text(), "{\"tropo\":[{\"startRecording\":{\"url\":[{\"url\":\"http://postrecording.com/tropo\"},{\"url\":\"http://postrecording1.com/tropo\"}],\"method\":\"POST\"}}]}");
+  }
+	@Test
+  public void testStartRecordingAndUr2() {
+    
+    Tropo tropo = new Tropo();
+    tropo.startRecording(Key.URL(new Url("http://postrecording.com/tropo"), new Url("http://postrecording1.com/tropo")), Key.METHOD(Method.POST));
+    
+    assertEquals(tropo.text(), "{\"tropo\":[{\"startRecording\":{\"url\":[{\"url\":\"http://postrecording.com/tropo\"},{\"url\":\"http://postrecording1.com/tropo\"}],\"method\":\"POST\"}}]}");
+  }
 }
