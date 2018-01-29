@@ -22,9 +22,9 @@ public class MessageActionTest {
 	public void testMessage() {
 
 		Tropo tropo = new Tropo();
-		tropo.message(Key.SAY_OF_MESSAGE(new Say("This is an announcement"), new Say("Remember, you have a meeting at 2 PM")), Key.TO("305551212"), Key.ANSWER_ON_MEDIA(false), Key.CHANNEL(Channel.VOICE), Key.FROM("3055551000"), Key.NAME("message"),Key.NETWORK(Network.PSTN), Key.REQUIRED(true), Key.TIMEOUT(10.1f), Key.VOICE(Voice.TOM), Key.PROMPT_LOG_SECURITY());
+		tropo.message(Key.SAY_OF_MESSAGE(new Say("This is an announcement"), new Say("Remember, you have a meeting at 2 PM")), Key.TO("305551212"), Key.ANSWER_ON_MEDIA(false), Key.CHANNEL(Channel.VOICE), Key.FROM("3055551000"),Key.NETWORK(Network.PSTN), Key.REQUIRED(true), Key.TIMEOUT(10.1f), Key.VOICE(Voice.TOM), Key.PROMPT_LOG_SECURITY());
 			
-		assertEquals(tropo.text(),"{\"tropo\":[{\"message\":{\"say\":[{\"value\":\"This is an announcement\"},{\"value\":\"Remember, you have a meeting at 2 PM\"}],\"to\":\"305551212\",\"answerOnMedia\":false,\"channel\":\"VOICE\",\"from\":\"3055551000\",\"name\":\"message\",\"network\":\"PSTN\",\"required\":true,\"timeout\":10.1,\"voice\":\"tom\",\"promptLogSecurity\":\"suppress\"}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"message\":{\"say\":[{\"value\":\"This is an announcement\"},{\"value\":\"Remember, you have a meeting at 2 PM\"}],\"to\":\"305551212\",\"answerOnMedia\":false,\"channel\":\"VOICE\",\"from\":\"3055551000\",\"network\":\"PSTN\",\"required\":true,\"timeout\":10.1,\"voice\":\"tom\",\"promptLogSecurity\":\"suppress\"}}]}");
 	}
 	
 	@Test
@@ -42,18 +42,18 @@ public class MessageActionTest {
 	public void testMessageShowSMS() {
 
 		Tropo tropo = new Tropo();
-		tropo.message(Key.SAY_OF_MESSAGE(new Say("This is an announcement")), Key.TO("+13055551212"), Key.NETWORK(Network.SMS), Key.NAME("message"));
+		tropo.message(Key.SAY_OF_MESSAGE(new Say("This is an announcement")), Key.TO("+13055551212"), Key.NETWORK(Network.SMS));
 							
-		assertEquals(tropo.text(),"{\"tropo\":[{\"message\":{\"say\":[{\"value\":\"This is an announcement\"}],\"to\":\"+13055551212\",\"network\":\"SMS\",\"name\":\"message\"}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"message\":{\"say\":[{\"value\":\"This is an announcement\"}],\"to\":\"+13055551212\",\"network\":\"SMS\"}}]}");
 	}
 
 	@Test
   public void testMessageWithVoice() {
 
     Tropo tropo = new Tropo();
-    tropo.message(Key.NAME("message"), Key.SAY_OF_MESSAGE(new Say("This is an announcement")), Key.TO("+13055551212"), Key.FROM("3055551000"), Key.VOICE(Voice.KATE), Key.TIMEOUT(10.0f), Key.ANSWER_ON_MEDIA(false));
+    tropo.message(Key.SAY_OF_MESSAGE(new Say("This is an announcement")), Key.TO("+13055551212"), Key.FROM("3055551000"), Key.VOICE(Voice.KATE), Key.TIMEOUT(10.0f), Key.ANSWER_ON_MEDIA(false));
               
-    assertEquals(tropo.text(),"{\"tropo\":[{\"message\":{\"name\":\"message\",\"say\":[{\"value\":\"This is an announcement\"}],\"to\":\"+13055551212\",\"from\":\"3055551000\",\"voice\":\"kate\",\"timeout\":10.0,\"answerOnMedia\":false}}]}");
+    assertEquals(tropo.text(),"{\"tropo\":[{\"message\":{\"say\":[{\"value\":\"This is an announcement\"}],\"to\":\"+13055551212\",\"from\":\"3055551000\",\"voice\":\"kate\",\"timeout\":10.0,\"answerOnMedia\":false}}]}");
   }
 
 	@Test
@@ -80,7 +80,7 @@ public class MessageActionTest {
     }
   }
 
-	@Test
+	@Deprecated
   public void testFailsMessageWithNoNameParameter() {
 
     Tropo tropo = new Tropo();

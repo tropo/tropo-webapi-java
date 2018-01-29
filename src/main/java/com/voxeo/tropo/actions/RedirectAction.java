@@ -7,7 +7,7 @@ import com.voxeo.tropo.annotations.RequiredKeys;
 import com.voxeo.tropo.annotations.ValidKeys;
 
 @ValidKeys(keys={"to","name","required"})
-@RequiredKeys(keys={"to","name"})
+@RequiredKeys(keys={"to"})
 public class RedirectAction extends JsonAction {
 
 	public RedirectAction() {

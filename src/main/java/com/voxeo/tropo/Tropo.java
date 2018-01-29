@@ -75,6 +75,11 @@ public class Tropo extends ArrayBackedJsonAction {
     parser = new TropoParser();
   }
 
+  public SayAction say(String text) {
+
+    return say(Key.VALUE(text));
+  }
+
   public SayAction say(String text, String name) {
 
     return say(Key.VALUE(text), Key.NAME(name));
@@ -154,6 +159,11 @@ public class Tropo extends ArrayBackedJsonAction {
     return record(NAME(name), URL(url), BEEP(beep), SEND_TONES(sendTones), EXIT_TONE(exitTone));
   }
 
+  public RecordAction record(String url, Boolean beep) {
+
+    return record(URL(url), BEEP(beep));
+  }
+
   public RecordAction record(String name, String url, Boolean beep) {
 
     return record(NAME(name), URL(url), BEEP(beep));
@@ -226,6 +236,11 @@ public class Tropo extends ArrayBackedJsonAction {
     return transferActionSupportHandler.build(this, "tropo", keys);
   }
 
+  public TransferAction transfer(String to) {
+
+    return transfer(Key.TO(to));
+  }
+
   public TransferAction transfer(String to, String name) {
 
     return transfer(Key.TO(to), Key.NAME(name));
@@ -241,9 +256,19 @@ public class Tropo extends ArrayBackedJsonAction {
     return callActionSupportHandler.build(this, "tropo", keys);
   }
 
+  public CallAction call(String to) {
+
+    return call(TO(to));
+  }
+
   public CallAction call(String name, String to) {
 
     return call(NAME(name), TO(to));
+  }
+
+  public CallAction call(String to, Network network) {
+
+    return call(TO(to), NETWORK(network));
   }
 
   public CallAction call(String name, String to, Network network) {
@@ -251,9 +276,19 @@ public class Tropo extends ArrayBackedJsonAction {
     return call(NAME(name), TO(to), NETWORK(network));
   }
 
+  public CallAction call(String to, Network network, String from) {
+
+    return call(TO(to), NETWORK(network), FROM(from));
+  }
+
   public CallAction call(String name, String to, Network network, String from) {
 
     return call(NAME(name), TO(to), NETWORK(network), FROM(from));
+  }
+
+  public CallAction call(String to, Network network, String from, Channel channel) {
+
+    return call(TO(to), NETWORK(network), FROM(from), CHANNEL(channel));
   }
 
   public CallAction call(String name, String to, Network network, String from, Channel channel) {

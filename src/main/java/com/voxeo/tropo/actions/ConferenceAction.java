@@ -26,7 +26,7 @@ import com.voxeo.tropo.annotations.ValidKeys;
  * </p>
  */
 @ValidKeys(keys={"name","allowSignals","mute","on","playTones","terminator","id","send_tones","exit_tone","interdigitTimeout","joinPrompt","leavePrompt","required","promptLogSecurity"})
-@RequiredKeys(keys={"id","name"})
+@RequiredKeys(keys={"id"})
 public class ConferenceAction extends JsonAction {
 
 	private ActionSupportHandler<NestedOnAction> onActionSupportHandler = new ActionSupportHandler<NestedOnAction>(NestedOnAction.class);	

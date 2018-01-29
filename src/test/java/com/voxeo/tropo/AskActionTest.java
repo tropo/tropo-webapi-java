@@ -24,34 +24,34 @@ public class AskActionTest {
     public void testAsk() {
     
         Tropo tropo = new Tropo();
-        tropo.ask(Key.CHOICES_OF_ASK("[1 DIGIT]"), Key.SAY_OF_ASK(new Say("Please say a digit")), Key.NAME("foo"), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
+        tropo.ask(Key.CHOICES_OF_ASK("[1 DIGIT]"), Key.SAY_OF_ASK(new Say("Please say a digit")), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
         
-        assertEquals(tropo.text(), "{\"tropo\":[{\"ask\":{\"choices\":{\"value\":\"[1 DIGIT]\"},\"say\":[{\"value\":\"Please say a digit\"}],\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"required\":true}}]}");
+        assertEquals(tropo.text(), "{\"tropo\":[{\"ask\":{\"choices\":{\"value\":\"[1 DIGIT]\"},\"say\":[{\"value\":\"Please say a digit\"}],\"bargein\":true,\"timeout\":30.0,\"required\":true}}]}");
     }
     
     @Test
     public void testAskWithSensitivity() {
     
         Tropo tropo = new Tropo();
-        tropo.ask(Key.CHOICES_OF_ASK("[1 DIGIT]"), Key.SAY_OF_ASK(new Say("Please say a digit")), Key.NAME("foo"), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.SENSITIVITY(30.1f), Key.REQUIRED(true));
+        tropo.ask(Key.CHOICES_OF_ASK("[1 DIGIT]"), Key.SAY_OF_ASK(new Say("Please say a digit")), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.SENSITIVITY(30.1f), Key.REQUIRED(true));
         
         assertEquals(tropo.text(),
-                "{\"tropo\":[{\"ask\":{\"choices\":{\"value\":\"[1 DIGIT]\"},\"say\":[{\"value\":\"Please say a digit\"}],\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"sensitivity\":30.1,\"required\":true}}]}");
+                "{\"tropo\":[{\"ask\":{\"choices\":{\"value\":\"[1 DIGIT]\"},\"say\":[{\"value\":\"Please say a digit\"}],\"bargein\":true,\"timeout\":30.0,\"sensitivity\":30.1,\"required\":true}}]}");
     }
 
     @Test
     public void testNewAskWithSayAndOnBlocks() {
 
       Tropo tropo = new Tropo();
-      tropo.ask(Key.NAME("foo"), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true), Key.SAY_OF_ASK(new Say("Please say your account number")), Key.CHOICES_OF_ASK("[5 DIGITS]"));
+      tropo.ask(Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true), Key.SAY_OF_ASK(new Say("Please say your account number")), Key.CHOICES_OF_ASK("[5 DIGITS]"));
       tropo.on(Key.SAY_OF_ON("Nice answer!"),Key.EVENT("continue"), Key.NEXT("/result.json"));
 
       assertEquals(
           tropo.text(),
-          "{\"tropo\":[{\"ask\":{\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"required\":true,\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}},{\"on\":{\"say\":[{\"value\":\"Nice answer!\"}],\"event\":\"continue\",\"next\":\"/result.json\"}}]}");
+          "{\"tropo\":[{\"ask\":{\"bargein\":true,\"timeout\":30.0,\"required\":true,\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}},{\"on\":{\"say\":[{\"value\":\"Nice answer!\"}],\"event\":\"continue\",\"next\":\"/result.json\"}}]}");
     }
     
-    @Test
+    @Deprecated
     public void testFailsAskWithNoNameParameter() {
     
         Tropo tropo = new Tropo();
@@ -69,7 +69,7 @@ public class AskActionTest {
     
         Tropo tropo = new Tropo();
         try {
-            tropo.ask(Key.NAME("foo"), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
+            tropo.ask(Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
             fail("Expected exception in test");
         }
         catch (TropoException te) {
@@ -82,7 +82,7 @@ public class AskActionTest {
     
         Tropo tropo = new Tropo();
         try {
-            tropo.ask(Key.NAME("foo"), Key.CHOICES_OF_ASK("Please say a digit"), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
+            tropo.ask(Key.CHOICES_OF_ASK("Please say a digit"), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
             fail("Expected exception in test");
         }
         catch (TropoException te) {
@@ -95,7 +95,7 @@ public class AskActionTest {
     
         Tropo tropo = new Tropo();
         try {
-            tropo.ask(Key.NAME("foo"), Key.CHOICES_OF_ASK(new Choices(null)), Key.SAY_OF_ASK(new Say("[1 DIGIT]")), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
+            tropo.ask(Key.CHOICES_OF_ASK(new Choices(null)), Key.SAY_OF_ASK(new Say("[1 DIGIT]")), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
             fail("Expected exception in test");
         }
         catch (TropoException te) {
@@ -108,7 +108,7 @@ public class AskActionTest {
     
         Tropo tropo = new Tropo();
         try {
-            tropo.ask(Key.NAME("foo"), Key.CHOICES_OF_ASK(new Choices("")), Key.SAY_OF_ASK(new Say("[1 DIGIT]")), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
+            tropo.ask(Key.CHOICES_OF_ASK(new Choices("")), Key.SAY_OF_ASK(new Say("[1 DIGIT]")), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
             fail("Expected exception in test");
         }
         catch (TropoException te) {
@@ -121,7 +121,7 @@ public class AskActionTest {
     
         Tropo tropo = new Tropo();
         try {
-            tropo.ask(Key.NAME("foo"), Key.CHOICES_OF_ASK("Please say a digit"), Key.SAY_OF_ASK(new Say(null)), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
+            tropo.ask(Key.CHOICES_OF_ASK("Please say a digit"), Key.SAY_OF_ASK(new Say(null)), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
             fail("Expected exception in test");
         }
         catch (TropoException te) {
@@ -134,7 +134,7 @@ public class AskActionTest {
     
         Tropo tropo = new Tropo();
         try {
-            tropo.ask(Key.NAME("foo"), Key.CHOICES_OF_ASK("Please say a digit"), Key.SAY_OF_ASK(new Say("")), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
+            tropo.ask(Key.CHOICES_OF_ASK("Please say a digit"), Key.SAY_OF_ASK(new Say("")), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true));
             fail("Expected exception in test");
         }
         catch (TropoException te) {
@@ -159,10 +159,10 @@ public class AskActionTest {
     public void testAllowSignals() {
     
         Tropo tropo = new Tropo();
-        tropo.ask(Key.CHOICES_OF_ASK("[1 DIGIT]"), Key.SAY_OF_ASK(new Say("Please say a digit")), Key.NAME("foo"), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true), Key.ALLOW_SIGNALS("exit", "stopHold"));
+        tropo.ask(Key.CHOICES_OF_ASK("[1 DIGIT]"), Key.SAY_OF_ASK(new Say("Please say a digit")), Key.BARGEIN(true), Key.TIMEOUT(30.0f), Key.REQUIRED(true), Key.ALLOW_SIGNALS("exit", "stopHold"));
         
         assertEquals(tropo.text(),
-                "{\"tropo\":[{\"ask\":{\"choices\":{\"value\":\"[1 DIGIT]\"},\"say\":[{\"value\":\"Please say a digit\"}],\"name\":\"foo\",\"bargein\":true,\"timeout\":30.0,\"required\":true,\"allowSignals\":[\"exit\",\"stopHold\"]}}]}");
+                "{\"tropo\":[{\"ask\":{\"choices\":{\"value\":\"[1 DIGIT]\"},\"say\":[{\"value\":\"Please say a digit\"}],\"bargein\":true,\"timeout\":30.0,\"required\":true,\"allowSignals\":[\"exit\",\"stopHold\"]}}]}");
     }
 
     @Test
@@ -170,7 +170,7 @@ public class AskActionTest {
   
       Tropo tropo = new Tropo();
       tropo.ask(Key.CHOICES_OF_ASK(new Choices("[4 DIGITS]", Mode.DTMF, "*")), Key.ALLOW_SIGNALS("exit", "quit"),
-          Key.ATTEMPTS(3), Key.BARGEIN(true), Key.INTERDIGIT_TIMEOUT(3.5f), Key.MIN_CONFIDENCE(30), Key.NAME("foo"),
+          Key.ATTEMPTS(3), Key.BARGEIN(true), Key.INTERDIGIT_TIMEOUT(3.5f), Key.MIN_CONFIDENCE(30),
           Key.RECOGNIZER(Recognizer.ENGLISH_US), Key.REQUIRED(true),
           Key.SAY_OF_ASK(new Say("Sorry, I did not hear anything.", "timeout"),
               new Say("Don't think that was a year.", "nomatch:1"), new Say("Nope, still not a year.", "nomatch:2"),
@@ -180,6 +180,6 @@ public class AskActionTest {
           Key.ASR_LOG_SECURITY(AsrLogSecurity.MASK), Key.MASK_TEMPLATE("XXD-"));
   
       assertEquals(tropo.text(),
-          "{\"tropo\":[{\"ask\":{\"choices\":{\"value\":\"[4 DIGITS]\",\"mode\":\"DTMF\",\"terminator\":\"*\"},\"allowSignals\":[\"exit\",\"quit\"],\"attempts\":3,\"bargein\":true,\"interdigitTimeout\":3.5,\"minConfidence\":30,\"name\":\"foo\",\"recognizer\":\"en-us\",\"required\":true,\"say\":[{\"value\":\"Sorry, I did not hear anything.\",\"event\":\"timeout\"},{\"value\":\"Don't think that was a year.\",\"event\":\"nomatch:1\"},{\"value\":\"Nope, still not a year.\",\"event\":\"nomatch:2\"},{\"value\":\"What is your birth year?\"}],\"sensitivity\":0.5,\"speechCompleteTimeout\":0.5,\"speechIncompleteTimeout\":0.5,\"timeout\":30.1,\"voice\":\"allison\",\"promptLogSecurity\":\"suppress\",\"asrLogSecurity\":\"mask\",\"maskTemplate\":\"XXD-\"}}]}");
+          "{\"tropo\":[{\"ask\":{\"choices\":{\"value\":\"[4 DIGITS]\",\"mode\":\"DTMF\",\"terminator\":\"*\"},\"allowSignals\":[\"exit\",\"quit\"],\"attempts\":3,\"bargein\":true,\"interdigitTimeout\":3.5,\"minConfidence\":30,\"recognizer\":\"en-us\",\"required\":true,\"say\":[{\"value\":\"Sorry, I did not hear anything.\",\"event\":\"timeout\"},{\"value\":\"Don't think that was a year.\",\"event\":\"nomatch:1\"},{\"value\":\"Nope, still not a year.\",\"event\":\"nomatch:2\"},{\"value\":\"What is your birth year?\"}],\"sensitivity\":0.5,\"speechCompleteTimeout\":0.5,\"speechIncompleteTimeout\":0.5,\"timeout\":30.1,\"voice\":\"allison\",\"promptLogSecurity\":\"suppress\",\"asrLogSecurity\":\"mask\",\"maskTemplate\":\"XXD-\"}}]}");
     }
 }

@@ -8,7 +8,7 @@ import com.voxeo.tropo.annotations.RequiredKeys;
 import com.voxeo.tropo.annotations.ValidKeys;
 
 @ValidKeys(keys = { "to", "allowSignals", "answerOnMedia", "channel", "from", "headers", "name", "network", "required", "timeout", "machineDetection", "voice", "callbackUrl", "promptLogSecurity", "label" })
-@RequiredKeys(keys = { "to", "name" })
+@RequiredKeys(keys = { "to" })
 public class CallAction extends JsonAction {
 
   private ActionSupportHandler<StartRecordingAction> startRecordingActionSupportHandler = new ActionSupportHandler<StartRecordingAction>(StartRecordingAction.class);

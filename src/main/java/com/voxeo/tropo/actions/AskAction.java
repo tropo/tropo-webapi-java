@@ -16,7 +16,7 @@ import support.ActionSupportHandler;
 
 @ValidKeys(keys = { "name", "required", "choices", "allowSignals", "attempts", "bargein", "minConfidence", "recognizer", "timeout", "sensitivity", "voice",
     "interdigitTimeout", "say", "speechCompleteTimeout", "speechIncompleteTimeout", "promptLogSecurity", "asrLogSecurity", "maskTemplate" })
-@RequiredKeys(keys = { "name", "choices", "say" })
+@RequiredKeys(keys = { "choices", "say" })
 public class AskAction extends JsonAction {
 
   private ActionSupportHandler<SayAction>      sayActionSupportHandler     = new ActionSupportHandler<SayAction>(SayAction.class);

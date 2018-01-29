@@ -9,7 +9,7 @@ import com.voxeo.tropo.annotations.RequiredKeys;
 import com.voxeo.tropo.annotations.ValidKeys;
 
 @ValidKeys(keys={"say","to","answerOnMedia","channel","from","name","network","required","timeout","voice","promptLogSecurity"})
-@RequiredKeys(keys={"to","say","name"})
+@RequiredKeys(keys={"to","say"})
 public class MessageAction extends JsonAction {
 
 	private ActionSupportHandler<SayAction> sayActionSupportHandler = new ActionSupportHandler<SayAction>(SayAction.class);	
