@@ -17,12 +17,12 @@ public class RecordActionTest {
 	public void testRecord() {
 		
 		Tropo tropo = new Tropo();
-		tropo.record(Key.NAME("foo"),Key.URL("http://sendme.com/tropo"),Key.BEEP(true),Key.INTERDIGIT_TIMEOUT(5f), Key.MAX_TIME(300.0f), Key.ASYNC_UPLOAD(true));
+		tropo.record(Key.URL("http://sendme.com/tropo"),Key.BEEP(true),Key.INTERDIGIT_TIMEOUT(5f), Key.MAX_TIME(300.0f), Key.ASYNC_UPLOAD(true));
 		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"interdigitTimeout\":5.0,\"maxTime\":300.0,\"asyncUpload\":true}}]}");
+		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"interdigitTimeout\":5.0,\"maxTime\":300.0,\"asyncUpload\":true}}]}");
 	}	
 	
-	@Test
+	@Deprecated
 	public void testFailsRecordWithNoNameParameter() {
 
 		Tropo tropo = new Tropo();
@@ -99,12 +99,12 @@ public class RecordActionTest {
 	public void testRecordWithTranscriptionRequest() {
 
 		Tropo tropo = new Tropo();
-		tropo.record(Key.NAME("foo"), Key.URL("http://sendme.com/tropo"), Key.BEEP(true)).and(
+		tropo.record(Key.URL("http://sendme.com/tropo"), Key.BEEP(true)).and(
 			Do.transcription(Key.ID("bling"), Key.URL("mailto:jose@voxeo.com"), Key.EMAIL_FORMAT("encoded"), Key.LANGUAGE("en-uk")),
 			Do.say("Please say your account number","say"),
 			Do.choices(Key.VALUE("[5 DIGITS]")));
 			
-		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\",\"language\":\"en-uk\"},\"say\":[{\"value\":\"Please say your account number\",\"name\":\"say\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\",\"language\":\"en-uk\"},\"say\":[{\"value\":\"Please say your account number\",\"name\":\"say\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
 	}
 
 	@Test
@@ -122,42 +122,42 @@ public class RecordActionTest {
 	public void testAllowSignals() {
 		
 		Tropo tropo = new Tropo();
-		tropo.record(Key.NAME("foo"),Key.URL("http://sendme.com/tropo"),Key.BEEP(true),Key.ALLOW_SIGNALS("exit","stopHold"));
+		tropo.record(Key.URL("http://sendme.com/tropo"),Key.BEEP(true),Key.ALLOW_SIGNALS("exit","stopHold"));
 		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"allowSignals\":[\"exit\",\"stopHold\"]}}]}");
+		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"allowSignals\":[\"exit\",\"stopHold\"]}}]}");
 	}
 	
 	@Test
 	public void testRecordTraditionalWay() {
 		
 		Tropo tropo = new Tropo();
-		tropo.record("foo","http://sendme.com/tropo",true);
+		tropo.record("http://sendme.com/tropo",true);
 		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true}}]}");
+		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"url\":\"http://sendme.com/tropo\",\"beep\":true}}]}");
 	}
 
 	@Test
 	public void testRecordWithSayTranscriptionChoicesSplitted() {
 
 		Tropo tropo = new Tropo();
-		RecordAction record = tropo.record("foo","http://sendme.com/tropo",true);
+		RecordAction record = tropo.record("http://sendme.com/tropo",true);
 		record.transcription(Key.ID("bling"), Key.URL("mailto:jose@voxeo.com"), Key.EMAIL_FORMAT("encoded"), Key.LANGUAGE("en-uk"));
 		record.say(Key.VALUE("Please say your account number"));
 		record.choices(Key.VALUE("[5 DIGITS]"));
 			
-		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\",\"language\":\"en-uk\"},\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\",\"language\":\"en-uk\"},\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
 	}
 
 	@Test
 	public void testRecordWithSayTranscriptionChoicesEvenMoreTraditionalWay() {
 
 		Tropo tropo = new Tropo();
-		RecordAction record = tropo.record("foo","http://sendme.com/tropo",true);
+		RecordAction record = tropo.record("http://sendme.com/tropo",true);
 		record.transcription("bling", "mailto:jose@voxeo.com", "encoded", "en-uk");
 		record.say("Please say your account number");
 		record.choices("[5 DIGITS]");
 			
-		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\",\"language\":\"en-uk\"},\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
+		assertEquals(tropo.text(),"{\"tropo\":[{\"record\":{\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"transcription\":{\"id\":\"bling\",\"url\":\"mailto:jose@voxeo.com\",\"emailFormat\":\"encoded\",\"language\":\"en-uk\"},\"say\":[{\"value\":\"Please say your account number\"}],\"choices\":{\"value\":\"[5 DIGITS]\"}}}]}");
 	}
 	
 	
@@ -165,44 +165,44 @@ public class RecordActionTest {
 	public void testRecordAcceptsVoice() {
 		
 		Tropo tropo = new Tropo();
-		tropo.record(Key.NAME("foo"),Key.URL("http://sendme.com/tropo"),Key.BEEP(true),Key.VOICE(Voice.ALLISON));
+		tropo.record(Key.URL("http://sendme.com/tropo"),Key.BEEP(true),Key.VOICE(Voice.ALLISON));
 		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"voice\":\"allison\"}}]}");
+		assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"url\":\"http://sendme.com/tropo\",\"beep\":true,\"voice\":\"allison\"}}]}");
 	}
 
 	@Test
   public void testRecordWithSensitivity() {
     
     Tropo tropo = new Tropo();
-    tropo.record(Key.NAME("foo"),Key.URL("http://sendme.com/tropo"),Key.SENSITIVITY(0.5F));
+    tropo.record(Key.URL("http://sendme.com/tropo"),Key.SENSITIVITY(0.5F));
     
-    assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":\"http://sendme.com/tropo\",\"sensitivity\":0.5}}]}");
+    assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"url\":\"http://sendme.com/tropo\",\"sensitivity\":0.5}}]}");
   }
 
 	@Test
   public void testRecordUrl() {
     
     Tropo tropo = new Tropo();
-    tropo.record(Key.NAME("foo"),Key.URL(new Url("http://sendme.com/tropo")),Key.BEEP(true),Key.INTERDIGIT_TIMEOUT(5f), Key.MAX_TIME(300.0f), Key.ASYNC_UPLOAD(true));
+    tropo.record(Key.URL(new Url("http://sendme.com/tropo")),Key.BEEP(true),Key.INTERDIGIT_TIMEOUT(5f), Key.MAX_TIME(300.0f), Key.ASYNC_UPLOAD(true));
     
-    assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":{\"url\":\"http://sendme.com/tropo\"},\"beep\":true,\"interdigitTimeout\":5.0,\"maxTime\":300.0,\"asyncUpload\":true}}]}");
+    assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"url\":{\"url\":\"http://sendme.com/tropo\"},\"beep\":true,\"interdigitTimeout\":5.0,\"maxTime\":300.0,\"asyncUpload\":true}}]}");
   }
 
 	@Test
   public void testRecordUrl1() {
     
     Tropo tropo = new Tropo();
-    tropo.record(Key.NAME("foo"),Key.URL(new Url("http://sendme.com/tropo"), new Url("http://sendme1.com/tropo")),Key.BEEP(true),Key.INTERDIGIT_TIMEOUT(5f), Key.MAX_TIME(300.0f), Key.ASYNC_UPLOAD(true));
+    tropo.record(Key.URL(new Url("http://sendme.com/tropo"), new Url("http://sendme1.com/tropo")),Key.BEEP(true),Key.INTERDIGIT_TIMEOUT(5f), Key.MAX_TIME(300.0f), Key.ASYNC_UPLOAD(true));
     
-    assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":[{\"url\":\"http://sendme.com/tropo\"},{\"url\":\"http://sendme1.com/tropo\"}],\"beep\":true,\"interdigitTimeout\":5.0,\"maxTime\":300.0,\"asyncUpload\":true}}]}");
+    assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"url\":[{\"url\":\"http://sendme.com/tropo\"},{\"url\":\"http://sendme1.com/tropo\"}],\"beep\":true,\"interdigitTimeout\":5.0,\"maxTime\":300.0,\"asyncUpload\":true}}]}");
   }
 
 	@Test
   public void testRecordUrl2() {
     
     Tropo tropo = new Tropo();
-    tropo.record(Key.NAME("foo"),Key.URL("http://sendme.com/tropo", "http://sendme1.com/tropo"),Key.BEEP(true),Key.INTERDIGIT_TIMEOUT(5f), Key.MAX_TIME(300.0f), Key.ASYNC_UPLOAD(true));
+    tropo.record(Key.URL("http://sendme.com/tropo", "http://sendme1.com/tropo"),Key.BEEP(true),Key.INTERDIGIT_TIMEOUT(5f), Key.MAX_TIME(300.0f), Key.ASYNC_UPLOAD(true));
     
-    assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"name\":\"foo\",\"url\":[{\"url\":\"http://sendme.com/tropo\"},{\"url\":\"http://sendme1.com/tropo\"}],\"beep\":true,\"interdigitTimeout\":5.0,\"maxTime\":300.0,\"asyncUpload\":true}}]}");
+    assertEquals(tropo.text(),  "{\"tropo\":[{\"record\":{\"url\":[{\"url\":\"http://sendme.com/tropo\"},{\"url\":\"http://sendme1.com/tropo\"}],\"beep\":true,\"interdigitTimeout\":5.0,\"maxTime\":300.0,\"asyncUpload\":true}}]}");
   }
 }

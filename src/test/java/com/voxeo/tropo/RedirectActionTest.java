@@ -14,9 +14,9 @@ public class RedirectActionTest {
 	public void testRedirect() {
 		
 		Tropo tropo = new Tropo();
-		tropo.redirect(Key.TO("sip:1234"),Key.NAME("redirect"),Key.REQUIRED(true));
+		tropo.redirect(Key.TO("sip:1234"),Key.REQUIRED(true));
 		
-		assertEquals(tropo.text(),  "{\"tropo\":[{\"redirect\":{\"to\":\"sip:1234\",\"name\":\"redirect\",\"required\":true}}]}");
+		assertEquals(tropo.text(),  "{\"tropo\":[{\"redirect\":{\"to\":\"sip:1234\",\"required\":true}}]}");
 	}	
 
 	@Test
@@ -45,7 +45,7 @@ public class RedirectActionTest {
 		}
 	}
 
-	@Test
+	@Deprecated
   public void testFailsRedirectWithNoNameParameter() {
 
     Tropo tropo = new Tropo();
