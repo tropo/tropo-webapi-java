@@ -2,6 +2,7 @@ package com.voxeo.tropo;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 
 public class TropoSession implements Serializable {
 
@@ -18,6 +19,10 @@ public class TropoSession implements Serializable {
 	
 	private HashMap<String, String> headers;
 	private HashMap<String, String> parameters;
+
+	private String subject;
+
+	private List<InitialMedia> initialMedia;
 	
 	public String getAccountId() {
 		return accountId;
@@ -80,7 +85,19 @@ public class TropoSession implements Serializable {
 		this.from = from;
 	}
 	
-	@Override
+	public String getSubject() {
+    return subject;
+  }
+  public void setSubject(String subject) {
+    this.subject = subject;
+  }
+  public List<InitialMedia> getInitialMedia() {
+    return initialMedia;
+  }
+  public void setInitialMedia(List<InitialMedia> initialMedia) {
+    this.initialMedia = initialMedia;
+  }
+  @Override
     public String toString(){
 	    return TropoUtils.toPrettyString(this);
     }

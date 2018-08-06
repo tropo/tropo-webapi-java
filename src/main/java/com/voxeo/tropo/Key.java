@@ -867,6 +867,11 @@ public class Key {
 
       return createKey("language", value);
     }
+
+    public static Key MEDIA(String... medias) {
+
+      return createKey("media", medias);
+    }
     
 	public static Key createKey(String name, Object value) {
 

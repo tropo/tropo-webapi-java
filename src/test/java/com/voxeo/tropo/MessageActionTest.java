@@ -115,4 +115,13 @@ public class MessageActionTest {
       assertEquals(te.getMessage(), "Missing required property: value of message.say");
     }
   }
+
+	@Test
+  public void testMessageShowMMS() {
+
+    Tropo tropo = new Tropo();
+    tropo.message(Key.SAY_OF_MESSAGE(new Say("This is the subject", new String[]{"http://server.com/1.jpg","this is a inline text content","http://filehosting.tropo.com/account/1/2.text"})), Key.TO("+13055551212"), Key.NETWORK(Network.MMS));
+              
+    assertEquals(tropo.text(),"{\"tropo\":[{\"message\":{\"say\":[{\"value\":\"This is the subject\",\"media\":[\"http://server.com/1.jpg\",\"this is a inline text content\",\"http://filehosting.tropo.com/account/1/2.text\"]}],\"to\":\"+13055551212\",\"network\":\"MMS\"}}]}");
+  }
 }
