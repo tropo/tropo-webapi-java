@@ -37,7 +37,18 @@ public class MessageAction extends JsonAction {
       this.value = value;
     }
 
+    public Say(String value, String[] medias) {
+
+      if (value == null || value.trim().equals("")) {
+        throw new TropoException("Missing required property: value of message.say");
+      }
+
+      this.value = value;
+      this.media = medias;
+    }
+
     private String value;
+    private String[] media;
 
     public String getValue() {
       return value;
@@ -45,6 +56,14 @@ public class MessageAction extends JsonAction {
 
     public void setValue(String value) {
       this.value = value;
+    }
+
+    public String[] getMedia() {
+      return media;
+    }
+
+    public void setMedia(String[] media) {
+      this.media = media;
     }
 
 	}

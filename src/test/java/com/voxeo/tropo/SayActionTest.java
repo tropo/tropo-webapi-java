@@ -137,4 +137,13 @@ public class SayActionTest {
 		
 		assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"blah\",\"as\":\"DATE\"}]}]}");
 	}
+
+	@Test
+  public void testSayWithMedias() {
+    
+    Tropo tropo = new Tropo();
+    tropo.say(Key.VALUE("This is the subject"), Key.MEDIA("http://server.com/1.jpg", "this is a inline text content", "http://filehosting.tropo.com/account/1/2.text"));
+    
+    assertEquals(tropo.text(), "{\"tropo\":[{\"say\":[{\"value\":\"This is the subject\",\"media\":[\"http://server.com/1.jpg\",\"this is a inline text content\",\"http://filehosting.tropo.com/account/1/2.text\"]}]}]}");
+  }
 }

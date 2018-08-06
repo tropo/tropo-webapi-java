@@ -7,7 +7,7 @@ import com.voxeo.tropo.Key;
 import com.voxeo.tropo.annotations.RequiredKeys;
 import com.voxeo.tropo.annotations.ValidKeys;
 
-@ValidKeys(keys={"name","value","allowSignals","voice","as","required","promptLogSecurity"})
+@ValidKeys(keys={"name","value","allowSignals","voice","as","required","promptLogSecurity","media"})
 @RequiredKeys(keys={"value"})
 public class SayAction extends ArrayAction {
 
